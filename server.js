@@ -1,6 +1,5 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-var expressHandlebars = require('express-handlebars');
 var passport = require('passport');
 var session = require('express-session');
 require('dotenv').config();
@@ -24,10 +23,6 @@ app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 app.use(require('express-session')({ secret: 'keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
-
-// Set Handlebars as the default templating engine.
-app.engine("handlebars", expressHandlebars({ defaultLayout: "main" }));
-app.set("view engine", "handlebars");
 
 require('./config/passportLocal')(passport, db.user, db.user_settings);
 var routes = require('./controllers/appcontroller');
