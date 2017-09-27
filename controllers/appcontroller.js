@@ -10,6 +10,10 @@ var db = require('../models');
 //Load in authController to create auth routes
 var authController = require('./authcontroller');
 
+router.get('/test', function(req, res){
+    res.send('welcome to the express server');
+});
+
 //Home & Signup Page
 router.get('/', function(req, res) {
     var hbsObj = {};
