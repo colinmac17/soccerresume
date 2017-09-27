@@ -62,5 +62,6 @@ typings/
 
 config/config.json
 package-lock.json
+nodemon.json
 Procfile
 
