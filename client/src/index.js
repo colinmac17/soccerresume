@@ -12,6 +12,8 @@ const Root = () => {
     return (
     <BrowserRouter>
     <div>
+        <Link to="/">Home</Link>
+        <Link to="/about">About</Link>
         <Route path="/" component={App}/>
         <Route path="/about" component={About}/>
         <Route exactly path="/Contact" component={Contact}/>
