@@ -11,6 +11,7 @@ class Nav extends Component {
     render(){
         return(
             <Navbar brand={<img src="../public/images/logo.png" alt="SOCCERREUME"/>} className="nav-link nav-background" right>
+                <li className="nav-link"><Link to="/">Home</Link></li>
                 <li className="nav-link"><Link to="/howitworks">How It Works</Link></li>
                 <li className="nav-link"><Link to="/features">Features</Link></li>
                 <li className="nav-link"><Link to="/pricing">Pricing</Link></li>

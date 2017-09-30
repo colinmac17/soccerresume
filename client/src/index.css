@@ -26,3 +26,9 @@ main {
 .nav-background {
   background: #01b0f0;
 }
+
+.stadium-background  {
+  background-image: url('images/soccer-field-slider-darker.jpg');
+  background-size: cover;
+  height: 500px;
+}
