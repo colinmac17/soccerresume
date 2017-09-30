@@ -1,5 +1,28 @@
 body {
-  margin: 0;
-  padding: 0;
-  font-family: sans-serif;
+  display: flex;
+  min-height: 100vh;
+  flex-direction: column;
+  position: relative;
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+.absolute {
+  position: absolute;
+}
+
+.nav-link a {
+  text-decoration: none !important;
+  font-size: 18px;
+  margin-right:10px;
+}
+
+.brand-logo {
+  margin-left:10px;
+}
+
+.nav-background {
+  background: #01b0f0;
 }

@@ -10,8 +10,23 @@ var db = require('../models');
 //Load in authController to create auth routes
 var authController = require('./authcontroller');
 
-router.get('/test', function(req, res){
-    res.send('welcome to the express server');
+let players = [
+    {
+      name: 'Mary'
+    },
+    {
+      name: 'Martha'
+    },
+    {
+      name: 'Stewart'
+    },
+    {
+      name: 'Kelsey'
+    }
+  ];
+
+router.get('/api/players', function(req, res){
+    res.json(players);
 });
 
 //Home & Signup Page

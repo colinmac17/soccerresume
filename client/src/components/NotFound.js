@@ -1,8 +1,12 @@
 import React from 'react';
+import { Button, Icon, Row, Col } from 'react-materialize';
 
 const NotFound = () => {
     return (
-        <h1>Not Found</h1>
+        <div>
+            <h1 className="center-align">Sorry, We Could Not Find This Page!</h1>
+            <Button waves='center light'><Icon>home</Icon>Take Me Home</Button>
+        </div>
     )
 }
 
