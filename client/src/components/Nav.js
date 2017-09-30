@@ -12,10 +12,6 @@ class Nav extends Component {
         return(
             <Navbar brand={<img src="../public/images/logo.png" alt="SOCCERREUME"/>} className="nav-link nav-background" right>
                 <li className="nav-link"><Link to="/">Home</Link></li>
-                <li className="nav-link"><Link to="/howitworks">How It Works</Link></li>
-                <li className="nav-link"><Link to="/features">Features</Link></li>
-                <li className="nav-link"><Link to="/pricing">Pricing</Link></li>
-                <li className="nav-link"><Link to="/faqs">FAQS</Link></li>
                 <li className="nav-link"><Link to="/login">Login</Link></li>
                 <li className="nav-link"><Link to="/signup">Sign Up</Link></li>
             </Navbar>

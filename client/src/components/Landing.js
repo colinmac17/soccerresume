@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import $ from 'jquery';
-
+import { BrowserRouter as Router, Route, Link}  from 'react-router-dom';
 
 class Landing extends Component {
     render(){
         return(   
-        <div className="stadium-background">
-            <div class="row">
-                <div class="col-s12">
-                    <h1 id="welcomeText" class="center-align ">Create a Soccer Resume In Minutes</h1>
-                </div>
-                <button id="signUpBtn" type="button" class="btn waves" data-toggle="modal" data-target="#signUpModal">SIGN UP</button>
+            <div className="container">
+            <h1 className="text-center">Create a Soccer Resume in Minutes</h1>
+            <ul>
+                <li className="nav-link"><Link to="/howitworks">How It Works</Link></li>
+                <li className="nav-link"><Link to="/features">Features</Link></li>
+                <li className="nav-link"><Link to="/pricing">Pricing</Link></li>
+                <li className="nav-link"><Link to="/faqs">FAQS</Link></li>
+            </ul>
             </div>
-        </div>
         )
     }
 }

@@ -1,12 +1,13 @@
 import React from 'react';
 import Landing from './Landing';
 import Nav from './Nav';
+import Login from './Login';
+import App from './App';
+import SignUp from './SignUp';
 import HowItWorks from './Marketing/HowItWorks';
 import Features from './Marketing/Features';
 import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
-import Login from './Login';
-import SignUp from './SignUp';
 import NotFound from './NotFound';
 import { BrowserRouter, Route, Switch} from 'react-router-dom';
 
@@ -17,6 +18,7 @@ const Root = () => {
             <Nav />
             <Switch>
                 <Route exact path="/" component={Landing}/>
+                <Route exact path="/students" component={App}/>
                 <Route exact path="/howitworks" component={HowItWorks}/>
                 <Route exact path="/features" component={Features}/>
                 <Route exact path="/pricing" component={Pricing}/>
