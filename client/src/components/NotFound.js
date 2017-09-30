@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button, Icon, Row, Col } from 'react-materialize';
+import { Button } from 'react-bootstrap';
 
 const NotFound = () => {
     return (
         <div>
             <h1 className="center-align">Sorry, We Could Not Find This Page!</h1>
-            <Button waves='center light'><Icon>home</Icon>Take Me Home</Button>
+            <Button className="btn-success">Take Me Home</Button>
         </div>
     )
 }

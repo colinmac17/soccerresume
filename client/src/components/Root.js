@@ -2,7 +2,6 @@ import React from 'react';
 import Landing from './Landing';
 import Nav from './Nav';
 import Login from './Login';
-import App from './App';
 import SignUp from './SignUp';
 import HowItWorks from './Marketing/HowItWorks';
 import Features from './Marketing/Features';

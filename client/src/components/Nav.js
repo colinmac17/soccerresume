@@ -1,12 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Navbar, Button } from 'react-bootstrap';
+import { Grid, Navbar } from 'react-bootstrap';
 
 class Nav extends Component {
-    constructor(props){
-        super(props)
-
-    }
     
     render(){
         return(
