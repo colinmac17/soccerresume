@@ -1,19 +1,36 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Navbar, NavItem } from 'react-materialize';
+import { Grid, Navbar, Button } from 'react-bootstrap';
 
 class Nav extends Component {
     constructor(props){
         super(props)
 
     }
-
+    
     render(){
         return(
-            <Navbar brand={<img src="../public/images/logo.png" alt="SOCCERREUME"/>} className="nav-link nav-background" right>
-                <li className="nav-link"><Link to="/">Home</Link></li>
-                <li className="nav-link"><Link to="/login">Login</Link></li>
-                <li className="nav-link"><Link to="/signup">Sign Up</Link></li>
+            <Navbar  fixedTop>
+                <Grid>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                        <Link to="/"><span className="bold">SOCCER</span><span className="aqua bold">RESU.ME</span><i className="fa fa-futbol-o margin-left-5" aria-hidden="true"></i></Link>
+                        </Navbar.Brand>
+                        <Navbar.Toggle data-toggle="collapsed" data-target="#navbar-collapsed"/>
+                    </Navbar.Header>
+                    <Navbar.Collapse id="navbar-collapsed">
+                        <ul className="nav navbar-nav">
+                            <li name="#howitworks" className="pointer"><Link to="/howitworks">How It Works</Link></li>
+                            <li className="pointer"><Link to="/features">Features</Link></li>
+                            <li className="pointer"><Link to="/pricing">Pricing</Link></li>
+                            <li className="pointer"><Link to="/faqs">FAQS</Link></li>
+                        </ul>
+                        <ul className="nav navbar-nav navbar-right">
+                            <li className="pointer"><Link to="/login">Login</Link></li>
+                            <li className="pointer"><Link to="/signup">SignUp</Link></li>
+                        </ul>
+                    </Navbar.Collapse>
+                </Grid>
             </Navbar>
         )
     }

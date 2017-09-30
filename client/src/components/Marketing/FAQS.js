@@ -2,7 +2,9 @@ import React from 'react';
 
 const FAQS = () => {
     return (
-        <h1>FAQS</h1>
+        <div className="container margin-top-50">
+            <h1>FAQS</h1>
+        </div>
     )
 }
 

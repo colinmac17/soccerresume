@@ -1,28 +1,8 @@
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
-  position: relative;
-}
-
-main {
-  flex: 1 0 auto;
-}
-
-.absolute {
-  position: absolute;
-}
-
-.nav-link a {
-  text-decoration: none !important;
-  font-size: 18px;
-  margin-right:10px;
-}
-
-.brand-logo {
-  margin-left:10px;
-}
-
+/********************************************
+*********************************************
+Nav Styles
+*********************************************
+********************************************/
 .nav-background {
   background: #01b0f0;
 }
@@ -31,4 +11,133 @@ main {
   background-image: url('images/soccer-field-slider-darker.jpg');
   background-size: cover;
   height: 500px;
+  opacity: 0.85;
 }
+
+/********************************************
+*********************************************
+Landing Component Styles
+*********************************************
+********************************************/
+.landing-hr {
+  border-bottom: 1px solid #3e3e3e;
+}
+
+.jumbotron h1 {
+  color: #fffff0;
+}
+
+.signup-btn {
+  padding:20px;
+  font-size: 24px;
+  border-radius: 10px;
+  text-decoration: none !important;
+  margin-top:10px;
+}
+
+/********************************************
+*********************************************
+Padding Styles
+*********************************************
+********************************************/
+.pad-med {
+  padding:30px;
+}
+/********************************************
+*********************************************
+Margin Styles
+*********************************************
+********************************************/
+.margin-top-10 {
+  margin-top: 10px;
+}
+.margin-top-20 {
+  margin-top: 20px;
+}
+.margin-top-30 {
+  margin-top: 30px;
+}
+.margin-top-50 {
+  margin-top: 50px;
+}
+
+.margin-top-75 {
+  margin-top: 50px;
+}
+
+.margin-top-100 {
+  margin-top: 150px;
+}
+
+.margin-top-150 {
+  margin-top: 150px;
+}
+
+.margin-right-5{
+  margin-right: 5px;
+}
+
+.margin-left-5{
+  margin-left: 5px;
+}
+
+/********************************************
+*********************************************
+Font/Color Styles
+*********************************************
+********************************************/
+.aqua {
+  color:#01b0f0;
+}
+
+.white {
+  color:#fffff0;
+}
+
+.aqua-background {
+  background: #01b0f0;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.text-underlined {
+  text-decoration: underline;
+}
+/********************************************
+*********************************************
+Positioning Styles
+*********************************************
+********************************************/
+
+.absolute {
+  position: absolute;
+}
+
+/********************************************
+*********************************************
+Cursor Styles
+*********************************************
+********************************************/
+.pointer {
+  cursor: pointer;
+}
+
+.all-scroll {
+  cursor: all-scroll;
+}
+/********************************************
+*********************************************
+Sizing Styles
+*********************************************
+********************************************/
+
+.width-200 {
+  width: 200px;
+}
+
+.width-300 {
+  width: 300px;
+}
+

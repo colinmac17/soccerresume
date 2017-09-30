@@ -2,7 +2,9 @@ import React from 'react';
 
 const Features = () => {
     return (
-        <h1>Features</h1>
+        <div className="container margin-top-50">
+            <h1>Features</h1>
+        </div>
     )
 }
 
