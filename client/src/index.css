@@ -242,6 +242,10 @@ Font/Color Styles
   color:#01b0f0;
 }
 
+.dark-cyan {
+  color: #008b8b;
+}
+
 .navy {
   color: #046487;
 }
@@ -260,6 +264,10 @@ Font/Color Styles
 
 .navy-background {
   background: #046487;
+}
+
+.dark-cyan-background {
+  background: #008b8b;
 }
 
 .bold {

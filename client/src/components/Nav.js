@@ -10,7 +10,7 @@ class Nav extends Component {
                 <Grid>
                     <Navbar.Header>
                         <Navbar.Brand>
-                        <Link to="/"><span className="bold">SOCCER</span><span className="aqua bold">RESU.ME</span><i className="fa fa-futbol-o margin-left-5" aria-hidden="true"></i></Link>
+                        <Link to="/"><span className="bold">SOCCER</span><span className="dark-cyan bold">RESU.ME</span><i className="fa fa-futbol-o margin-left-5" aria-hidden="true"></i></Link>
                         </Navbar.Brand>
                         <Navbar.Toggle data-toggle="collapsed" data-target="#navbar-collapsed"/>
                     </Navbar.Header>

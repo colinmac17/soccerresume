@@ -94,7 +94,7 @@ router.post('/logout', authController.logout);
 //     res.redirect('/dashboard');
 // });
 
-router.post('/signup', passport.authenticate('local-signup', {
+router.post('/newuser', passport.authenticate('local-signup', {
     successRedirect: '/dashboard',
     failureRedirect: '/signup',
     failureFlash : true

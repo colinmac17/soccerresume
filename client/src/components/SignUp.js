@@ -48,12 +48,12 @@ class SignUp extends Component {
         return (
             <div className="container margin-top-75">
             <h1 className="text-center cabin-font">Create a Free Acount</h1>
-            <form id="signUpForm" method="POST" action="/signup" onSubmit={this.handleFormSubmit()}>
+            <form id="signUpForm" method="POST" action="/newuser" onSubmit={this.handleFormSubmit()}>
             <div className="row">
                 <div className="col-xs-6">
                     <div className="form-group">
                         <label for="firstName">First Name:</label>
-                        <input name="first_name" type="text" className="form-control" placeholder="Wayne" id="firstName" required/>
+                        <input name="first_name" type="text" className="form-control" placeholder="Wayne" id="firstName" required value={first_name} onChange={this.onChange}/>
                     </div>
                 </div>
                 <div className="col-xs-6">
