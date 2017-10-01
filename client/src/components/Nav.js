@@ -21,10 +21,10 @@ class Nav extends Component {
                             <li className="pointer"><Link to="/pricing">Pricing</Link></li>
                             <li className="pointer"><Link to="/faqs">FAQS</Link></li>
                         </ul>
-                        <ul className="nav navbar-nav navbar-right">
-                            <li className="pointer"><Link to="/login">Login</Link></li>
-                            <li className="pointer"><Link to="/signup">SignUp</Link></li>
-                        </ul>
+                        <form className="navbar-form navbar-right">
+                            <Link to="/login" className="btn btn-default btn-primary margin-right-20">LOGIN</Link>
+                            <Link to="/signup" className="btn btn-default btn-success">SIGN UP</Link>
+                        </form>
                     </Navbar.Collapse>
                 </Grid>
             </Navbar>
