@@ -1,11 +1,11 @@
 import React from 'react';
-import { Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 
 const NotFound = () => {
     return (
-        <div>
+        <div className="container margin-top-75 text-center">
             <h1 className="center-align">Sorry, We Could Not Find This Page!</h1>
-            <Button className="btn-success">Take Me Home</Button>
+            <Link to="/" className="btn btn-success center-block">Take Me Home</Link>
         </div>
     )
 }

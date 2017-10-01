@@ -4,7 +4,7 @@ import { Link }  from 'react-router-dom';
 const Landing = (props) => {
     return(   
         <div className="container-fluid margin-top-75">
-            <h1 className="text-center aqua bold margin-top-50">Create a Soccer Resume in Minutes</h1>
+            <h1 className="text-center aqua bold margin-top-50 poppins-font">Create a Soccer Resume in Minutes</h1>
             <hr className="landing-hr"/>
             <div className="jumbotron stadium-background">
                 <div className="row">
