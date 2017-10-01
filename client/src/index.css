@@ -213,6 +213,10 @@ Margin Styles
   margin-top: 150px;
 }
 
+.margin-bottom-50 {
+  margin-top: 50px;
+}
+
 .margin-right-5{
   margin-right: 5px;
 }
@@ -223,6 +227,10 @@ Margin Styles
 
 .margin-left-5{
   margin-left: 5px;
+}
+
+.margin-left-20 {
+  margin-left: 20px;
 }
 
 /********************************************

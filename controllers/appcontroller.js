@@ -10,24 +10,6 @@ var db = require('../models');
 //Load in authController to create auth routes
 var authController = require('./authcontroller');
 
-let players = [
-    {
-      name: 'Mary'
-    },
-    {
-      name: 'Martha'
-    },
-    {
-      name: 'Stewart'
-    },
-    {
-      name: 'Kelsey'
-    }
-  ];
-
-router.get('/api/players', function(req, res){
-    res.json(players);
-});
 
 //Home & Signup Page
 router.get('/', function(req, res) {
@@ -44,36 +26,33 @@ router.get('/', function(req, res) {
     } else res.render('index');
 });
 
-//Signup page
-// router.get('/signup', authController.signup);
+router.post('/app', function(req, res){
+    // add userId to passing object
+    req.body.userId = req.user.id;
+    //Creat row for user result
+    db.result.create(req.body).then(function(result){
+        res.send(req.body);
+    });
+});
 
-// router.post('/app', function(req, res){
-//     // add userId to passing object
-//     req.body.userId = req.user.id;
-//     //Creat row for user result
-//     db.result.create(req.body).then(function(result){
-//         res.send(req.body);
-//     });
-// });
-
-// router.get('/profile', isLoggedIn, function(req, res) {
-//     var hbsObj = {};
-//     db.user.findOne({
-//         where: {
-//             id: req.user.id
-//         }
-//     }).then(function(data) {
-//         hbsObj.user = data;
-//     });
-//     db.result.findAll({
-//         where: {
-//             userId: req.user.id
-//         }
-//     }).then(function(resultData){
-//         hbsObj.result = resultData;
-//         res.render('profile', hbsObj);
-//     });
-// });
+router.get('/profile', isLoggedIn, function(req, res) {
+    var hbsObj = {};
+    db.user.findOne({
+        where: {
+            id: req.user.id
+        }
+    }).then(function(data) {
+        hbsObj.user = data;
+    });
+    db.result.findAll({
+        where: {
+            userId: req.user.id
+        }
+    }).then(function(resultData){
+        hbsObj.result = resultData;
+        res.render('profile', hbsObj);
+    });
+});
 //route for public user profile
 router.get('/:username', function(req,res){
     var hbsObj = {};
@@ -106,16 +85,25 @@ router.get('/dashboard/settings', isLoggedIn, function(req, res){
     res.send('welcome to the settings page');
 });
 
-router.get('/logout', authController.logout);
+router.post('/logout', authController.logout);
+
+// router.post('/signup', passport.authenticate('local-signup', {
+//     failureRedirect: '/signup'
+// }), function(req, res){
+//     res.json({message: 'You have signup up successfully!'});
+//     res.redirect('/dashboard');
+// });
 
 router.post('/signup', passport.authenticate('local-signup', {
     successRedirect: '/dashboard',
-    failureRedirect: '/'
+    failureRedirect: '/signup',
+    failureFlash : true
 }));
 
 router.post('/login', passport.authenticate('local-signin', {
     successRedirect: '/dashboard',
-    failureRedirect: '/'
+    failureRedirect: '/signup',
+    failureFlash : true
 }));
 
 //export router
@@ -123,8 +111,10 @@ module.exports = router;
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
+        res.json({welcomeBackMessage: 'Successfully logged in!'});
         return next();
     } else {
+        res.json({message: 'Failed To Authenticate Request'});
         res.redirect('/');
     }
 }

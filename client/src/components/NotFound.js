@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 
 const NotFound = () => {
     return (
-        <div className="container margin-top-75 text-center">
+        <div className="container margin-top-150 text-center">
             <h1 className="center-align">Sorry, We Could Not Find This Page!</h1>
-            <Link to="/" className="btn btn-success center-block">Take Me Home</Link>
+            <Link to="/" className="btn btn-success btn-lg">Take Me Home</Link>
         </div>
     )
 }
