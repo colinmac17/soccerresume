@@ -8,11 +8,11 @@ import Features from './Marketing/Features';
 import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
-import { BrowserRouter, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 const Root = () => {
     return (
-    <BrowserRouter>
+    <Router>
         <div>
             <Nav />
             <Switch>
@@ -26,7 +26,7 @@ const Root = () => {
                 <Route component={NotFound}/>
             </Switch>
         </div>
-    </BrowserRouter>
+    </Router>
     )
 }
 

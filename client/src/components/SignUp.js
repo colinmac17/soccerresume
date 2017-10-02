@@ -5,7 +5,6 @@ class SignUp extends Component {
     constructor(props){
         super(props)
         this.state = {
-            userData: {
                 email: '',
                 password: '',
                 username: '',
@@ -17,113 +16,121 @@ class SignUp extends Component {
                 twitter_handle: '',
                 birthday: '',
                 grad_year: '',
-                user_type: '',
-                user_plan: ''
-
-            }
+                user_type: '1',
+                errors: {}
         }
     }
 
     onChange = (e) => {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state
-        const { userData } = this.state
-        userData[e.target.name] = e.target.value;
-        this.setState(userData);
+        const state = this.state
+        state[e.target.name] = e.target.value;
+        this.setState(state);
       }
 
     resetForm = () => { 
         document.getElementById('signUpForm').reset();
     }
 
-    handleFormSubmit(){
-        axios.post('/signup', ).then(response => {
-            
+    handleFormSubmit = (e) => {
+         e.preventDefault();
+
+        const user_plan = document.querySelector("input[name='user_plan']").value;
+        const userData = this.state;
+        userData.user_plan = user_plan;
+
+        axios.post('/signup', userData)
+            .then((result) => {
+        }).catch((err) => {
+            this.setState({
+                errors: err
+            })
         })
     }
     
 
     render() {
-        const { email, password, username, first_name, last_name, home_city, home_state, phone_number, twitter_handle, birthday, grad_year, user_type, user_plan  } = this.state
+        const { email, password, username, first_name, last_name, home_city, home_state, phone_number, twitter_handle, birthday, grad_year, user_type } = this.state
         return (
             <div className="container margin-top-75">
             <h1 className="text-center cabin-font">Create a Free Acount</h1>
-            <form id="signUpForm" method="POST" action="/newuser" onSubmit={this.handleFormSubmit()}>
+            <form id="signUpForm" method="POST" action="/signup" onSubmit={this.handleFormSubmit}>
             <div className="row">
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="firstName">First Name:</label>
+                        <label htmlFor="firstName">First Name:</label>
                         <input name="first_name" type="text" className="form-control" placeholder="Wayne" id="firstName" required value={first_name} onChange={this.onChange}/>
                     </div>
                 </div>
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="lastName">Last Name:</label>
-                        <input name="last_name" type="text" className="form-control" placeholder="Rooney" id="firstName" required/>
+                        <label htmlFor="lastName">Last Name:</label>
+                        <input name="last_name" type="text" className="form-control" placeholder="Rooney" id="firstName" required value={last_name} onChange={this.onChange}/>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="userName">Username:</label>
-                        <input name="username" type="text" className="form-control" placeholder="waynesworld" id="userName" required/>
+                        <label htmlFor="userName">Username:</label>
+                        <input name="username" type="text" className="form-control" placeholder="waynesworld" id="userName" required value={username} onChange={this.onChange}/>
                     </div>
                 </div>
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="userEmail">Email Address:</label>
-                        <input name="email" type="email" className="form-control" placeholder="wayne@gmail.com" id="userEmail" required/>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label for="phoneNumber">Phone Number:</label>
-                        <input name="phone_number" type="text" className="form-control" placeholder="Ex: 1234567890"  pattern="(.){10,10}" maxlength="10" id="phoneNumber" required/>
-                    </div>
-                </div>
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label for="email">Twitter Handle:</label>
-                        <input name="twitter_handle" type="text" className="form-control" placeholder="WayneRooney" id="twitterHandle"/>
+                        <label htmlFor="userEmail">Email Address:</label>
+                        <input name="email" type="email" className="form-control" placeholder="wayne@gmail.com" id="userEmail" required value={email} onChange={this.onChange}/>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="userCity">City:</label>
-                        <input name="home_city" type="text" className="form-control" placeholder="Liverpool" id="userCity" required/>
+                        <label htmlFor="phoneNumber">Phone Number:</label>
+                        <input name="phone_number" type="text" className="form-control" placeholder="Ex: 1234567890"  pattern="(.){10,10}" maxLength="10" id="phoneNumber" required value={phone_number} onChange={this.onChange}/>
                     </div>
                 </div>
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="userState">State:</label>
-                        <input name="home_state" type="text" className="form-control" placeholder="CA" pattern="(.){2,2}" maxlength="2" id="userState" required/>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label for="userBirthday">Birthday:</label>
-                        <input name="birthday" type="date" className="form-control" pattern="(.){8,8}" id="userBirthday" required/>
-                    </div>
-                </div>
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label for="gradYear">Grad Year:</label>
-                        <input name="grad_year" type="text" className="form-control" placeholder="2018" pattern="(.){4,4}" maxlength="4" id="gradYear" required/>
+                        <label htmlFor="email">Twitter Handle:</label>
+                        <input name="twitter_handle" type="text" className="form-control" placeholder="WayneRooney" id="twitterHandle" value={twitter_handle} onChange={this.onChange}/>
                     </div>
                 </div>
             </div>
             <div className="row">
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="userType">User Type</label>
-                        <select className="form-control" id="userType" name="user_type">
+                        <label htmlFor="userCity">City:</label>
+                        <input name="home_city" type="text" className="form-control" placeholder="Liverpool" id="userCity" required value={home_city} onChange={this.onChange}/>
+                    </div>
+                </div>
+                <div className="col-xs-6">
+                    <div className="form-group">
+                        <label htmlFor="userState">State:</label>
+                        <input name="home_state" type="text" className="form-control" placeholder="CA" pattern="(.){2,2}" maxLength="2" id="userState" required value={home_state} onChange={this.onChange}/>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-xs-6">
+                    <div className="form-group">
+                        <label htmlFor="userBirthday">Birthday:</label>
+                        <input name="birthday" type="date" className="form-control" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" id="userBirthday" required value={birthday} onChange={this.onChange}/>
+                    </div>
+                </div>
+                <div className="col-xs-6">
+                    <div className="form-group">
+                        <label htmlFor="gradYear">Grad Year:</label>
+                        <input name="grad_year" type="text" className="form-control" placeholder="2018" pattern="(.){4,4}" maxLength="4" id="gradYear" required value={grad_year} onChange={this.onChange}/>
+                    </div>
+                </div>
+            </div>
+            <div className="row">
+                <div className="col-xs-6">
+                    <div className="form-group">
+                        <label htmlFor="userType">User Type</label>
+                        <select className="form-control" id="userType" name="user_type" value={user_type} onChange={this.onChange}>
                             <option value="1">Player</option>
                             <option value="2" disabled>Coach</option>
                             <option value="3" disabled>Manager</option>
@@ -132,8 +139,8 @@ class SignUp extends Component {
                 </div>
                 <div className="col-xs-6">
                     <div className="form-group">
-                        <label for="userPassword">Password:</label>
-                        <input name="password" type="password" className="form-control" pattern="(.){6,25}" maxlength="25" id="userPassword"/>
+                        <label htmlFor="userPassword">Password:</label>
+                        <input name="password" type="password" className="form-control" pattern="(.){6,25}" maxLength="25" id="userPassword" value={password} onChange={this.onChange}/>
                     </div>
                 </div>
             </div>

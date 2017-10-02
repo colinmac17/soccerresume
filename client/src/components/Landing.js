@@ -12,7 +12,7 @@ const Landing = (props) => {
                         <h1 className="text-center bold margin-top-50"><Link className="dark-cyan-background pointer white signup-btn" to="signup">Sign Up To Get Started</Link></h1>
                     </div>
                     <div className="col-sm-6 col-xs-12">
-                        <h2 className="tagline bold"> We help coaches and recruits simplify the recruiting process, with fast and easy-to-use software solutions</h2>
+                        <h2 className="tagline bold cabin-font"> We help coaches and recruits simplify the recruiting process, with fast and easy-to-use software solutions</h2>
                     </div>
                 </div>
             </div>
