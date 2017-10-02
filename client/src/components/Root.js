@@ -9,7 +9,6 @@ import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
-
 const Root = () => {
     return (
     <Router>

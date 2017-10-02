@@ -34,7 +34,7 @@ module.exports = {
             }
         })
     },
-    advancedQuery: (req, res) => {
+    advancedQuery: (req, res) => { //For advanced query just map on the front end in react
         let userObj = {};
         db.user.findAll({
             where: {
