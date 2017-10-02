@@ -39,8 +39,8 @@ module.exports = router;
 
 function isLoggedIn(req, res, next) {
     if (req.isAuthenticated()) {
-        return next();
+        return true
     } else {
-        res.redirect('/');
+        return false;
     }
 }
