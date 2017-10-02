@@ -6,9 +6,6 @@ var session = require('express-session');
 var flash = require('connect-flash');
 const appRoutes = require("./routes");
 require('dotenv').config();
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
-
 //Create new express app
 var app = express();
 

@@ -1,5 +1,3 @@
-const Sequelize = require('sequelize');
-const Op = Sequelize.Op;
 var db = require('../models');
 
 let userData = db.user.findAll({})
@@ -15,9 +13,7 @@ module.exports = {
     findByGradYear: (req, res) => {
         db.user.findAll({
             where: {
-                grad_year: {
-                    [Op.gt]: req.params.grad_year
-                },
+                grad_year: req.params.grad_year,
                 user_type: "1"
             }
         }).then(data => res.json(data));
@@ -33,7 +29,7 @@ module.exports = {
         db.academic_stats.findAll({
             where: {
                 gpa: {
-                    [Op.gt]: parseFloat(req.params.gpa) * 100
+                    $gt: parseFloat(req.params.gpa) * 100
                 }
             }
         })
@@ -53,7 +49,7 @@ module.exports = {
                 primary_position: req.params.position,
                 commitment_status: req.params.commitment_status,
                 height_feet: {
-                    [Op.gt]: parseInt(req.params.height)
+                    $gt: parseInt(req.params.height)
                 }
             }}).then((data) => {
                 userObj.athletic_stats = data;
@@ -61,13 +57,13 @@ module.exports = {
         db.academic_stats.findAll({
             where: {
                 gpa: {
-                    [Op.gt]: parseFloat(req.params.gpa) * 100
+                    $gt: parseFloat(req.params.gpa) * 100
                 },
                 sat_score: {
-                    [Op.gt]: parseInt(req.params.sat)
+                    $gt: parseInt(req.params.sat)
                 },
                 act_score: {
-                    [Op.gt]: parseInt(req.params.act)
+                    $gt: parseInt(req.params.act)
                 },
                 ncaa_eligibility_status: req.params.eligibility
             }
