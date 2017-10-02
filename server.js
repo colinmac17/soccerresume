@@ -26,8 +26,8 @@ app.use(passport.session()); // persistent login sessions
 app.use(flash());
 
 require('./config/passportLocal')(passport, db.user, db.user_settings);
-var routes = require('./controllers/appcontroller');
-app.use('/', routes);
+//var routes = require('./controllers/appcontroller');
+//app.use('/', routes);
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {

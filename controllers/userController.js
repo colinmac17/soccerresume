@@ -85,12 +85,5 @@ module.exports = {
                 id: req.params.id
             }
         }).then(data => res.json(req.body));
-    },
-    isLoggedIn: (req, res) => {
-        if (req.isAuthenticated()) {
-            return true
-        } else {
-            return false;
-        }
     }
 }

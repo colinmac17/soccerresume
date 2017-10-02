@@ -5,6 +5,7 @@ class SignUp extends Component {
     constructor(props){
         super(props)
         this.state = {
+            userData: {
                 email: '',
                 password: '',
                 username: '',
@@ -17,14 +18,14 @@ class SignUp extends Component {
                 birthday: '',
                 grad_year: '',
                 user_type: '1',
-                errors: {}
+            }
         }
     }
 
     onChange = (e) => {
         // Because we named the inputs to match their corresponding values in state, it's
         // super easy to update the state
-        const state = this.state
+        const state = this.state.userData
         state[e.target.name] = e.target.value;
         this.setState(state);
       }
@@ -37,10 +38,10 @@ class SignUp extends Component {
          e.preventDefault();
 
         const user_plan = document.querySelector("input[name='user_plan']").value;
-        const userData = this.state;
+        const userData = this.state.userData;
         userData.user_plan = user_plan;
 
-        axios.post('/signup', userData)
+        axios.post('/api/auth/signup', userData)
             .then((result) => {
         }).catch((err) => {
             this.setState({
@@ -55,7 +56,7 @@ class SignUp extends Component {
         return (
             <div className="container margin-top-75">
             <h1 className="text-center cabin-font">Create a Free Acount</h1>
-            <form id="signUpForm" method="POST" action="/signup" onSubmit={this.handleFormSubmit}>
+            <form id="signUpForm" method="POST" action="/api/auth/signup" onSubmit={this.handleFormSubmit}>
             <div className="row">
                 <div className="col-xs-6">
                     <div className="form-group">
