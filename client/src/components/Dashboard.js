@@ -9,7 +9,8 @@ class Dashboard extends Component {
             settings: {},
             athletic: {},
             academic: {},
-            media: {}
+            media: {},
+            isAuthenticated: false
         }
     }
 
@@ -18,6 +19,7 @@ class Dashboard extends Component {
         console.log(user_id);
         axios.get(`/api/users/&id=${user_id}`)
             .then((result) => {
+                console.log(result)
                 this.setState({
                     user:{
                         first_name: result.data.first_name,
@@ -29,12 +31,14 @@ class Dashboard extends Component {
     }
 
     render() {
-        return (
-            <div className="container margin-top-50">
-                <h1>This is the Dashboard</h1>
-                <h3>Hey There {this.state.user.first_name}</h3>
-            </div>
-        )
+        const isAuthenticated = this.state.isAuthenticated
+            return (
+                <div className="container margin-top-50">
+                    <h1>This is the Dashboard</h1>
+                    <h3>Hey There {this.state.user.first_name}</h3>
+                </div>
+            )
+
     }
 }
 

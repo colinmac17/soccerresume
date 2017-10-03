@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link, Redirect } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import Message from './Message';
 
 class SignUp extends Component {
     constructor(props){
@@ -15,7 +16,8 @@ class SignUp extends Component {
                 grad_year: '',
                 user_type: '1'
             },
-            errors: {}
+            errors: {},
+            isLoading: false
         }
     }
 
@@ -37,7 +39,9 @@ class SignUp extends Component {
         axios.post('/api/auth/signup', user)
             .then((result) => {
             console.log(result)
-            //console.log(result.data.success_message);
+            this.setState({
+                isLoading: true
+            })
             window.location.pathname = `/dashboard/${result.data.user_id}`
         }).catch((err) => {
             this.setState({
@@ -52,6 +56,7 @@ class SignUp extends Component {
         return (
             <div className="container margin-top-75">
             <h1 className="text-center cabin-font">Create a Free Acount</h1>
+            {this.state.isLoading ? <Message message="Account created successfully!" /> : <p></p>}
             <form id="signUpForm" action='api/auth/signup' method="POST" onSubmit={this.handleFormSubmit}>
             <div className="row">
                 <div className="col-xs-6">
