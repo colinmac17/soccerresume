@@ -13,7 +13,7 @@ router.route('/logout')
     .post(authController.logout);
 //Read Routes
 router.route('/authenticated')
-    .get(authController.isLoggedIn);
+    .get(authController.isAuthenticated);
 router.route('/key')
     .get(authController.generateKey);
 

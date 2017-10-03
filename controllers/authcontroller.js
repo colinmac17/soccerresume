@@ -11,7 +11,10 @@ module.exports = {
         errors: validationResult.errors
       });
     }
-    res.json("Login successful");
+    res.json({
+        success_message: "Login successfull",
+        user_id: req.user.id
+      }); 
     return res.status(200).end();
   },
   signUp: (req, res) => {
@@ -23,7 +26,10 @@ module.exports = {
           errors: validationResult.errors
         });
       }
-      res.json({success_message: "Registration successfull"}); 
+      res.json({
+          success_message: "Registration successfull",
+          user_id: req.user.id
+        }); 
       return res.status(200).end();
   },
   logout: (req, res) => {
@@ -32,19 +38,29 @@ module.exports = {
           res.json({success_message: "Logout was successfull"});
       });
   },
-  isLoggedIn: (req, res) => {
+  isLoggedIn: (req, res, next) => {
     if (req.isAuthenticated()) {
-        res.json({
-            isAuthenticated: true,
-            success_message: "User has been successfully authenticated",
-            user_id: req.user.id
-        })
+        return next();
     } else {
         res.json({
             isAuthenticated: false,
             error_message: "Login authentication failed"
         });
     }
+  },
+  isAuthenticated: (req, res) => {
+      if (req.isAuthenticated()) {
+          res.json({
+              isAuthenticated: true,
+              success_message: "User is successfully authenticated",
+              user_id: req.user.id
+          })
+      } else {
+        res.json({
+            isAuthenticated: false,
+            error_message: "User is not authenticated"
+        });
+      }
   },
   generateKey: (req, res) => {
       res.json({key: process.env.api_key});

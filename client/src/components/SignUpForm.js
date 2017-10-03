@@ -2,11 +2,11 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 
 const SignUpForm = (props) => {
-    const { handleFormSubmit, onChange, user, errors } = props
+    const { handleFormSubmit, onChange, user, errors, method, action } = props
     return (
         <div className="container margin-top-75">
         <h1 className="text-center cabin-font">Create a Free Acount</h1>
-        <form id="signUpForm" method="POST" action="/api/auth/signup" onSubmit={handleFormSubmit}>
+        <form id="signUpForm" action={action} method={method} onSubmit={handleFormSubmit}>
         <div className="row">
             <div className="col-xs-6">
                 <div className="form-group">
@@ -27,7 +27,7 @@ const SignUpForm = (props) => {
             <div className="col-xs-6">
                 <div className="form-group">
                     <label htmlFor="userName">Username:</label>
-                    <input name="username" type="text" className="form-control" placeholder="waynesworld" id="userName" required value={user.username} onChange={onChange}/>
+                    <input name="username" type="text" className="form-control" placeholder="waynesworld" id="userName" required value={user.username} pattern="(.){5,15}" onChange={onChange}/>
                     <p>{errors.username}</p>
                 </div>
             </div>
@@ -63,7 +63,7 @@ const SignUpForm = (props) => {
             <div className="col-xs-12">
                 <div className="form-group">
                     <label htmlFor="userPassword">Password:</label>
-                    <input name="password" type="password" className="form-control" maxLength="25" id="userPassword" value={user.password} onChange={onChange}/>
+                    <input name="password" type="password" className="form-control" pattern="(.){8,25}" maxLength="25" id="userPassword" value={user.password} onChange={onChange}/>
                 </div>
                 <p>{errors.password}</p>
             </div>

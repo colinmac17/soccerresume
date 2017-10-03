@@ -8,6 +8,7 @@ import Features from './Marketing/Features';
 import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
+import Dashboard from './Dashboard';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 const Root = () => {
     return (
@@ -22,6 +23,7 @@ const Root = () => {
                 <Route exact path="/faqs" component={FAQS}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/signup" component={SignUp}/>
+                <Route path="/dashboard/:id" component={Dashboard}/>
                 <Route component={NotFound}/>
             </Switch>
         </div>
