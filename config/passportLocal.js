@@ -32,18 +32,13 @@ module.exports = function(passport, user, user_settings){
                 if (user) {
                     return done(null, false, {message: 'That username already exists'});
                 } else {
-                    var userPassword =generateHash(password);
+                    var userPassword = generateHash(password);
                     var data = {
                         email: req.body.email,
                         password: userPassword,
                         username: username,
                         first_name: req.body.first_name,
                         last_name: req.body.last_name,
-                        home_city: req.body.home_city,
-                        home_state: req.body.home_state,
-                        phone_number: req.body.phone_number,
-                        twitter_handle: req.body.twitter_handle,
-                        birthday: req.body.birthday,
                         grad_year: req.body.grad_year,
                         user_type: req.body.user_type,
                         user_plan: req.body.user_plan

@@ -18,29 +18,6 @@ module.exports = function(sequelize, DataTypes) {
                 isEmail: true
             }
         },
-        phone_number: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [10],
-                not: ["[a-z]",'i']
-            }
-        },
-        twitter_handle: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                len: [2]
-            }
-        },
-        birthday: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [8],
-                not: ["[a-z]",'i']
-            }
-        },
         first_name: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -60,20 +37,6 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             validate: {
                 len: [6]
-            }
-        },
-        home_city: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1]
-            }
-        },
-        home_state: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [2]
             }
         },
         grad_year: {

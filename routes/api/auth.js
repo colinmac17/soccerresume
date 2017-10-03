@@ -5,13 +5,16 @@ const router = express.Router();
 require('dotenv').config();
 
 //Create Routes
-router.route(`/login&key=${process.env.api_key}`)
+router.route('/login')
     .post(passport.authenticate('local-signin'), authController.login);
-router.route(`/signup&key=${process.env.api_key}`)
+router.route('/signup')
     .post(passport.authenticate('local-signup'), authController.signUp);
-router.route(`/logout&key=${process.env.api_key}`)
+router.route('/logout')
     .post(authController.logout);
-router.route(`/authenticated&key=${process.env.api_key}`)
+//Read Routes
+router.route('/authenticated')
     .get(authController.isLoggedIn);
+router.route('/key')
+    .get(authController.generateKey);
 
 module.exports = router;

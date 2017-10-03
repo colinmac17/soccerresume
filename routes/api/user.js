@@ -5,18 +5,18 @@ require('dotenv').config();
 
 
 //Read Routes
-router.route(`/&key=${process.env.api_key}`)
+router.route('/')
     .get(userController.findAll);
-router.route(`/&id=:id&key=${process.env.api_key}`)
+router.route('/&id=:id')
     .get(userController.findById);
-router.route(`/&gradyear=:grad_year&key=${process.env.api_key}`)
+router.route('/&gradyear=:grad_year')
     .get(userController.findByGradYear);
-router.route(`/&position=:position&key=${process.env.api_key}`)
+router.route('/&position=:position')
     .get(userController.findByPosition);
-router.route(`/&gradyear=:grad_year/&position=:position/&commitstatus=:commitment_status/&height=:height/&gpa=:gpa/&sat=:sat/&act=:act/&eligibility=:eligibility&key=${process.env.api_key}`)
+router.route('/&gradyear=:grad_year/&position=:position/&commitstatus=:commitment_status/&height=:height/&gpa=:gpa/&sat=:sat/&act=:act/&eligibility=:eligibility')
     .get(userController.advancedQuery);
 //Udpate Routes
-router.route(`/&id=:id&key=${process.env.api_key}`)
+router.route('/&id=:id')
     .put(userController.updateOne);
 //Delete Routes
 
