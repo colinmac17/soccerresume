@@ -76,8 +76,17 @@ module.exports = {
         db.user.findOne({
             where: {
                 id: req.params.id
-            }
-        }).then(data => res.json(data));
+            },
+            include: [
+                {model: db.academic_stats},
+                {model: db.athletic_stats},
+                {model: db.contact_info},
+                {model: db.accolades},
+                {model: db.media_links},
+                {model: db.user_settings},
+                {model: db.academic_stats} 
+            ]
+        }).then(userData => res.json(userData));
     },
     updateOne: (req, res) => {
         db.user.update(req.body,{

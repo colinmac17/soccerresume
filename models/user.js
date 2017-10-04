@@ -86,6 +86,10 @@ module.exports = function(sequelize, DataTypes) {
             //if a user is deleted, delete all of their results
             onDelete: "cascade"
         });
+        User.hasMany(models.contact_info, {
+            //if a user is deleted, delete all of their results
+            onDelete: "cascade"
+        });
     };
     return User;
 };
