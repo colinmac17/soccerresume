@@ -13,6 +13,11 @@ var PORT = process.env.PORT || 3001;
 // Requiring our models for syncing
 var db = require('./models');
 
+// Serve up static assets (usually on heroku)
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+  }
+
 //Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -26,11 +31,6 @@ app.use(passport.session()); // persistent login sessions
 require('./config/passportLocal')(passport, db.user, db.user_settings);
 //var routes = require('./controllers/appcontroller');
 //app.use('/', routes);
-
-// Serve up static assets (usually on heroku)
-if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
-  }
 
 app.use(appRoutes);
 
