@@ -60,7 +60,7 @@ typings/
 #DS_Store
 .DS_Store
 
+
 package-lock.json
 nodemon.json
-Procfile
 
