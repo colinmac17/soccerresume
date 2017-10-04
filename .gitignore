@@ -60,7 +60,6 @@ typings/
 #DS_Store
 .DS_Store
 
-config/config.json
 package-lock.json
 nodemon.json
 Procfile
