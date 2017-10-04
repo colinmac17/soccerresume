@@ -24,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: "application/vnd.api+json" }));
 
-app.use(require('express-session')({ secret: process.env.session_secret, resave: true, saveUninitialized: true }));
+app.use(require('express-session')({ secret: 'Keyboard cat', resave: true, saveUninitialized: true }));
 app.use(passport.initialize());
 app.use(passport.session()); // persistent login sessions
 
