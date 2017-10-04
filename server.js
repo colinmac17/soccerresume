@@ -15,7 +15,7 @@ var db = require('./models');
 
 // Serve up static assets (usually on heroku)
 if (process.env.NODE_ENV === "production") {
-    app.use(express.static("client/build"));
+    app.use(express.static("./client/build"));
   }
 
 //Sets up the Express app to handle data parsing
