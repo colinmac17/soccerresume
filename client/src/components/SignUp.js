@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import Message from './Message';
 
 class SignUp extends Component {
@@ -16,7 +16,9 @@ class SignUp extends Component {
                 grad_year: '',
                 user_type: '1'
             },
-            errors: {},
+            errors: {
+                signup: ''
+            },
             isLoading: false
         }
     }
@@ -31,7 +33,7 @@ class SignUp extends Component {
       }
 
     handleFormSubmit = (e) => {
-         e.preventDefault();
+        e.preventDefault();
         const user_plan = document.querySelector("input[name='user_plan']").value;
         const user = this.state.user;
         user.user_plan = user_plan;
@@ -39,10 +41,15 @@ class SignUp extends Component {
         axios.post('/api/auth/signup', user)
             .then((result) => {
             console.log(result)
-            this.setState({
-                isLoading: true
-            })
+            if(result.data.isAuthenticated) {
             window.location.pathname = `/dashboard/${result.data.user_id}`
+        } else {
+            this.setState({
+                errors: {
+                    signup: result.data.errors.signup
+                }
+            })
+        }
         }).catch((err) => {
             this.setState({
                 errors: err

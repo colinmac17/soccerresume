@@ -23,12 +23,14 @@ module.exports = {
         return res.status(400).json({
           success: false,
           message: validationResult.message,
-          errors: validationResult.errors
+          errors: validationResult.errors,
+          isAuthenticated: false
         });
       }
       res.json({
           success_message: "Registration successfull",
-          user_id: req.user.id
+          user_id: req.user.id,
+          isAuthenticated: true
         }); 
       return res.status(200).end();
   },

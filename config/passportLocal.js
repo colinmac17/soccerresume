@@ -45,7 +45,7 @@ module.exports = function(passport, user, user_settings){
                     };
                 User.create(data).then(function(newUser, created){
                     if(!newUser){
-                        return done(null, false);
+                        return done(null, false, {message: "User failed to be created"});
                     }
                     if(newUser) {
                         var settingsData = {};
