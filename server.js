@@ -36,7 +36,7 @@ app.use(appRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("*", function(req, res) {
+app.get("/", function(req, res) {
     const index = path.join(__dirname, 'build', 'index.html');
     res.sendFile(index);
 });
