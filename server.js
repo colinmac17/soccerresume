@@ -36,11 +36,11 @@ app.use(appRoutes);
 
 // Send every request to the React app
 // Define any API routes before this runs
-app.get("/", function(req, res) {
-    console.log(__dirname);
-    const index = path.join(__dirname, './client/build', 'index.html');
-    res.sendFile(index);
-});
+// app.get("/", function(req, res) {
+//     console.log(__dirname);
+//     const index = path.join(__dirname, './client/build', 'index.html');
+//     res.sendFile(index);
+// });
 
 // Syncing our sequelize models and then starting our Express app
 db.sequelize.sync().then(function() {
