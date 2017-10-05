@@ -13,7 +13,8 @@ module.exports = {
     }
     res.json({
         success_message: "Login successfull",
-        user_id: req.user.id
+        user_id: req.user.id,
+        isAuthenticated: true
       }); 
     return res.status(200).end();
   },
