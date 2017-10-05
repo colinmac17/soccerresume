@@ -9,7 +9,7 @@ router.use("/api", apiRoutes);
 // what about react?!?!?!?
 router.use(function(req, res) {
     res.sendFile(
-        path.join(__dirname, "../../client/build/index.html"));
+        path.join(__dirname, "../client/build/index.html"));
 });
 
 module.exports = router;
