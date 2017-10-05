@@ -4,6 +4,7 @@ const router = express.Router();
 require('dotenv').config();
 var auth = require('../../controllers/authcontroller');
 
+
 //Read Routes
 router.route('/')
     .get(auth.isLoggedIn, userController.findAll);
