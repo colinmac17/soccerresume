@@ -74,6 +74,10 @@ module.exports = function(sequelize, DataTypes) {
             //if a user is deleted, delete all of their results
             onDelete: "cascade"
         });
+        User.hasOne(models.contact_info, {
+            //if a user is deleted, delete all of their results
+            onDelete: "cascade"
+        });
         User.hasMany(models.media_links, {
             //if a user is deleted, delete all of their results
             onDelete: "cascade"
@@ -83,10 +87,6 @@ module.exports = function(sequelize, DataTypes) {
             onDelete: "cascade"
         });
         User.hasMany(models.additional_stats, {
-            //if a user is deleted, delete all of their results
-            onDelete: "cascade"
-        });
-        User.hasMany(models.contact_info, {
             //if a user is deleted, delete all of their results
             onDelete: "cascade"
         });
