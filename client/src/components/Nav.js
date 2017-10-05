@@ -1,10 +1,53 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Grid, Navbar } from 'react-bootstrap';
+import axios from 'axios';
 
 class Nav extends Component {
-    
+    constructor(props){
+        super(props)
+        this.state = {
+            isAuthenticated: false,
+            user: {
+                id: '',
+                prof_pic_url: '',
+                first_name: '',
+                last_name: ''
+            }
+        }
+    }
+
+    componentDidMount() {
+        axios.get('api/auth/authenticated')
+            .then(result => {
+                if(!result.data.isAuthenticated) {
+                    
+                } else {
+                    this.setState({
+                        user: {
+                            id: result.data.user_id,
+                            isAuthenticated: true
+                        }
+                    })
+                }
+            }).then(user => {
+                if (this.state.isAuthenticated) {
+                    this.setState({
+                        user: {
+                            first_name: user.first_name,
+                            last_name: user.last_name
+                        }
+                    })
+                }
+            }).catch(err => console.log(err))
+    }
     render(){
+        const isLoggedIn = this.state.isAuthenticated
+        if (window.location.pathname == 'dashboard') {
+            this.setState({
+                isAuthenticated: true
+            })
+        }
         return(
             <Navbar  fixedTop>
                 <Grid>
@@ -21,10 +64,16 @@ class Nav extends Component {
                             <li className="pointer"><Link to="/pricing">Pricing</Link></li>
                             <li className="pointer"><Link to="/faqs">FAQS</Link></li>
                         </ul>
+                        {isLoggedIn ? 
+                        <form className="navbar-form navbar-right" action="api/auth/logout">
+                            <button type="submit" className="btn btn-danger margin-right-20">LOGOUT</button>
+                        </form>
+                        :
                         <form className="navbar-form navbar-right">
                             <Link to="/login" className="btn btn-default btn-primary margin-right-20">LOGIN</Link>
                             <Link to="/signup" className="btn btn-default btn-success">SIGN UP</Link>
                         </form>
+                        }
                     </Navbar.Collapse>
                 </Grid>
             </Navbar>

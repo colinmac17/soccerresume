@@ -33,7 +33,7 @@ class SignUp extends Component {
       }
 
     handleFormSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const user_plan = document.querySelector("input[name='user_plan']").value;
         const user = this.state.user;
         user.user_plan = user_plan;
@@ -42,7 +42,7 @@ class SignUp extends Component {
             .then((result) => {
             console.log(result)
             if(result.data.isAuthenticated) {
-            window.location.pathname = `/dashboard/${result.data.user_id}`
+            window.location.pathname = `/dashboard/`
         } else {
             this.setState({
                 errors: {

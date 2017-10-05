@@ -23,7 +23,7 @@ const Root = () => {
                 <Route exact path="/faqs" component={FAQS}/>
                 <Route exact path="/login" component={Login}/>
                 <Route exact path="/signup" component={SignUp}/>
-                <Route path="/dashboard/:id" component={Dashboard}/>
+                <Route exact path="/dashboard" component={Dashboard}/>
                 <Route component={NotFound}/>
             </Switch>
         </div>
