@@ -90,7 +90,7 @@ class Dashboard extends Component {
 
     render() {
             const isLoggedIn = this.state.isAuthenticated
-            const logoutRoute = 'api/auth/logout'
+            const logoutRoute = '/api/auth/logout'
             if (isLoggedIn) { 
                 return (
                 <div className="container margin-top-50">
