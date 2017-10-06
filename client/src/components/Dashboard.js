@@ -97,7 +97,7 @@ class Dashboard extends Component {
                     <h1>This is the Dashboard</h1>
                     <h3>Hey There {this.state.user.first_name}</h3>
                     <form action='api/auth/logout' method="GET" onSubmit={this.handleLogout}>
-                        <a href={window.location.host + logoutRoute} type="submit" className="btn btn-danger">Logout</a>
+                        <a href="https://www.soccerresu.me/api/auth/logout" type="submit" className="btn btn-danger">Logout</a>
                     </form>
                 </div>
               )
