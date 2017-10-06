@@ -81,7 +81,7 @@ class Dashboard extends Component {
 
     handleLogout = (e) => {
         e.preventDefault()
-        axios.get('api/auth/logout')
+        axios.post('api/auth/logout')
             .then(result => {
                 if(!result.data.isAuthenticated()) window.location = '/';
                 console.log(result)
@@ -96,8 +96,8 @@ class Dashboard extends Component {
                 <div className="container margin-top-50">
                     <h1>This is the Dashboard</h1>
                     <h3>Hey There {this.state.user.first_name}</h3>
-                    <form action='api/auth/logout' method="GET" onSubmit={this.handleLogout}>
-                        <a href="https://www.soccerresu.me/api/auth/logout" type="submit" className="btn btn-danger">Logout</a>
+                    <form action='api/auth/logout' method="POST" onSubmit={this.handleLogout}>
+                        <a type="submit" className="btn btn-danger">Logout</a>
                     </form>
                 </div>
               )
