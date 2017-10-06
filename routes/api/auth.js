@@ -10,7 +10,7 @@ router.route('/login')
 router.route('/signup')
     .post(passport.authenticate('local-signup'), authController.signUp);
 router.route('/logout')
-    .post(authController.logout);
+    .get(authController.logout);
 //Read Routes
 router.route('/authenticated')
     .get(authController.isAuthenticated);

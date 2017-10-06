@@ -81,7 +81,7 @@ class Dashboard extends Component {
 
     handleLogout = (e) => {
         e.preventDefault()
-        axios.post('api/auth/logout')
+        axios.get('api/auth/logout')
             .then(result => {
                 console.log(result)
                 window.location.replace('/')
@@ -95,7 +95,7 @@ class Dashboard extends Component {
                 <div className="container margin-top-50">
                     <h1>This is the Dashboard</h1>
                     <h3>Hey There {this.state.user.first_name}</h3>
-                    <form action='api/auth/logout' onSubmit={this.handleLogout}>
+                    <form action='api/auth/logout' method="GET" onSubmit={this.handleLogout}>
                         <button type="submit" className="btn btn-danger">Logout</button>
                     </form>
                 </div>
