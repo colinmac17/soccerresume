@@ -83,20 +83,21 @@ class Dashboard extends Component {
         e.preventDefault()
         axios.get('api/auth/logout')
             .then(result => {
+                if(!result.data.isAuthenticated()) window.location = '/';
                 console.log(result)
-                window.location.replace('/')
             }).catch(err => console.log(err))
     }
 
     render() {
             const isLoggedIn = this.state.isAuthenticated
+            const logoutRoute = 'api/auth/logout'
             if (isLoggedIn) { 
                 return (
                 <div className="container margin-top-50">
                     <h1>This is the Dashboard</h1>
                     <h3>Hey There {this.state.user.first_name}</h3>
                     <form action='api/auth/logout' method="GET" onSubmit={this.handleLogout}>
-                        <button type="submit" className="btn btn-danger">Logout</button>
+                        <a href={window.location.host + logoutRoute} type="submit" className="btn btn-danger">Logout</a>
                     </form>
                 </div>
               )
