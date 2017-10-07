@@ -42,13 +42,13 @@ class TabBar extends Component {
                         <Col xs={6}>
                             <FormGroup>
                                 <ControlLabel htmlFor="gradYear">Grad Year: </ControlLabel>
-                                <FormControl name="grad_year" value="" placeholder="2020" type="text" id="gradYear" maxLength="4" pattern=".{4,4}" required/>
+                                <FormControl name="grad_year" placeholder="2020" type="text" id="gradYear" maxLength="4" pattern=".{4,4}" required />
                             </FormGroup>
                         </Col>
                         <Col xs={6}>
                             <FormGroup>
                                 <ControlLabel htmlFor="gpa">GPA: </ControlLabel>
-                                <FormControl name="gpa" value="" type="text" placeholder="3.50" id="gpa" pattern=".{4,4}" required/>
+                                <FormControl name="gpa" type="text" placeholder="3.50" id="gpa" pattern=".{4,4}" required/>
                             </FormGroup>
                         </Col>
                     </Row>
