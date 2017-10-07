@@ -330,3 +330,15 @@ Authorization and Ajax
   color: darkred;
   text-transform: uppercase;
 }
+/********************************************
+*********************************************
+Dashboard tabs
+*********************************************
+********************************************/
+.nav-tabs > li > a {
+  color:#008b8b;  
+}
+
+.nav-tabs > li.active > a {
+  font-weight: bold;
+}

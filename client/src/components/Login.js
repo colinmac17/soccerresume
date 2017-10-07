@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
 
 class Login extends Component {
@@ -9,7 +10,17 @@ class Login extends Component {
                 username: '',
                 password: ''
             },
-            errors: {}
+            errors: {},
+            validation: {
+                username: {
+                    state: '',
+                    help: ''
+                },
+                password: {
+                    state: '',
+                    help: ''
+                }
+            }
         }
     }
 
@@ -44,26 +55,30 @@ class Login extends Component {
     }
 
     render() {
-        const { user } = this.state
+        const { user, validation } = this.state
         return (
             <div className="container margin-top-50">
                 <h1>Login</h1>
                 <form method="POST" action='api/auth/login' id="login-form" onSubmit={this.handleLogin}>
-                <div className="row">
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="email">Username:</label>
-                        <input name="username" type="text" className="form-control" placeholder="cristiano" id="username" required value={user.email} onChange={this.onChange}/>
-                    </div>
-                </div>
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="password">Password:</label>
-                        <input name="password" type="text" className="form-control" placeholder="Password" id="password" required value={user.password} onChange={this.onChange}/>
-                    </div>
-                </div>
-            </div>
-            <button type="submit" className="btn btn-primary btn-lg">Login</button>
+                    <Row>
+                        <Col xs={6}>
+                            <FormGroup controlId="formValidationUsername" validationState={validation.username.state}>
+                                <ControlLabel htmlFor="username">Username: </ControlLabel>
+                                <FormControl name="username" value={user.username.trim()} placeholder="cristiano7" type="text" id="username" onChange={this.onChange} required/>
+                                <FormControl.Feedback />
+                                <HelpBlock>{validation.username.help}</HelpBlock>
+                            </FormGroup>
+                        </Col>
+                        <Col xs={6}>
+                            <FormGroup controlId="formValidationPassowrd" validationState={validation.password.state}>
+                                <ControlLabel htmlFor="password">Username: </ControlLabel>
+                                <FormControl name="password" value={user.password.trim()} type="text" id="password" onChange={this.onChange} required/>
+                                <FormControl.Feedback />
+                                <HelpBlock>{validation.password.help}</HelpBlock>
+                            </FormGroup>
+                        </Col>
+                    </Row>
+                    <button type="submit" className="btn btn-primary btn-lg">Login</button>
                 </form>
             </div>
         )

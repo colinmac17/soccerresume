@@ -8,7 +8,7 @@ import Features from './Marketing/Features';
 import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
-import Dashboard from './Dashboard';
+import Dashboard from './Dashboard/Dashboard';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 const Root = () => {
     return (

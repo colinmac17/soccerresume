@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 import Message from './Message';
+import { FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
+const validator = require('validator');
 
 class SignUp extends Component {
     constructor(props){
@@ -13,26 +15,109 @@ class SignUp extends Component {
                 username: '',
                 first_name: '',
                 last_name: '',
-                grad_year: '',
                 user_type: '1'
             },
             errors: {
                 signup: ''
             },
-            isLoading: false
+            isLoading: false,
+            validation: {
+                first_name: {
+                    state: '',
+                    help: ''
+                },
+                last_name: {
+                    state: '',
+                    help: ''
+                },
+                username: {
+                    state: '',
+                    help: ''
+                },
+                email: {
+                    state: '',
+                    help: ''
+                },
+                password: {
+                    state: '',
+                    help: ''
+                },
+                user_type: {
+                    state: 'success',
+                    help: ''
+                }
+            }
         }
     }
 
+    checkForUsername = (username) => {
+        axios.get(`/api/users/&username=${username}`)
+            .then(result => {
+                if (result.data.username == username) {
+                    this.setState({
+                        validation: {
+                            username: {
+                                state: 'error',
+                                help: 'That username is already taken, please try a new one'
+                            }
+                        }
+                    })
+                } else if (result.data.username != username & this.state.user.username >= 4) {
+                    this.setState({
+                        validation: {
+                            username: {
+                                state: 'success'
+                            }
+                        }
+                    })
+                }
+            }).catch(err => console.log(err));
+    }
+
+    validateFields = () => {
+        let emailValidation = (validator.isEmail(this.state.user.email)) ? 'success' : 'error'
+        let emailValMessage = (validator.isEmail(this.state.user.email)) ? '' : 'Please enter a valid email'
+        this.setState({
+            validation: {
+                first_name: {
+                    state: '',
+                    help: ''
+                },
+                last_name: {
+                    state: '',
+                    help: ''
+                },
+                username: {
+                    state: '',
+                    help: ''
+                },
+                email: {
+                    state: emailValidation,
+                    help: emailValMessage
+                },
+                password: {
+                    state: '',
+                    help: ''
+                },
+                user_type: {
+                    state: '',
+                    help: ''
+                }
+            }
+        });
+    }
+
     onChange = (e) => {
-        // Because we named the inputs to match their corresponding values in state, it's
-        // super easy to update the state
         const user = this.state.user
         const field = e.target.name
         user[field] = e.target.value;
-        this.setState({user});
+        this.setState({
+            user: user
+        });
       }
 
     handleFormSubmit = (e) => {
+        const { validation } = this.state.validation
         e.preventDefault()
         const user_plan = document.querySelector("input[name='user_plan']").value;
         const user = this.state.user;
@@ -57,78 +142,74 @@ class SignUp extends Component {
         })
     }
     
-
     render() {
-        const { errors, user } = this.state
+        const { errors, user, validation } = this.state
         return (
             <div className="container margin-top-75">
             <h1 className="text-center cabin-font">Create a Free Acount</h1>
             {this.state.isLoading ? <Message message="Account created successfully!" /> : <p></p>}
             <form id="signUpForm" action='api/auth/signup' method="POST" onSubmit={this.handleFormSubmit}>
-            <div className="row">
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="firstName">First Name:</label>
-                        <input name="first_name" type="text" className="form-control" placeholder="Wayne" id="firstName" required value={user.first_name} onChange={this.onChange}/>
-                        <p>{errors.first_name}</p>
-                    </div>
-                </div>
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="lastName">Last Name:</label>
-                        <input name="last_name" type="text" className="form-control" placeholder="Rooney" id="firstName" required value={user.last_name} onChange={this.onChange}/>
-                        <p>{errors.last_name}</p>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="userName">Username:</label>
-                        <input name="username" type="text" className="form-control" placeholder="waynesworld" id="userName" required value={user.username} onChange={this.onChange}/>
-                        <p>{errors.username}</p>
-                    </div>
-                </div>
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="userEmail">Email Address:</label>
-                        <input name="email" type="email" className="form-control" placeholder="wayne@gmail.com" id="userEmail" required value={user.email} onChange={this.onChange}/>
-                        <p>{errors.email}</p>
-                    </div>
-                </div>
-            </div>
-            <div className="row">
-                <div className="col-xs-6">
-                    <div className="form-group">
-                        <label htmlFor="gradYear">Grad Year:</label>
-                        <input name="grad_year" type="text" className="form-control" placeholder="2018" pattern="(.){4,4}" maxLength="4" id="gradYear" required value={user.grad_year} onChange={this.onChange}/>
-                        <p>{errors.grad_year}</p>
-                    </div>
-                </div>
-                <div className="col-xs-6">
-                <div className="form-group">
-                    <label htmlFor="userType">User Type:</label>
-                    <select className="form-control" id="userType" name="user_type" value={user.user_type} onChange={this.onChange}>
-                        <option value="1">Player</option>
-                        <option value="2" disabled>Coach</option>
-                        <option value="3" disabled>Manager</option>
-                    </select>
-                    <p>{errors.user_type}</p>
-                </div>
-            </div>
-            </div>
-            <div className="row">
-                <div className="col-xs-12">
-                    <div className="form-group">
-                        <label htmlFor="userPassword">Password:</label>
-                        <input name="password" type="password" className="form-control" maxLength="25" id="userPassword" value={user.password} onChange={this.onChange}/>
-                    </div>
-                    <p>{errors.password}</p>
-                </div>
-            </div>
-            <div className="form-group">
-                <input name="user_plan" type="hidden" className="form-control" value="1" id="userPlan"/>
-            </div>
+            <Row>
+                <Col xs={6}>
+                    <FormGroup validationState={validation.first_name.state}>
+                        <ControlLabel htmlFor="firstName">First Name: </ControlLabel>
+                        <FormControl name="first_name" value={user.first_name.trim()} placeholder="wayne" type="text" id="firstName" onChange={this.onChange} required/>
+                        <FormControl.Feedback />
+                        <HelpBlock>{validation.first_name.help}</HelpBlock>
+                    </FormGroup>
+                </Col>
+                <Col xs={6}>
+                    <FormGroup validationState={validation.last_name.state}>
+                        <ControlLabel htmlFor="lastName">Last Name: </ControlLabel>
+                        <FormControl name="last_name" value={user.last_name.trim()} type="text" placeholder="Rooney" id="lastName" onChange={this.onChange} required/>
+                        <FormControl.Feedback />
+                        <HelpBlock>{validation.last_name.help}</HelpBlock>
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={6}>
+                    <FormGroup validationState={validation.username.state}>
+                        <ControlLabel htmlFor="username">Username: </ControlLabel>
+                        <FormControl name="username" value={user.username.trim()} placeholder="waynesworld" type="text" id="username" onChange={this.onChange} required/>
+                        <FormControl.Feedback />
+                        <HelpBlock>{validation.username.help}</HelpBlock>
+                    </FormGroup>
+                </Col>
+                <Col xs={6}>
+                    <FormGroup validationState={validation.email.state}>
+                        <ControlLabel htmlFor="email">Email: </ControlLabel>
+                        <FormControl name="email" value={user.email.trim()} type="email" placeholder="wayne@gmail.com" id="email" onChange={this.onChange} required/>
+                        <FormControl.Feedback />
+                        <HelpBlock>{validation.email.help}</HelpBlock>
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={6}>
+                    <FormGroup validationState={validation.user_type.state}>
+                        <ControlLabel htmlFor="userType">User Type: </ControlLabel>
+                        <select className="form-control" id="userType" name="user_type" value={user.user_type.trim()} onChange={this.onChange}>
+                            <option value="1">Player</option>
+                            <option value="2" disabled>Coach</option>
+                            <option value="3" disabled>Manager</option>
+                        </select>
+                        <FormControl.Feedback />
+                        <HelpBlock>{validation.user_type.help}</HelpBlock>
+                    </FormGroup>
+                </Col>
+                <Col xs={6}>
+                    <FormGroup validationState={validation.password.state}>
+                        <ControlLabel htmlFor="password">Password: </ControlLabel>
+                        <FormControl name="password" value={user.password.trim()} type="password" id="password" maxLength="25" onChange={this.onChange} required/>
+                        <FormControl.Feedback />
+                        <HelpBlock>{validation.password.help}</HelpBlock>
+                    </FormGroup>
+                </Col>
+            </Row>
+            <FormGroup>
+                <FormControl name="user_plan" type="hidden" value="1" id="userPlan"></FormControl>
+            </FormGroup>
             <button type="submit" className="btn btn-primary btn-lg">Register</button>
             <br/>
             <p className="bold margin-top-10">Already have an account? <Link to={'/login'}>Log in</Link> </p>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import TabBar from './TabBar';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -17,10 +18,6 @@ class Dashboard extends Component {
                 last_updated: '',
                 date_joined: ''
             },
-            settings: {},
-            athletic: {},
-            academic: {},
-            media: {},
             isAuthenticated: false,
             errors: {
                 auth_fail: '',
@@ -90,12 +87,14 @@ class Dashboard extends Component {
     }
 
     render() {
-            const isLoggedIn = this.state.isAuthenticated
+        const isLoggedIn = this.state.isAuthenticated
+
             if (isLoggedIn) { 
                 return (
                 <div className="container margin-top-50">
                     <h1>This is the Dashboard</h1>
                     <h3>Hey There {this.state.user.first_name}</h3>
+                    <TabBar />
                     <form action='api/auth/logout' method="GET" onSubmit={this.handleLogout}>
                         <button type="submit" className="btn btn-danger">Logout</button>
                     </form>

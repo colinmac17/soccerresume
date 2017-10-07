@@ -25,6 +25,13 @@ module.exports = {
             }
         }).then(data => res.json(data));
     },
+    findByUsername: (req, res) => {
+        db.user.findOne({
+            where: {
+                username: req.params.username
+            }
+        }).then(data => res.json(data));
+    },
     findByGPA: (req, res) => {
         db.academic_stats.findAll({
             where: {

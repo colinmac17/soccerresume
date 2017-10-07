@@ -14,6 +14,8 @@ router.route('/&gradyear=:grad_year')
     .get(auth.isLoggedIn, userController.findByGradYear);
 router.route('/&position=:position')
     .get(auth.isLoggedIn, userController.findByPosition);
+router.route('/&username=:username')
+    .get(userController.findByUsername);
 router.route('/&gradyear=:grad_year/&position=:position/&commitstatus=:commitment_status/&height=:height/&gpa=:gpa/&sat=:sat/&act=:act/&eligibility=:eligibility')
     .get(auth.isLoggedIn, userController.advancedQuery);
 //Udpate Routes
