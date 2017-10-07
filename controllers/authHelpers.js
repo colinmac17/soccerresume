@@ -10,7 +10,7 @@ module.exports = {
             errors.email = 'Please provide a valid email address.';
         }
   
-        if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 8) {
+        if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 4) {
             isFormValid = false;
             errors.password = 'Password must have at least 8 characters.';
         }
@@ -28,11 +28,6 @@ module.exports = {
         if (!payload || typeof payload.last_name !== 'string' || payload.last_name.trim().length === 0) {
           isFormValid = false;
           errors.last_name = 'Please enter your last name.'
-      }
-  
-      if (!payload || typeof payload.grad_year !== 'string' || payload.last_name.trim().length < 4) {
-          isFormValid = false;
-          errors.grad_year = 'Please enter a valid graduation year.'
       }
   
       if (!payload || typeof payload.user_type !== 'string' || parseInt(payload.user_type) < 1) {
@@ -55,7 +50,7 @@ module.exports = {
         let isFormValid = true;
         let message = '';
   
-        if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 8) {
+        if (!payload || typeof payload.password !== 'string' || payload.password.trim().length < 4) {
             isFormValid = false;
             errors.password = 'Please provide your password.';
         }

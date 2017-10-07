@@ -14,7 +14,7 @@ module.exports = function(sequelize, DataTypes) {
             allowNull: false,
             unique: true,
             validate: {
-                len: [7],
+                len: [5],
                 isEmail: true
             }
         },
@@ -33,13 +33,6 @@ module.exports = function(sequelize, DataTypes) {
             }
         },
         password: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [6]
-            }
-        },
-        grad_year: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {

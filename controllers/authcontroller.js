@@ -36,11 +36,9 @@ module.exports = {
       return res.status(200).end();
   },
   logout: (req, res) => {
-      //res.json('hey')
-        req.session.destroy(err => {
+        req.session.destroy(function(err) {
           if(err) res.json({error_message: "There was an error loggin out"});
-          res.redirect('/');
-          //else return res.json({success_message: "Logout was successfull", isAuthenticated: req.isAuthenticated()});
+          res.json({success_message: "Logout was successfull", isAuthenticated: req.isAuthenticated});
       });
   },
   isLoggedIn: (req, res, next) => {

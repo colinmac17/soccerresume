@@ -39,7 +39,6 @@ module.exports = function(passport, user, user_settings){
                         username: username,
                         first_name: req.body.first_name,
                         last_name: req.body.last_name,
-                        grad_year: req.body.grad_year,
                         user_type: req.body.user_type,
                         user_plan: req.body.user_plan
                     };

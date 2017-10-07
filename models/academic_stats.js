@@ -1,6 +1,13 @@
 //Academic Info Model
 module.exports = function(sequelize, DataTypes) {
     var Academic_Stats = sequelize.define('academic_stats', {
+        grad_year: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [4]
+            }
+        },
         gpa: {
             type: DataTypes.STRING,
             allowNull: true,
