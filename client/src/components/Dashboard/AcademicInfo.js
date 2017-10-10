@@ -118,15 +118,15 @@ class AcademicInfo extends Component {
                 <Col xs={6}>
                     <FormGroup>
                         <ControlLabel htmlFor="highschool">HighSchool: </ControlLabel>
-                        <FormControl name="highschool" value={(this.state.method === "POST") ? user.highschool.trim() : user.highschool} onChange={this.onChange} placeholder="Torrey Pines" type="text" id="hishschool" pattern=".{2,40}" />
+                        <FormControl name="highschool" value={(this.state.method === "POST") ? user.highschool : user.highschool} onChange={this.onChange} placeholder="Torrey Pines" type="text" id="hishschool" pattern=".{2,40}" />
                     </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
                         <ControlLabel>NCAA Eligibility Status: </ControlLabel>
                         <br/>
-                        <Radio name="ncaa_eligibility_status" inline value="1" onChange={this.onChange} checked={this.state.user.ncaa_eligibility_status}>Eligible</Radio>
-                        <Radio name="ncaa_eligibility_status" inline value="0" onChange={this.onChange} checked={!this.state.user.ncaa_eligibility_status}>Not Yet Eligible</Radio>
+                        <Radio name="ncaa_eligibility_status" inline value="true" onChange={this.onChange} checked={this.state.user.ncaa_eligibility_status === "true"}>Eligible</Radio>
+                        <Radio name="ncaa_eligibility_status" inline value="false" onChange={this.onChange} checked={this.state.user.ncaa_eligibility_status === "false"}>Not Yet Eligible</Radio>
                     </FormGroup>
                 </Col>
             </Row>
