@@ -180,6 +180,9 @@ Pricing Styles
 Padding Styles
 *********************************************
 ********************************************/
+.pad-sm {
+  padding:15px;
+}
 .pad-med {
   padding:30px;
 }
@@ -211,6 +214,14 @@ Margin Styles
 
 .margin-top-150 {
   margin-top: 150px;
+}
+
+.margin-bottom-20 {
+  margin-bottom: 20px;
+}
+
+.margin-bottom-30 {
+  margin-bottom: 30px;
 }
 
 .margin-bottom-50 {
@@ -336,9 +347,24 @@ Dashboard tabs
 *********************************************
 ********************************************/
 .nav-tabs > li > a {
-  color:#008b8b;  
+  color:#fffff0; 
+  background-color: #008b8b; 
+  margin-right: 5px;
+  margin-top:5px;
+  font-weight: 700;
+}
+
+.nav-tabs > li > a:hover {
+  background: #3e3e3e;
+  color: #fffff0;
+}
+
+.dashboard-tabs {
+  color:#fffff0; 
+  background-color: #008b8b; 
 }
 
 .nav-tabs > li.active > a {
   font-weight: bold;
+  color: #3e3e3e;
 }

@@ -7,7 +7,7 @@ class Nav extends Component {
     constructor(props){
         super(props)
         this.state = {
-            isAuthenticated: false,
+            isAuthenticated: this.props.isLoggedIn,
             user: {
                 id: '',
                 prof_pic_url: '',
@@ -41,15 +41,20 @@ class Nav extends Component {
                 }
             }).catch(err => console.log(err))
     }
+
+    handleLogout = (e) => {
+        e.preventDefault()
+        axios.get('/api/auth/logout')
+            .then(result => {
+                if(!result.data.isAuthenticated) window.location.href = '/';
+                console.log(result)
+            }).catch(err => console.log(err))
+    }
+
     render(){
-        const isLoggedIn = this.state.isAuthenticated
-        if (window.location.pathname == 'dashboard') {
-            this.setState({
-                isAuthenticated: true
-            })
-        }
+       
         return(
-            <Navbar  fixedTop>
+            <Navbar fixedTop>
                 <Grid>
                     <Navbar.Header>
                         <Navbar.Brand>
@@ -64,8 +69,8 @@ class Nav extends Component {
                             <li className="pointer"><Link to="/pricing">Pricing</Link></li>
                             <li className="pointer"><Link to="/faqs">FAQS</Link></li>
                         </ul>
-                        {isLoggedIn ? 
-                        <form className="navbar-form navbar-right" action="api/auth/logout">
+                        {this.state.isAuthenticated ? 
+                        <form className="navbar-form navbar-right" action="api/auth/logout" method="GET" onSubmit={this.handleLogout}>
                             <button type="submit" className="btn btn-danger margin-right-20">LOGOUT</button>
                         </form>
                         :
