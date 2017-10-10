@@ -7,7 +7,7 @@ var auth = require('../../controllers/authcontroller');
 router.route('/&id=:id')
     .get(auth.isLoggedIn, academicController.findById);
 //Post Routes
-router.route('/&id=:id')
+router.route('/create')
     .post(auth.isLoggedIn, academicController.createOne);
 //Udpate Routes
 router.route('/&id=:id')

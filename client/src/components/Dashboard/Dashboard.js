@@ -92,7 +92,7 @@ class Dashboard extends Component {
             if (isLoggedIn) { 
                 return (
                 <div className="container margin-top-50">
-                    <h1 class="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
+                    <h1 className="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
                     <TabBar userId={this.state.user.id}/>
                 </div>
               )
