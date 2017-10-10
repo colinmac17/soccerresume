@@ -2,6 +2,10 @@ import React, { Component } from 'react';
 import axios from 'axios';
 import AthleticInfo from './AthleticInfo';
 import AcademicInfo from './AcademicInfo';
+import Media from './Media';
+import ContactInfo from './ContactInfo';
+import Account from './Account';
+import Favorites from './Favorites';
 import { Tabs, Tab, FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
 
 class TabBar extends Component {
@@ -10,7 +14,7 @@ class TabBar extends Component {
         this.state = {
             user: {
                 academic: {
-                    userId: '',
+                    userId: this.props.userId,
                     grad_year: '',
                     gpa: '',
                     sat_score: '',
@@ -24,6 +28,9 @@ class TabBar extends Component {
         }
     }
 
+    componentDidMount () {
+        axios.get('/api/user/&id')
+    }
     onChange = (e) => {
         const user = this.state.user.academic
         const field = e.target.name
@@ -37,44 +44,28 @@ class TabBar extends Component {
           console.log('tab changed');
       }
 
-    
     render() {
         const { user } = this.state
-        const Media = (
-            <h2>Media</h2>
-        )
-
-        const Contact = (
-            <h2>Contact Information</h2>
-        )
-
-        const Account = (
-            <h2>Account Information</h2>
-        )
-
-        const Favorites = (
-            <h2>Favorites</h2>
-        )
 
         return (
             <Tabs animation={false} onSelect={this.changeTab} defaultActiveKey={1} id="dashboard-tab-bar">
                 <Tab eventKey={1} title="Academic">
-                    <AcademicInfo />
+                    <AcademicInfo userId={this.state.user.academic.userId}/>
                 </Tab>
                 <Tab eventKey={2} title="Athletic">
                     <AthleticInfo />
                 </Tab>
                 <Tab eventKey={3} title="Media">
-                    {Media}
+                    <Media />
                 </Tab>
                 <Tab eventKey={4} title="Contact">
-                    {Contact}
+                    <ContactInfo />
                 </Tab>
                 <Tab eventKey={5} title="Account">
-                    {Account}
+                    <Account />
                 </Tab>
                 <Tab eventKey={6} title="Favorites">
-                    {Favorites}
+                    <Favorites />
                 </Tab>
             </Tabs>
         )

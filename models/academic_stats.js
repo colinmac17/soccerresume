@@ -36,7 +36,7 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [3]
+                len: [2]
             }
         },
         ncaa_eligibility_status: {
@@ -45,14 +45,6 @@ module.exports = function(sequelize, DataTypes) {
             defaultValue: false,
             validate: {
                 len: [1]
-            }
-        },
-        ncaa_eligibility_number: {
-            type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                len: [1],
-                not: ["[a-z]",'i']
             }
         }
     });

@@ -14,7 +14,7 @@ import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 
 class Root extends Component {
     constructor(props) {
-        super()
+        super(props)
         this.state = {
             isLoggedIn: false,
             user: {

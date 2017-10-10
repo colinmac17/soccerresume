@@ -93,10 +93,7 @@ class Dashboard extends Component {
                 return (
                 <div className="container margin-top-50">
                     <h1 class="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
-                    <TabBar />
-                    <form action='api/auth/logout' method="GET" onSubmit={this.handleLogout}>
-                        <button type="submit" className="btn btn-danger">Logout</button>
-                    </form>
+                    <TabBar userId={this.state.user.id}/>
                 </div>
               )
             } 
