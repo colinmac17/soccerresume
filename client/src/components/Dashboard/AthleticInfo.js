@@ -82,12 +82,12 @@ class AthleticInfo extends Component {
     const { user } = this.state
     return (
         <div className="contaienr">
-        <h2 className="poppins-font">Academic Information</h2>
+        <h2 className="poppins-font">Athletic Information</h2>
         <form action={(this.state.method === 'POST') ? '/api/athletic/create' : `/api/athletic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="gradYear">Grad Year: </ControlLabel>
+                        <ControlLabel htmlFor="gradYear">Grad Year: <span className="red">*</span> </ControlLabel>
                         <FormControl name="grad_year" value={(this.state.method === "POST") ? user.grad_year.trim() : user.grad_year} onChange={this.onChange} placeholder="2020" type="text" id="gradYear" maxLength="4" pattern=".{4,4}" required />
                     </FormGroup>
                 </Col>

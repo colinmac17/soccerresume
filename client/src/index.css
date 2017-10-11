@@ -257,6 +257,10 @@ Font/Color Styles
   color: #008b8b;
 }
 
+.red {
+  color: red;
+}
+
 .navy {
   color: #046487;
 }
@@ -367,4 +371,13 @@ Dashboard tabs
 .nav-tabs > li.active > a {
   font-weight: bold;
   color: #3e3e3e;
+}
+/********************************************
+*********************************************
+Form Styles
+*********************************************
+********************************************/
+.star {
+  color: red;
+  font-size: 16px;
 }

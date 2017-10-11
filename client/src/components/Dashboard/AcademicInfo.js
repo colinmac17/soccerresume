@@ -87,14 +87,14 @@ class AcademicInfo extends Component {
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="gradYear">Grad Year: </ControlLabel>
+                        <ControlLabel htmlFor="gradYear">Grad Year: <span className="star">*</span> </ControlLabel>
                         <FormControl name="grad_year" value={(this.state.method === "POST") ? user.grad_year.trim() : user.grad_year} onChange={this.onChange} placeholder="2020" type="text" id="gradYear" maxLength="4" pattern=".{4,4}" required />
                     </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
                         <ControlLabel htmlFor="gpa">GPA: </ControlLabel>
-                        <FormControl name="gpa" type="text" value={(this.state.method === "POST") ? user.gpa.trim() : user.gpa} onChange={this.onChange} placeholder="3.50" id="gpa" maxLength="4" pattern=".{4,4}" required/>
+                        <FormControl name="gpa" type="text" value={(this.state.method === "POST") ? user.gpa.trim() : user.gpa} onChange={this.onChange} placeholder="3.50" id="gpa" maxLength="4" pattern=".{4,4}"/>
                     </FormGroup>
                 </Col>
             </Row>
@@ -115,13 +115,13 @@ class AcademicInfo extends Component {
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="highschool">HighSchool: </ControlLabel>
-                        <FormControl name="highschool" value={(this.state.method === "POST") ? user.highschool : user.highschool} onChange={this.onChange} placeholder="Torrey Pines" type="text" id="hishschool" pattern=".{2,40}" />
+                        <ControlLabel htmlFor="highschool">HighSchool: <span className="star">*</span> </ControlLabel>
+                        <FormControl name="highschool" value={(this.state.method === "POST") ? user.highschool : user.highschool} onChange={this.onChange} placeholder="Torrey Pines" type="text" id="hishschool" pattern=".{2,40}" required/>
                     </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: </ControlLabel>
+                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: <span className="star">*</span> </ControlLabel>
                         <br/>
                         <Checkbox name="ncaa_eligibility_status" onChange={this.handleCheckBoxChange} id="ncaaStatus" inline value="1" checked={this.state.isChecked}>Eligible</Checkbox>
                     </FormGroup>

@@ -53,19 +53,19 @@ class TabBar extends Component {
                     <AcademicInfo userId={this.state.user.academic.userId}/>
                 </Tab>
                 <Tab eventKey={2} title="Athletic">
-                    <AthleticInfo />
+                    <AthleticInfo userId={this.state.user.academic.userId} />
                 </Tab>
                 <Tab eventKey={3} title="Media">
-                    <Media />
+                    <Media userId={this.state.user.academic.userId}/>
                 </Tab>
                 <Tab eventKey={4} title="Contact">
-                    <ContactInfo />
+                    <ContactInfo userId={this.state.user.academic.userId} />
                 </Tab>
                 <Tab eventKey={5} title="Account">
-                    <Account />
+                    <Account userId={this.state.user.academic.userId} />
                 </Tab>
                 <Tab eventKey={6} title="Favorites">
-                    <Favorites />
+                    <Favorites userId={this.state.user.academic.userId} />
                 </Tab>
             </Tabs>
         )
