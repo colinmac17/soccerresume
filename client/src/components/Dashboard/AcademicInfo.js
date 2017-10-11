@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Row, Col, Radio } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
 
 class AcademicInfo extends Component {
@@ -8,13 +8,13 @@ class AcademicInfo extends Component {
         this.state = {
             userId: this.props.userId,
             method: '',
+            isChecked: '',
             user: {
                 grad_year: '',
                 gpa: '',
                 sat_score: '',
                 act_score: '',
                 highschool: '',
-                ncaa_eligibility_status: '',
                 userId: this.props.userId
             }
         }
@@ -26,13 +26,13 @@ class AcademicInfo extends Component {
             if (result.data !== null) {
                 this.setState({
                     method: 'PUT',
+                    isChecked: result.data.ncaa_eligibility_status,
                     user: {
                         grad_year: result.data.grad_year,
                         gpa: result.data.gpa,
                         sat_score: result.data.sat_score,
                         act_score: result.data.act_score,
-                        highschool: result.data.highschool,
-                        ncaa_eligibility_status: result.data.ncaa_eligibility_status
+                        highschool: result.data.highschool
                     }
                 })
             } else {
@@ -52,18 +52,16 @@ class AcademicInfo extends Component {
         });
       }
 
-      toggleChange = () => {
+      handleCheckBoxChange = (e) => {
         this.setState({
-          user: {
-              ncaa_eligibility_status: !this.state.user.ncaa_eligibility_status
-          }
+          isChecked: e.target.checked
         });
       }
    
     handleSubmit = (e) => {
         e.preventDefault();
         const academicInfo = this.state.user
-
+        academicInfo.ncaa_eligibility_status = this.state.isChecked
         if (this.state.method == 'POST') {
             axios.post(`/api/academic/create`, academicInfo)
                 .then(result => {
@@ -123,14 +121,13 @@ class AcademicInfo extends Component {
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel>NCAA Eligibility Status: </ControlLabel>
+                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: </ControlLabel>
                         <br/>
-                        <Radio name="ncaa_eligibility_status" inline value="true" onChange={this.onChange} checked={this.state.user.ncaa_eligibility_status === "true"}>Eligible</Radio>
-                        <Radio name="ncaa_eligibility_status" inline value="false" onChange={this.onChange} checked={this.state.user.ncaa_eligibility_status === "false"}>Not Yet Eligible</Radio>
+                        <Checkbox name="ncaa_eligibility_status" onChange={this.handleCheckBoxChange} id="ncaaStatus" inline value="1" checked={this.state.isChecked}>Eligible</Checkbox>
                     </FormGroup>
                 </Col>
             </Row>
-            <button type="submit" class="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
+            <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
         </form>
     </div>
     )

@@ -4,7 +4,7 @@ module.exports = function(sequelize, DataTypes) {
         bAllowDownloadAsPDF: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true,
+            defaultValue: false,
             validate: {
                 len: [1]
             }
@@ -12,7 +12,7 @@ module.exports = function(sequelize, DataTypes) {
         bDBSearchable: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true,
+            defaultValue: false,
             validate: {
                 len: [1]
             }
@@ -20,7 +20,7 @@ module.exports = function(sequelize, DataTypes) {
         bProfilePublic: {
             type: DataTypes.BOOLEAN,
             allowNull: false,
-            defaultValue: true,
+            defaultValue: false,
             validate: {
                 len: [1]
             }

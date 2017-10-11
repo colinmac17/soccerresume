@@ -22,14 +22,6 @@ module.exports = function(sequelize, DataTypes) {
                 len: [2]
             }
         },
-        height_feet: {
-            type: DataTypes.STRING,
-            allowNull: false,
-            validate: {
-                len: [1],
-                not: ["[a-z]",'i']
-            }
-        },
         height_inches: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -50,14 +42,14 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [2]
+                len: [1]
             }
         },
         coach_contact_email: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [7],
+                len: [5],
                 isEmail: true
             }
         },
