@@ -81,7 +81,7 @@ class AcademicInfo extends Component {
     render() {
     const { user } = this.state
     return (
-        <div className="contaienr">
+        <div className="container">
         <h2 className="poppins-font">Academic Information</h2>
         <form action={(this.state.method === 'POST') ? '/api/academic/create' : `/api/academic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
@@ -121,7 +121,7 @@ class AcademicInfo extends Component {
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: <span className="star">*</span> </ControlLabel>
+                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: </ControlLabel>
                         <br/>
                         <Checkbox name="ncaa_eligibility_status" onChange={this.handleCheckBoxChange} id="ncaaStatus" inline value="1" checked={this.state.isChecked}>Eligible</Checkbox>
                     </FormGroup>

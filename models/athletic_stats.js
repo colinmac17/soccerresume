@@ -5,21 +5,21 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [2]
+                len: [1]
             }
         },
         primary_position: {
             type: DataTypes.STRING,
             allowNull: false,
             validate: {
-                len: [2]
+                len: [1]
             }
         },
         position_2: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [2]
+                len: [1]
             }
         },
         height_inches: {

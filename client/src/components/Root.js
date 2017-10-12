@@ -9,6 +9,11 @@ import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
 import Dashboard from './Dashboard/Dashboard';
+// import AcademicInfo from './Dashboard/AcademicInfo';
+// import AthletiInfo from './Dashboard/AthleticInfo';
+// import ContactInfo from './Dashboard/ContactInfo';
+// import Media from './Dashboard/Media';
+// import Account from './Dashboard/Account';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 

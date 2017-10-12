@@ -10,11 +10,14 @@ class AthleticInfo extends Component {
             method: '',
             isChecked: '',
             user: {
-                grad_year: '',
-                gpa: '',
-                sat_score: '',
-                act_score: '',
-                highschool: '',
+                club_team: '',
+                primary_position: '',
+                position_2: '',
+                height_inches: '',
+                weight: '',
+                coach_contact_name: '',
+                coach_contact_email: '',
+                commitment_school: '',
                 userId: this.props.userId
             }
         }
@@ -26,13 +29,16 @@ class AthleticInfo extends Component {
             if (result.data !== null) {
                 this.setState({
                     method: 'PUT',
-                    isChecked: result.data.ncaa_eligibility_status,
+                    isChecked: result.data.commitment_status,
                     user: {
-                        grad_year: result.data.grad_year,
-                        gpa: result.data.gpa,
-                        sat_score: result.data.sat_score,
-                        act_score: result.data.act_score,
-                        highschool: result.data.highschool
+                        club_team: result.data.club_team,
+                        primary_position: result.data.primary_position,
+                        position_2: result.data.position_2,
+                        height_inches: result.data.height_inches,
+                        weight: result.data.weight,
+                        coach_contact_name: result.data.coach_contact_name,
+                        coach_contact_email: result.data.coach_contact_email,
+                        commitment_school: result.data.commitment_school
                     }
                 })
             } else {
@@ -57,13 +63,17 @@ class AthleticInfo extends Component {
           isChecked: e.target.checked
         });
       }
+
+      renderAlert = (type, msg) => {
+          if (type = 'error') alert(msg)
+      }
    
     handleSubmit = (e) => {
         e.preventDefault();
-        const academicInfo = this.state.user
-        academicInfo.ncaa_eligibility_status = this.state.isChecked
+        const athleticInfo = this.state.user
+        athleticInfo.commitment_status = this.state.isChecked
         if (this.state.method == 'POST') {
-            axios.post(`/api/athletic/create`, academicInfo)
+            axios.post(`/api/athletic/create`, athleticInfo)
                 .then(result => {
                     console.log(result.data)
                     this.setState({
@@ -71,7 +81,8 @@ class AthleticInfo extends Component {
                     })
                 }).catch(err => console.log(err))
         } else {
-            axios.put(`/api/athletic/&id=${this.state.userId}`, academicInfo)
+            if (!this.state.isChecked) athleticInfo.commitment_school = ' '
+            axios.put(`/api/athletic/&id=${this.state.userId}`, athleticInfo)
                 .then(result => {
                     console.log(result)
                 }).catch(err => console.log(err))
@@ -81,52 +92,94 @@ class AthleticInfo extends Component {
     render() {
     const { user } = this.state
     return (
-        <div className="contaienr">
+        <div className="container">
         <h2 className="poppins-font">Athletic Information</h2>
         <form action={(this.state.method === 'POST') ? '/api/athletic/create' : `/api/athletic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="gradYear">Grad Year: <span className="red">*</span> </ControlLabel>
-                        <FormControl name="grad_year" value={(this.state.method === "POST") ? user.grad_year.trim() : user.grad_year} onChange={this.onChange} placeholder="2020" type="text" id="gradYear" maxLength="4" pattern=".{4,4}" required />
+                        <ControlLabel htmlFor="primaryPosition">Primary Position: <span className="red">*</span>  </ControlLabel>
+                            <select className="form-control" name="primary_position" type="text" value={(this.state.method === "POST") ? user.primary_position.trim() : user.primary_position} onChange={this.onChange}  id="primaryPosition" pattern=".{2,255}" required>
+                                <option>-----</option>
+                                <option value="gk">Goalkeeper</option>
+                                <option value="rb">Right Back</option>
+                                <option value="lb">Left Back</option>
+                                <option value="cb">Center Back</option>
+                                <option value="dm">Defensive Center Mid</option>
+                                <option value="am">Attacking Center Mid</option>
+                                <option value="om">Outside Mid / Winger</option>
+                                <option value="f">Forward</option>
+                            </select>
                     </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="gpa">GPA: </ControlLabel>
-                        <FormControl name="gpa" type="text" value={(this.state.method === "POST") ? user.gpa.trim() : user.gpa} onChange={this.onChange} placeholder="3.50" id="gpa" maxLength="4" pattern=".{4,4}" required/>
+                        <ControlLabel htmlFor="position2">Secondary Position: </ControlLabel>
+                        <select className="form-control" name="position_2" type="text" value={(this.state.method === "POST") ? user.position_2.trim() : user.position_2} onChange={this.onChange}  id="position2" pattern=".{2,255}">
+                            <option>-----</option>
+                            <option value="gk">Goalkeeper</option>
+                            <option value="rb">Right Back</option>
+                            <option value="lb">Left Back</option>
+                            <option value="cb">Center Back</option>
+                            <option value="dm">Defensive Center Mid</option>
+                            <option value="am">Attacking Center Mid</option>
+                            <option value="om">Outside Mid / Winger</option>
+                            <option value="f">Forward</option>
+                        </select>
                     </FormGroup>
                 </Col>
             </Row>
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="satScore">SAT Score: </ControlLabel>
-                        <FormControl name="sat_score" value={(this.state.method === "POST") ? user.sat_score.trim() : user.sat_score} onChange={this.onChange} placeholder="1850" type="text" id="satScore" maxLength="4" pattern=".{4,4}" />
+                        <ControlLabel htmlFor="actScore">Height (inches): <span className="red">*</span> </ControlLabel>
+                        <FormControl name="height_inches" type="text" value={(this.state.method === "POST") ? user.height_inches.trim() : user.height_inches} onChange={this.onChange} placeholder="72" id="heightInches" maxLength="2" pattern=".{2,2}" required/>
                     </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="actScore">ACT Score: </ControlLabel>
-                        <FormControl name="act_score" type="text" value={(this.state.method === "POST") ? user.act_score.trim() : user.act_score} onChange={this.onChange} placeholder="29" id="actScore" maxLength="2" pattern=".{2,2}" />
+                        <ControlLabel htmlFor="weight">Weight: (lbs) </ControlLabel>
+                        <FormControl name="weight" value={(this.state.method === "POST") ? user.weight.trim() : user.weight} onChange={this.onChange} placeholder="175" type="text" id="weight" maxLength="3" pattern=".{2,3}" />
+                    </FormGroup>
+                </Col>
+            </Row>
+            <Row>
+                <Col xs={12}>
+                    <FormGroup>
+                        <ControlLabel htmlFor="clubTeam">Club Team: <span className="red">*</span> </ControlLabel>
+                        <FormControl name="club_team" value={(this.state.method === "POST") ? user.club_team : user.club_team} onChange={this.onChange} placeholder="San Diego Surf U-16 Academy" type="text" id="clubTeam" pattern=".{2,255}" required />
                     </FormGroup>
                 </Col>
             </Row>
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="highschool">HighSchool: </ControlLabel>
-                        <FormControl name="highschool" value={(this.state.method === "POST") ? user.highschool : user.highschool} onChange={this.onChange} placeholder="Torrey Pines" type="text" id="hishschool" pattern=".{2,40}" />
+                        <ControlLabel htmlFor="coachName">Coach Contact Name: </ControlLabel>
+                        <FormControl name="coach_contact_name" value={(this.state.method === "POST") ? user.coach_contact_name : user.coach_contact_name} onChange={this.onChange} placeholder="Alex Ferguson" type="text" id="coachName" pattern=".{2,255}" />
                     </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: </ControlLabel>
-                        <br/>
-                        <Checkbox name="ncaa_eligibility_status" onChange={this.handleCheckBoxChange} id="ncaaStatus" inline value="1" checked={this.state.isChecked}>Eligible</Checkbox>
+                        <ControlLabel htmlFor="coachEmail">Coach Contact Email: </ControlLabel>
+                        <FormControl name="coach_contact_email" value={(this.state.method === "POST") ? user.coach_contact_email.trim() : user.coach_contact_email} onChange={this.onChange} placeholder="alex@siralex.com" type="email" id="coachEmail" pattern=".{5,55}" />
                     </FormGroup>
                 </Col>
             </Row>
+            <Row>
+            <Col xs={6}>
+                <FormGroup>
+                    <ControlLabel htmlFor="commitmentStatus">Committment Status: </ControlLabel>
+                    <br/>
+                    <Checkbox name="commitment_status" onChange={this.handleCheckBoxChange} id="commitmentStatus" inline value="1" checked={this.state.isChecked} >Committed</Checkbox>
+                </FormGroup>
+            </Col>
+            <Col xs={6}>
+                <FormGroup>
+                    <ControlLabel htmlFor="commitmentSchool">Commitment School: </ControlLabel>
+                    <FormControl name="commitment_school" value={(this.state.isChecked) ? user.commitment_school : ''} onChange={this.onChange} disabled={!this.state.isChecked} required={this.state.isChecked} placeholder="University of Michigan" type="text" id="commitmentSchool" pattern=".{2,255}" />
+                </FormGroup>
+            </Col>
+        </Row>
             <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
         </form>
     </div>

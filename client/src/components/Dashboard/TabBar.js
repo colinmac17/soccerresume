@@ -12,19 +12,7 @@ class TabBar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: {
-                academic: {
-                    userId: this.props.userId,
-                    grad_year: '',
-                    gpa: '',
-                    sat_score: '',
-                    act_score: '',
-                    highschool: '',
-                    ncaa_eligibility_status: '',
-                    ncaa_eligibility_number: '',
-
-                }
-            }
+            userId: this.props.userId
         }
     }
 
@@ -50,22 +38,22 @@ class TabBar extends Component {
         return (
             <Tabs animation={false} onSelect={this.changeTab} defaultActiveKey={1} id="dashboard-tab-bar">
                 <Tab eventKey={1} title="Academic">
-                    <AcademicInfo userId={this.state.user.academic.userId}/>
+                    <AcademicInfo userId={this.state.userId}/>
                 </Tab>
                 <Tab eventKey={2} title="Athletic">
-                    <AthleticInfo userId={this.state.user.academic.userId} />
+                    <AthleticInfo userId={this.state.userId} />
                 </Tab>
                 <Tab eventKey={3} title="Media">
-                    <Media userId={this.state.user.academic.userId}/>
+                    <Media userId={this.state.userId}/>
                 </Tab>
                 <Tab eventKey={4} title="Contact">
-                    <ContactInfo userId={this.state.user.academic.userId} />
+                    <ContactInfo userId={this.state.userId} />
                 </Tab>
                 <Tab eventKey={5} title="Account">
-                    <Account userId={this.state.user.academic.userId} />
+                    <Account userId={this.state.userId} />
                 </Tab>
                 <Tab eventKey={6} title="Favorites">
-                    <Favorites userId={this.state.user.academic.userId} />
+                    <Favorites userId={this.state.userId} />
                 </Tab>
             </Tabs>
         )
