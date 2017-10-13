@@ -16,6 +16,13 @@ module.exports = {
                 }
             }).catch(err => console.log(err));
     },
+    deleteOne: (req, res) => {
+        db.media_links.destroy({
+            where: {
+                id: req.params.id
+            }
+        }).then(data => res.json(req.body))
+    },
     findById: (req, res) => {
         db.media_links.findAll({
             where: {

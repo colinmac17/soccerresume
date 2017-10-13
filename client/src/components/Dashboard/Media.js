@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
+import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
 
 class Media extends Component {
@@ -10,6 +10,7 @@ class Media extends Component {
             user: {
                 link: '',
                 media_source: '',
+                title: '',
                 userId: this.props.userId
             },
             allMedia: []
@@ -21,9 +22,7 @@ class Media extends Component {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
-                    user: {
-                        allMedia: result.data
-                    }
+                    allMedia: result.data
                 })
             }
         }).catch(err => console.log(err));
@@ -38,51 +37,78 @@ class Media extends Component {
         });
       }
 
-      handleCheckBoxChange = (e) => {
-        this.setState({
-          isChecked: e.target.checked
-        });
-      }
-
       renderAlert = (type, msg) => {
           if (type = 'error') alert(msg)
       }
    
     handleSubmit = (e) => {
-        e.preventDefault();
+        e.preventDefault()
         const mediaInfo = this.state.user
         mediaInfo.commitment_status = this.state.isChecked
             axios.post(`/api/media/create`, mediaInfo)
                 .then(result => {
                     console.log(result.data)
-                    this.setState({
-                        method: 'PUT'
-                    })
+                    this.state.user.link = ''
+                    this.state.user.media_source = ''
+                    this.state.user.title = ''
+                }).then(links => {
+                    axios.get(`/api/media/&id=${this.state.userId}`)
+                    .then(result => {
+                        console.log(result)
+                        if (result.data !== null) {
+                            this.setState({
+                                allMedia: result.data
+                            })
+                        }
+                    }).catch(err => console.log(err))
                 }).catch(err => console.log(err))
     }
-    // let linkId = 1
-    // axios.put(`/api/media/&id=${linkId}`, mediaInfo)
-    //     .then(result => {
-    //         console.log(result)
-    //     }).catch(err => console.log(err))
+
+    handleDelete = (e) => {
+        e.preventDefault()
+        axios.delete(`api/media/&id=${this.state.keyToDelete}`)
+            .then(data =>{
+                console.log(data)
+            }).then(links => {
+                axios.get(`/api/media/&id=${this.state.userId}`)
+                .then(result => {
+                    console.log(result)
+                    if (result.data !== null) {
+                        this.setState({
+                            allMedia: result.data
+                        })
+                    }
+                }).catch(err => console.log(err))
+            }).catch(err => console.log(err))
+    }
+
     render() {
         const { user, allMedia } = this.state
         const allLinks = allMedia.map((row, index) => {
             return (
-                <li key={row.id}>
-                    <form action={`/api/media/&id=${row.id}`} method="PUT" onSubmit={this.handleSubmit}>
-                        <Row>
-                            <Col xs={12}>
+                <li className="media-link" key={row.id}>
+                    <h5>{row.title}</h5>
+                    <Row>
+                        <form action={`/api/media/&id=${row.id}`} method="PUT" onSubmit={this.handleSubmit}>
+                            <Col xs={6}>
                                 <FormGroup>
-                                    <FormControl type="text" name="link" value={row.link} onchange={this.onChange} required/>
+                                    <FormControl type="text" name="link" value={row.link} onChange={this.onChange} required/>
                                 </FormGroup>
+                            </Col>
+                            <Col xs={3}>
                                 <button type="submit" className="btn btn-success">Update</button>
                             </Col>
-                        </Row>
-                    </form>  
+                        </form>  
+                        <Col xs={3}>
+                            <form action={`/api/media&id=${row.id}`} method="DELETE" onSubmit={this.handleDelete}>
+                                <button type="submit" className="btn btn-danger">Delete</button>
+                            </form>
+                        </Col>
+                    </Row>
                 </li>
             )
         })
+
         return (
             <div className="container">
             <h2 className="poppins-font">Media</h2>
@@ -105,12 +131,22 @@ class Media extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
+                <Row>
+                    <Col xs={12}>
+                        <FormGroup>
+                            <ControlLabel htmlFor="title">Title: <span className="red">*</span> </ControlLabel>
+                            <FormControl type="text" name="title" value={user.title} onChange={this.onChange} placeholder="Wayne Rooney - 2017 Highlights" id="title" required />
+                        </FormGroup>
+                    </Col>
+                </Row>
                 <button type="submit" className="btn btn-primary">Add Link</button>
             </form>
 
                 <h3>All My Links</h3>
                 <hr/>
-                <ul>{allLinks}</ul>
+                <ul>
+                    {allLinks}
+                </ul>
             </div>
         )
   }

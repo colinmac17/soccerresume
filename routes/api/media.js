@@ -12,5 +12,8 @@ router.route('/create')
 //Udpate Routes
 router.route('/&id=:id')
     .put(auth.isLoggedIn, mediaController.updateOne);
+//DELETE Routes
+router.route('/&id=:id')
+    .delete(auth.isLoggedIn, mediaController.deleteOne);
 
 module.exports = router;

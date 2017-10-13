@@ -71,7 +71,7 @@ class Login extends Component {
                         </Col>
                         <Col xs={6}>
                             <FormGroup controlId="formValidationPassowrd" validationState={validation.password.state}>
-                                <ControlLabel htmlFor="password">Username: </ControlLabel>
+                                <ControlLabel htmlFor="password">Password: </ControlLabel>
                                 <FormControl name="password" value={user.password.trim()} type="text" id="password" onChange={this.onChange} required/>
                                 <FormControl.Feedback />
                                 <HelpBlock>{validation.password.help}</HelpBlock>
