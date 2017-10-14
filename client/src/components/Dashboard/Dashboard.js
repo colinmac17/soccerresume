@@ -93,7 +93,7 @@ class Dashboard extends Component {
                 return (
                 <div className="container margin-top-50">
                     <h1 className="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
-                    <TabBar userId={this.state.user.id}/>
+                    <TabBar user={this.state.user}/>
                 </div>
               )
             } 

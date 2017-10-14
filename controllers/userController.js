@@ -84,49 +84,13 @@ module.exports = {
             where: {
                 id: req.params.id
             }
-            // include: [
-            //     // {model: db.academic_stats},
-            //     {model: db.athletic_stats},
-            //     {model: db.contact_info},
-            //     {model: db.accolades},
-            //     {model: db.media_links},
-            //     {model: db.user_settings},
-            //     {model: db.academic_stats} 
-            // ]
-        }).then(userData => {
-            res.json(userData);
-            // const resObj = userData.map(user => {
-            //     return Object.assign(
-            //         {},
-            //         {
-            //             id: user.id,
-            //             username: user.username,
-            //             email: user.email,
-            //             first_name: user.first_name,
-            //             last_name: user.last_name,
-            //             grad_year: user.grad_year,
-            //             user_type: user.user_type,
-            //             user_plan: user.user_plan,
-            //             settings: user.user_settings.map(setting => {
-            //                 return Object.assign(
-            //                     {},
-            //                     {
-            //                         bAllowDownloadAsPDF: setting.bAllowDownloadAsPDF,
-            //                         bDBSearchable: setting.bDBSearchable,
-            //                         bProfilePublic: setting.bProfilePublic
-            //                     }
-            //                 )
-            //             })
-            //         }
-            //     )
-            // })
-        })
+        }).then(userData => res.json(userData));
     },
     updateOne: (req, res) => {
         db.user.update(req.body,{
             where: {
                 id: req.params.id
             }
-        }).then(data => res.json(req.body));
+        }).then(data => res.json(req.body));    
     }
 }

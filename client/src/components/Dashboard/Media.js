@@ -66,7 +66,7 @@ class Media extends Component {
 
     handleDelete = (e) => {
         e.preventDefault()
-        axios.delete(`api/media/&id=${this.state.keyToDelete}`)
+        axios.delete(`/api/media/&id=${e.target.id}`)
             .then(data =>{
                 console.log(data)
             }).then(links => {
@@ -89,21 +89,16 @@ class Media extends Component {
                 <li className="media-link" key={row.id}>
                     <h5>{row.title}</h5>
                     <Row>
-                        <form action={`/api/media/&id=${row.id}`} method="PUT" onSubmit={this.handleSubmit}>
+                        <form action={`/api/media/&id=${row.id}`} id={row.id} method="DELETE" onSubmit={this.handleDelete}>
                             <Col xs={6}>
                                 <FormGroup>
-                                    <FormControl type="text" name="link" value={row.link} onChange={this.onChange} required/>
+                                    <FormControl type="text" name="link" value={row.link} onChange={this.onChange} disabled/>
                                 </FormGroup>
                             </Col>
                             <Col xs={3}>
-                                <button type="submit" className="btn btn-success">Update</button>
+                                <button type="submit" className="btn btn-danger">Delete</button>
                             </Col>
                         </form>  
-                        <Col xs={3}>
-                            <form action={`/api/media&id=${row.id}`} method="DELETE" onSubmit={this.handleDelete}>
-                                <button type="submit" className="btn btn-danger">Delete</button>
-                            </form>
-                        </Col>
                     </Row>
                 </li>
             )
@@ -144,9 +139,7 @@ class Media extends Component {
 
                 <h3>All My Links</h3>
                 <hr/>
-                <ul>
-                    {allLinks}
-                </ul>
+                <ul>{allLinks}</ul>
             </div>
         )
   }
