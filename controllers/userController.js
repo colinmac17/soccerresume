@@ -48,36 +48,36 @@ module.exports = {
             }
         }).then(data => res.json(data));
     },
-    findByUsername: (req, res) => {
-        db.user.findOne({
-            where: {
-                id: req.params.id
-            },
-            include: [ 
-                {
-                    model: db.user_settings
-                },
-                {
-                    model: db.athletic_stats
-                },
-                {
-                    model: db.academic_stats
-                },
-                {
-                    model: db.contact_info
-                },
-                {
-                    model: db.additional_stats
-                },
-                {
-                    model: db.media_links
-                },
-                {
-                    model: db.accolades
-                }
-            ]
-        }).then(data => res.json(data));
-    },
+    // findByUsername: (req, res) => {
+    //     db.user.findOne({
+    //         where: {
+    //             id: req.params.id
+    //         },
+    //         include: [ 
+    //             {
+    //                 model: db.user_settings
+    //             },
+    //             {
+    //                 model: db.athletic_stats
+    //             },
+    //             {
+    //                 model: db.academic_stats
+    //             },
+    //             {
+    //                 model: db.contact_info
+    //             },
+    //             {
+    //                 model: db.additional_stats
+    //             },
+    //             {
+    //                 model: db.media_links
+    //             },
+    //             {
+    //                 model: db.accolades
+    //             }
+    //         ]
+    //     }).then(data => res.json(data));
+    // },
     findByGPA: (req, res) => {
         db.academic_stats.findAll({
             where: {
