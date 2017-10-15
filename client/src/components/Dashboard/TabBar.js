@@ -40,7 +40,7 @@ class TabBar extends Component {
         return (
             <Tabs animation={false} onSelect={this.changeTab} defaultActiveKey={1} id="dashboard-tab-bar">
                 <Tab eventKey={1} title="Academic">
-                    <AcademicInfo userId={this.state.data.user.id} />
+                    <AcademicInfo userId={this.state.data.user.id} academicStats={this.state.data.academic_stats} />
                 </Tab>
                 <Tab eventKey={2} title="Athletic">
                     <AthleticInfo userId={this.state.data.user.id} />

@@ -19,6 +19,11 @@ class AcademicInfo extends Component {
             }
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({academic: nextProps.academicStats});
+    }
+
     componentDidMount() {
         axios.get(`/api/academic/&id=${this.state.userId}`)
         .then(result => {
