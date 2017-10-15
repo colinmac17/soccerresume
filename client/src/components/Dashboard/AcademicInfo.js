@@ -8,7 +8,7 @@ class AcademicInfo extends Component {
         this.state = {
             userId: this.props.userId,
             method: '',
-            isChecked: '',
+            isChecked: false,
             user: {
                 grad_year: '',
                 gpa: '',

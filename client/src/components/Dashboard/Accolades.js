@@ -47,6 +47,8 @@ class Accolades extends Component {
             axios.post(`/api/accolades/create`, accoladeInfo)
                 .then(result => {
                     console.log(result.data)
+                    this.state.user.accolade_description = ''
+                    this.state.user.year_achieved = ''
                 }).then(links => {
                     axios.get(`/api/accolades/&id=${this.state.userId}`)
                     .then(result => {
@@ -71,7 +73,7 @@ class Accolades extends Component {
                     console.log(result)
                     if (result.data !== null) {
                         this.setState({
-                            allMedia: result.data
+                            allAccolades: result.data
                         })
                     }
                 }).catch(err => console.log(err))
@@ -106,7 +108,7 @@ class Accolades extends Component {
                         <FormGroup>
                             <ControlLabel htmlFor="description">Description: <span className="red">*</span> </ControlLabel>
                             <br/>
-                            <textarea class="form-control" form="accoladeForm" name="accolade_description" type="text" value={user.accolade_description} onChange={this.onChange} placeholder='Gatorade High School Player of the Year' id="textarea" required></textarea>
+                            <textarea className="form-control" form="accoladeForm" name="accolade_description" type="text" value={user.accolade_description} onChange={this.onChange} placeholder='Gatorade High School Player of the Year' id="textarea" required></textarea>
                         </FormGroup>
                     </Col>
                 </Row>

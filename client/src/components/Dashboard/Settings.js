@@ -8,8 +8,8 @@ class Settings extends Component {
         super(props)
         this.state = {
             userId: this.props.userId,
-            isPublicChecked: '',
-            isPdfChecked: '',
+            isPublicChecked: false,
+            isPdfChecked: false,
             user: {
                 userId: this.props.userId
             }
@@ -71,8 +71,6 @@ class Settings extends Component {
                                 isPublicChecked: result.data.bProfilePublic,
                                 isPdfChecked: result.data.bAllowDownloadAsPDF
                             })
-                            this.props.userSettings.bAllowDownloadAsPDF = result.data.bAllowDownloadAsPDF
-                            this.props.userSettings.bProfilePublic = result.data.bProfilePublic
                         })
                         
                 }).catch(err => console.log(err))
@@ -80,25 +78,25 @@ class Settings extends Component {
 
     render() {
     const { user } = this.state
-    //const profileMessage = (this.props.userSettings.bProfilePublic) ? <p id="profileMsg">You can find your profile at <a href={`https://www.soccerresu.me/${this.props.user.username}`}>https://www.soccerresu.me/{this.props.user.username}</a></p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.</p>
+    const profileMessage = (this.state.isPublicChecked) ? <p id="profileMsg">You can find your profile at <a href={`https://www.soccerresu.me/${this.props.user.username}`}>https://www.soccerresu.me/{this.props.user.username}</a>. If you have just changed the public profile setting, you will need to click update to make your profile public.</p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.  If you have just changed the public profile setting, you will need to click update to remove your profile from the public.</p>
     return (
         <div className="container">
         <h2 className="poppins-font">Settings</h2>
-        
+        {profileMessage}
         <hr/>
         <br/>
         <form action={`/api/settings/&id=${this.state.userId}`} method="PUT" onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>
                 <FormGroup>
-                    <ControlLabel htmlFor="bAllowPDF">Allow Profile to Be Downloaded as PDF: </ControlLabel>
+                    <ControlLabel htmlFor="bAllowPDF">Allow Profile to Be Downloaded as PDF: <span className="star">*</span> </ControlLabel>
                     <br/>
                     <Checkbox name="bAllowDownloadAsPDF" onChange={this.handlePDFChange} id="bAllowPDF" inline value="1" checked={this.state.isPdfChecked}>Downloadable as PDF</Checkbox>
                 </FormGroup>
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="bAllowPublic">Make Profile Public: </ControlLabel>
+                        <ControlLabel htmlFor="bAllowPublic">Make Profile Public: <span className="star">*</span> </ControlLabel>
                         <br/>
                         <Checkbox name="bProfilePublic" onChange={this.handlePublicChange} id="bAllowPublic" inline value="1" checked={this.state.isPublicChecked}>Profile Public</Checkbox>
                     </FormGroup>

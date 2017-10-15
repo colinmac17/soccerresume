@@ -47,6 +47,9 @@ class Media extends Component {
             axios.post(`/api/media/create`, mediaInfo)
                 .then(result => {
                     console.log(result.data)
+                    this.state.user.link = ''
+                    this.state.user.media_source = ''
+                    this.state.user.title = ''
                 }).then(links => {
                     axios.get(`/api/media/&id=${this.state.userId}`)
                     .then(result => {
@@ -83,13 +86,10 @@ class Media extends Component {
         const allLinks = allMedia.map((row, index) => {
             return (
                 <li className="media-link" key={row.id}>
-                    <h5>{row.title}</h5>
                     <Row>
                         <form action={`/api/media/&id=${row.id}`} id={row.id} method="DELETE" onSubmit={this.handleDelete}>
                             <Col xs={6}>
-                                <FormGroup>
-                                    <FormControl type="text" name="link" value={row.link} onChange={this.onChange} disabled/>
-                                </FormGroup>
+                                <a href={row.link} target="_blank">{row.title}</a>
                             </Col>
                             <Col xs={3}>
                                 <button type="submit" className="btn btn-danger">Delete</button>

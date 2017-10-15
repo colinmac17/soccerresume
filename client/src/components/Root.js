@@ -9,8 +9,9 @@ import Pricing from './Marketing/Pricing';
 import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
 import Dashboard from './Dashboard/Dashboard';
+import Profile from './Profile/Profile';
 import axios from 'axios';
-import { BrowserRouter as Router, Route, Switch} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Match} from 'react-router-dom';
 
 class Root extends Component {
     constructor(props) {
@@ -55,6 +56,7 @@ class Root extends Component {
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/signup" component={SignUp}/>
                     <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route path="/:username" component={Profile}/>
                     <Route component={NotFound}/>
                 </Switch>
             </div>

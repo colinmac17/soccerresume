@@ -8,6 +8,8 @@ var auth = require('../../controllers/authcontroller');
 //Read Routes
 router.route('/')
     .get(auth.isLoggedIn, userController.findAll);
+router.route('/:username')
+    .get(userController.findByUsername);
 router.route('/&id=:id')
     .get(auth.isLoggedIn, userController.findById);
 router.route('/&gradyear=:grad_year')
