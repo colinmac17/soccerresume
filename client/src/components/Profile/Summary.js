@@ -25,7 +25,7 @@ class Summary extends Component {
 
     render() {
         return(
-            <h1>Contact</h1>
+            <h1>Summary</h1>
         )
     }
 }

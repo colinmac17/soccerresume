@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import Contact from './Profile/Contact';
-import Summary from './Profile/Summary';
-import Soccer from './Profile/Soccer';
+import Contact from './Contact';
+import Summary from './Summary';
+import Soccer from './Soccer';
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import axios from 'axios';
