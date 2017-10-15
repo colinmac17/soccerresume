@@ -57,6 +57,7 @@ class Dashboard extends Component {
                 console.log(user)
                 this.setState({
                     user: {
+                        id: user.data.id,
                         first_name: user.data.first_name,
                         last_name: user.data.last_name,
                         grad_year: user.data.grad_year,

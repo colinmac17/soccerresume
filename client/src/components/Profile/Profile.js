@@ -87,9 +87,9 @@ class Profile extends Component {
         
         return (
             <div className="container margin-top-75">
-                <Contact />
-                <Summary />
-                <Soccer />
+                <Contact user={this.state.user} contact={this.state.contact_info}/>
+                <Summary user={this.state.user} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
+                <Soccer athletic={this.state.athletic_stats} media={this.state.media_links} accolades={this.state.accolades}/>
             </div>
         )
     }
