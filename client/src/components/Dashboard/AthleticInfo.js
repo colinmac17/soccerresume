@@ -22,6 +22,7 @@ class AthleticInfo extends Component {
             }
         }
     }
+
     componentDidMount() {
         axios.get(`/api/athletic/&id=${this.state.userId}`)
         .then(result => {

@@ -7,8 +7,31 @@ let userData = db.user.findAll({})
 
 module.exports = {
     findAll: (req, res) => {
-        db.user.findAll({})
-            .then(data => res.json(data));
+        db.user.findAll({
+            include: [ 
+                {
+                    model: db.user_settings
+                },
+                {
+                    model: db.athletic_stats
+                },
+                {
+                    model: db.academic_stats
+                },
+                {
+                    model: db.contact_info
+                },
+                {
+                    model: db.additional_stats
+                },
+                {
+                    model: db.media_links
+                },
+                {
+                    model: db.accolades
+                }
+            ]
+        }).then(data => res.json(data));
     },
     findByGradYear: (req, res) => {
         db.user.findAll({
@@ -83,7 +106,30 @@ module.exports = {
         db.user.findOne({
             where: {
                 id: req.params.id
-            }
+            },
+            include: [ 
+                {
+                    model: db.user_settings
+                },
+                {
+                    model: db.athletic_stats
+                },
+                {
+                    model: db.academic_stats
+                },
+                {
+                    model: db.contact_info
+                },
+                {
+                    model: db.additional_stats
+                },
+                {
+                    model: db.media_links
+                },
+                {
+                    model: db.accolades
+                }
+            ]
         }).then(userData => res.json(userData));
     },
     updateOne: (req, res) => {

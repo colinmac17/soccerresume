@@ -15,10 +15,16 @@ class Settings extends Component {
             }
         }
     }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({settings: nextProps.userSettings});
+    }
+
     componentDidMount() {
         axios.get(`/api/settings/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
+            console.log(this.props)
             if (result.data !== null) {
                 this.setState({
                     isPublicChecked: result.data.bProfilePublic,
@@ -57,15 +63,28 @@ class Settings extends Component {
             axios.put(`/api/settings/&id=${this.state.userId}`, settingsInfo)
                 .then(result => {
                     console.log(result.data)
+                }).then(() => {
+                    axios.get(`/api/settings/&id=${this.state.userId}`)
+                        .then(result => {
+                            console.log(result.data)
+                            this.setState({
+                                isPublicChecked: result.data.bProfilePublic,
+                                isPdfChecked: result.data.bAllowDownloadAsPDF
+                            })
+                            this.props.userSettings.bAllowDownloadAsPDF = result.data.bAllowDownloadAsPDF
+                            this.props.userSettings.bProfilePublic = result.data.bProfilePublic
+                        })
+                        
                 }).catch(err => console.log(err))
         }
 
     render() {
     const { user } = this.state
+    //const profileMessage = (this.props.userSettings.bProfilePublic) ? <p id="profileMsg">You can find your profile at <a href={`https://www.soccerresu.me/${this.props.user.username}`}>https://www.soccerresu.me/{this.props.user.username}</a></p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.</p>
     return (
         <div className="container">
         <h2 className="poppins-font">Settings</h2>
-        <p>Until you make your profile public, there will not be a public link for your profile.</p>
+        
         <hr/>
         <br/>
         <form action={`/api/settings/&id=${this.state.userId}`} method="PUT" onSubmit={this.handleSubmit}>

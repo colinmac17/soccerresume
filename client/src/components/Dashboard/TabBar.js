@@ -6,14 +6,19 @@ import Media from './Media';
 import ContactInfo from './ContactInfo';
 import Account from './Account';
 import Settings from './Settings';
+import Accolades from './Accolades';
 import { Tabs, Tab, FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
 
 class TabBar extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            user: this.props.user
+            data: this.props.user
         }
+    }
+
+    componentWillReceiveProps(nextProps) {
+        this.setState({data: nextProps.user});
     }
 
     onChange = (e) => {
@@ -35,22 +40,25 @@ class TabBar extends Component {
         return (
             <Tabs animation={false} onSelect={this.changeTab} defaultActiveKey={1} id="dashboard-tab-bar">
                 <Tab eventKey={1} title="Academic">
-                    <AcademicInfo userId={this.state.user.id}/>
+                    <AcademicInfo userId={this.state.data.user.id} />
                 </Tab>
                 <Tab eventKey={2} title="Athletic">
-                    <AthleticInfo userId={this.state.user.id} />
+                    <AthleticInfo userId={this.state.data.user.id} />
                 </Tab>
-                <Tab eventKey={3} title="Media">
-                    <Media userId={this.state.user.id}/>
+                <Tab eventKey={3} title="Accolades">
+                    <Accolades userId={this.state.data.user.id} />
                 </Tab>
-                <Tab eventKey={4} title="Contact">
-                    <ContactInfo userId={this.state.user.id} />
+                <Tab eventKey={4} title="Media">
+                    <Media userId={this.state.data.user.id}/>
                 </Tab>
-                <Tab eventKey={5} title="Account">
-                    <Account userId={this.state.user.id} />
+                <Tab eventKey={5} title="Contact">
+                    <ContactInfo userId={this.state.data.user.id} />
                 </Tab>
-                <Tab eventKey={6} title="Settings">
-                    <Settings userId={this.state.user.id} />
+                <Tab eventKey={6} title="Account">
+                    <Account userId={this.state.data.user.id} accountInfo={this.state.data.user} />
+                </Tab>
+                <Tab eventKey={7} title="Settings">
+                    <Settings userId={this.state.data.user.id} userSettings={this.state.data.user_settings} user={this.state.data.user}  />
                 </Tab>
             </Tabs>
         )

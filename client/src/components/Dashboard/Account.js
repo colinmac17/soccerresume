@@ -16,6 +16,7 @@ class Account extends Component {
             }
         }
     }
+
     componentDidMount() {
         axios.get(`/api/users/&id=${this.state.userId}`)
         .then(result => {

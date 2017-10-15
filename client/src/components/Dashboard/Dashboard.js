@@ -16,9 +16,16 @@ class Dashboard extends Component {
                 plan: '',
                 type: '',
                 last_updated: '',
-                date_joined: ''
+                date_joined: '',
             },
-            isAuthenticated: false,
+            user_settings: '',
+            athletic_stats: '',
+            academic_stats: '',
+            contact_info: '',
+            additional_stats: '',
+            accolades: '',
+            media_links: '',
+            isAuthenticated: '',
             errors: {
                 auth_fail: '',
                 auth_success: ''
@@ -46,7 +53,7 @@ class Dashboard extends Component {
             }
         }).then(user => {
             axios.get(`/api/users/&id=${this.state.user.id}`)
-            .then(user => {
+              .then(user => {
                 console.log(user)
                 this.setState({
                     user: {
@@ -58,8 +65,16 @@ class Dashboard extends Component {
                         plan: user.data.user_plan == 1 ? 'Basic' : 'Pro',
                         type: user.data.user_plan == 1 ? 'Player' : 'Coach',
                         last_updated: user.data.updatedAt,
-                        date_joined: user.data.createdAt
-                    }
+                        date_joined: user.data.createdAt,
+                    },
+                    user_settings: user.data.user_setting,
+                    athletic_stats: user.data.athletic_stat,
+                    academic_stats: user.data.academic_stat,
+                    contact_info: user.data.contact_info,
+                    additional_stats: user.data.additional_stats,
+                    accolades: user.data.accolades,
+                    media_links: user.data.media_links,
+                    isAuthenticated: true
                 })
             }).catch(err => {
                 this.setState({
@@ -93,7 +108,7 @@ class Dashboard extends Component {
                 return (
                 <div className="container margin-top-50">
                     <h1 className="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
-                    <TabBar user={this.state.user}/>
+                    <TabBar user={this.state}/>
                 </div>
               )
             } 

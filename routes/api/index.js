@@ -7,6 +7,7 @@ const athleticRoutes = require("./athletic");
 const mediaRoutes = require('./media');
 const contactRoutes = require('./contact');
 const settingsRoutes = require('./settings');
+const accoladeRoutes = require('./accolades');
 
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
@@ -15,6 +16,7 @@ router.use('/athletic', athleticRoutes);
 router.use('/media', mediaRoutes);
 router.use('/contact', contactRoutes);
 router.use('/settings', settingsRoutes);
+router.use('/accolades', accoladeRoutes);
 // set routes for other modesl
 //router.use('/settings', settingsRoutes);
 

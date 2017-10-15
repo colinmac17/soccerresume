@@ -2,27 +2,27 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
 
-class Media extends Component {
+class Accolades extends Component {
     constructor(props){
         super(props)
         this.state = {
-            userId: this.props.userId,
+            userId: this.props.userId,  
             user: {
-                link: '',
-                media_source: '',
-                title: '',
+                accolade_description: '',
+                year_achieved: '',
                 userId: this.props.userId
             },
-            allMedia: []
+            allAccolades: []
         }
     }
+
     componentDidMount() {
-        axios.get(`/api/media/&id=${this.state.userId}`)
+        axios.get(`/api/accolades/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
-                    allMedia: result.data
+                    allAccolades: result.data
                 })
             }
         }).catch(err => console.log(err));
@@ -43,17 +43,17 @@ class Media extends Component {
    
     handleSubmit = (e) => {
         e.preventDefault()
-        const mediaInfo = this.state.user
-            axios.post(`/api/media/create`, mediaInfo)
+        const accoladeInfo = this.state.user
+            axios.post(`/api/accolades/create`, accoladeInfo)
                 .then(result => {
                     console.log(result.data)
                 }).then(links => {
-                    axios.get(`/api/media/&id=${this.state.userId}`)
+                    axios.get(`/api/accolades/&id=${this.state.userId}`)
                     .then(result => {
                         console.log(result)
                         if (result.data !== null) {
                             this.setState({
-                                allMedia: result.data
+                                allAccolades: result.data
                             })
                         }
                     }).catch(err => console.log(err))
@@ -62,11 +62,11 @@ class Media extends Component {
 
     handleDelete = (e) => {
         e.preventDefault()
-        axios.delete(`/api/media/&id=${e.target.id}`)
+        axios.delete(`/api/accolades/&id=${e.target.id}`)
             .then(data =>{
                 console.log(data)
             }).then(links => {
-                axios.get(`/api/media/&id=${this.state.userId}`)
+                axios.get(`/api/accolades/&id=${this.state.userId}`)
                 .then(result => {
                     console.log(result)
                     if (result.data !== null) {
@@ -79,17 +79,14 @@ class Media extends Component {
     }
 
     render() {
-        const { user, allMedia } = this.state
-        const allLinks = allMedia.map((row, index) => {
+        const { user, allAccolades } = this.state
+        const Accolades = allAccolades.map((row, index) => {
             return (
                 <li className="media-link" key={row.id}>
-                    <h5>{row.title}</h5>
                     <Row>
-                        <form action={`/api/media/&id=${row.id}`} id={row.id} method="DELETE" onSubmit={this.handleDelete}>
+                        <form action={`/api/accolades/&id=${row.id}`} id={row.id} method="DELETE" onSubmit={this.handleDelete}>
                             <Col xs={6}>
-                                <FormGroup>
-                                    <FormControl type="text" name="link" value={row.link} onChange={this.onChange} disabled/>
-                                </FormGroup>
+                                <h5>{row.accolade_description}</h5>
                             </Col>
                             <Col xs={3}>
                                 <button type="submit" className="btn btn-danger">Delete</button>
@@ -102,43 +99,34 @@ class Media extends Component {
 
         return (
             <div className="container">
-            <h2 className="poppins-font">Media</h2>
-            <form action={'/api/media/create'} method="POST" onSubmit={this.handleSubmit}>
+            <h2 className="poppins-font">Accolades</h2>
+            <form action={'/api/accolades/create'} method="POST" onSubmit={this.handleSubmit} id="accoladeForm">
                 <Row>
-                    <Col xs={6}>
+                    <Col xs={12}>
                         <FormGroup>
-                            <ControlLabel htmlFor="link">Video Link: <span className="red">*</span> </ControlLabel>
-                            <FormControl name="link" type="text" value={user.link} onChange={this.onChange} placeholder='https://www.youtube.com/watch?v=RN9G2VVtbK8' id="link"  required/>
-                        </FormGroup>
-                    </Col>
-                    <Col xs={6}>
-                        <FormGroup>
-                            <ControlLabel htmlFor="mediaSource">Video Source: <span className="red">*</span>  </ControlLabel>
-                                <select className="form-control" name="media_source" type="text" value={user.media_source} onChange={this.onChange}  id="mediaSource" required>
-                                    <option>-----</option>
-                                    <option value="youtube">Youtube</option>
-                                    <option value="vimeo">Vimeo</option>
-                                </select>
+                            <ControlLabel htmlFor="description">Description: <span className="red">*</span> </ControlLabel>
+                            <br/>
+                            <textarea class="form-control" form="accoladeForm" name="accolade_description" type="text" value={user.accolade_description} onChange={this.onChange} placeholder='Gatorade High School Player of the Year' id="textarea" required></textarea>
                         </FormGroup>
                     </Col>
                 </Row>
                 <Row>
                     <Col xs={12}>
                         <FormGroup>
-                            <ControlLabel htmlFor="title">Title: <span className="red">*</span> </ControlLabel>
-                            <FormControl type="text" name="title" value={user.title} onChange={this.onChange} placeholder="Wayne Rooney - 2017 Highlights" id="title" required />
+                            <ControlLabel htmlFor="yearAchieved">Year Achieved: <span className="red">*</span> </ControlLabel>
+                            <FormControl type="text" name="year_achieved" value={user.year_achieved} onChange={this.onChange} placeholder="2017" id="yearAchieved" maxLength="4" pattern=".{4,4}" required />
                         </FormGroup>
                     </Col>
                 </Row>
                 <button type="submit" className="btn btn-primary">Add Link</button>
             </form>
 
-                <h3>All My Links</h3>
+                <h3>My Accolades</h3>
                 <hr/>
-                <ul>{allLinks}</ul>
+                <ul>{Accolades}</ul>
             </div>
         )
   }
 }
 
-export default Media;
+export default Accolades;

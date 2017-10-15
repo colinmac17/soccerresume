@@ -2,7 +2,7 @@
 module.exports = function(sequelize, DataTypes) {
     var Accolades = sequelize.define('accolades', {
         accolade_description: {
-            type: DataTypes.STRING,
+            type: DataTypes.TEXT,
             allowNull: false,
             validate: {
                 len: [1]
