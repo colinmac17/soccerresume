@@ -51,7 +51,7 @@ module.exports = {
     findByUsername: (req, res) => {
         db.user.findOne({
             where: {
-                username: req.params.username
+                id: req.params.id
             },
             include: [ 
                 {
