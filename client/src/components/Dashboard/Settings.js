@@ -24,7 +24,6 @@ class Settings extends Component {
         axios.get(`/api/settings/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
-            console.log(this.props)
             if (result.data !== null) {
                 this.setState({
                     isPublicChecked: result.data.bProfilePublic,
