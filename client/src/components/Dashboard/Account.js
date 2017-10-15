@@ -59,7 +59,7 @@ class Account extends Component {
     const { user } = this.state
     return (
         <div className="container">
-        <h2 className="poppins-font">Academic Information</h2>
+        <h2 className="poppins-font">Account Information</h2>
         <form action={`/api/users/&id=${this.state.user.id}`} method="PUT" onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>
@@ -84,7 +84,7 @@ class Account extends Component {
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="email">Email: </ControlLabel>
+                        <ControlLabel htmlFor="email">Email: <span className="star">*</span> </ControlLabel>
                         <FormControl name="email" type="email" value={user.email} onChange={this.onChange} placeholder="wayne@gmail.com" id="email" pattern=".{1,255}" required/>
                     </FormGroup>
                 </Col>

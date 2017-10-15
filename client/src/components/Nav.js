@@ -17,7 +17,7 @@ class Nav extends Component {
         }
     }
 
-    componentDidMount() {
+    componentDidUpdate() {
         axios.get('api/auth/authenticated')
             .then(result => {
                 if(!result.data.isAuthenticated) {
@@ -71,7 +71,8 @@ class Nav extends Component {
                         </ul>
                         {this.state.isAuthenticated ? 
                         <form className="navbar-form navbar-right" action="api/auth/logout" method="GET" onSubmit={this.handleLogout}>
-                            <button type="submit" className="btn btn-danger margin-right-20">LOGOUT</button>
+                            <Link to="/dashboard" className="btn btn-primary margin-right-20">Dashboard</Link>
+                            <button type="submit" className="btn btn-danger">LOGOUT</button>
                         </form>
                         :
                         <form className="navbar-form navbar-right">
