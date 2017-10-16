@@ -64,7 +64,7 @@ class Profile extends Component {
               contact_info: user.data.contact_info,
               additional_stats: user.data.additional_stats,
               accolades: user.data.accolades,
-              media_links: user.data.media_links
+              media_links: user.data.media_links 
           })
       }).catch(err => {
           this.setState({
