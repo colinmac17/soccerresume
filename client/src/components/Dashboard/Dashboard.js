@@ -104,12 +104,11 @@ class Dashboard extends Component {
 
     render() {
         const isLoggedIn = this.state.isAuthenticated
-        const publicProfileMessage = (this.state.user_settings.bProfilePublic) ? <h3>View your public profile at https://www.soccerresu.me/{this.state.user.username}</h3> : ''
+
             if (isLoggedIn) { 
                 return (
                 <div className="container margin-top-50">
                     <h1 className="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
-                    {publicProfileMessage}
                     <TabBar user={this.state}/>
                 </div>
               )
