@@ -48,15 +48,6 @@ class Nav extends Component {
             }).catch(err => console.log(err))
     }
 
-    handleLogout = (e) => {
-        e.preventDefault()
-        axios.get('/api/auth/logout')
-            .then(result => {
-                if(!result.data.isAuthenticated) window.location.href = '/';
-                console.log(result)
-            }).catch(err => console.log(err))
-    }
-
     render(){
        
         return(

@@ -63,12 +63,6 @@ class NavDash extends Component {
                         <Navbar.Toggle data-toggle="collapsed" data-target="#navbar-collapsed"/>
                     </Navbar.Header>
                     <Navbar.Collapse id="navbar-collapsed">
-                        <ul className="nav navbar-nav">
-                            <li name="#howitworks" className="pointer"><Link to="/howitworks">How It Works</Link></li>
-                            <li className="pointer"><Link to="/features">Features</Link></li>
-                            <li className="pointer"><Link to="/pricing">Pricing</Link></li>
-                            <li className="pointer"><Link to="/faqs">FAQS</Link></li>
-                        </ul>
                         <form className="navbar-form navbar-right" action="api/auth/logout" method="GET" onSubmit={this.handleLogout}>
                             <Link to="/dashboard" className="btn btn-primary margin-right-20">Dashboard</Link>
                             <button type="submit" className="btn btn-danger">LOGOUT</button>
