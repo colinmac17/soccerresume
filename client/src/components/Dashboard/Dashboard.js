@@ -42,7 +42,7 @@ class Dashboard extends Component {
                         auth_fail: 'You must be signed in to view this page'
                     }
                 })
-                return false;
+                return window.location.href = '/login';
             } else {
                 this.setState({
                     isAuthenticated: true,
