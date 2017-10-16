@@ -3,11 +3,11 @@ import { Link } from 'react-router-dom';
 import { Grid, Navbar } from 'react-bootstrap';
 import axios from 'axios';
 
-class Nav extends Component {
+class NavDash extends Component {
     constructor(props){
         super(props)
         this.state = {
-            isAuthenticated: this.props.isLoggedIn,
+            isAuthenticated: true,
             user: {
                 id: '',
                 prof_pic_url: '',
@@ -15,12 +15,6 @@ class Nav extends Component {
                 last_name: ''
             }
         }
-    }
-
-    componentWillReceiveProps(nextProps){
-        this.setState({
-            isAuthenticated: nextProps.isLoggedIn
-        })
     }
 
     componentDidUpdate() {
@@ -75,9 +69,9 @@ class Nav extends Component {
                             <li className="pointer"><Link to="/pricing">Pricing</Link></li>
                             <li className="pointer"><Link to="/faqs">FAQS</Link></li>
                         </ul>
-                        <form className="navbar-form navbar-right">
-                            <Link to="/login" className="btn btn-default btn-primary margin-right-20">LOGIN</Link>
-                            <Link to="/signup" className="btn btn-default btn-success">SIGN UP</Link>
+                        <form className="navbar-form navbar-right" action="api/auth/logout" method="GET" onSubmit={this.handleLogout}>
+                            <Link to="/dashboard" className="btn btn-primary margin-right-20">Dashboard</Link>
+                            <button type="submit" className="btn btn-danger">LOGOUT</button>
                         </form>
                     </Navbar.Collapse>
                 </Grid>
@@ -86,4 +80,4 @@ class Nav extends Component {
     }
 }
 
-export default Nav;
+export default NavDash;

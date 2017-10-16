@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Landing from './Landing';
 import Nav from './Nav';
+import NavDash from './NavDash'
 import Login from './Login';
 import SignUp from './SignUp';
 import HowItWorks from './Marketing/HowItWorks';
@@ -26,27 +27,14 @@ class Root extends Component {
         }
     }
 
-    checkAuth = () => {
-        axios.get('/api/auth/authenticated')
-            .then((result) => {
-                if (result.data.isAuthenticated) {
-                    this.setState({
-                        isLoggedIn: true
-                    })
-                    return true;
-                } else {
-                    this.setState({
-                        isLoggedIn: false
-                    })
-                }
-            }).catch(err => console.log(err))
-    }
-
     render() {
     return (
         <Router>
             <div>
-                <Nav isLoggedIn={this.state.isLoggedIn}/>
+                {window.location.pathname == '/dashboard' || window.location.pathname == '/dashboard/' ? 
+                <NavDash auth={true}/> :
+                <Nav isLoggedIn={this.state.isLoggedIn} />
+                }
                 <Switch>
                     <Route exact path="/" component={Landing}/>
                     <Route exact path="/howitworks" component={HowItWorks}/>
@@ -55,7 +43,7 @@ class Root extends Component {
                     <Route exact path="/faqs" component={FAQS}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/signup" component={SignUp}/>
-                    <Route exact path="/dashboard" component={Dashboard}/>
+                    <Route exact path="/dashboard" component={Dashboard} />
                     <Route path="/:username" component={Profile}/>
                     <Route component={NotFound}/>
                 </Switch>
