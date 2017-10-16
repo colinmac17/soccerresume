@@ -80,16 +80,17 @@ class Profile extends Component {
         if (this.state.user_settings.bProfilePublic) {
             return (
                 <div className="container margin-top-75">
-                    <h1>You are now at {this.state.user.username}'s Profile</h1>
+                    <h1>{this.state.user.first_name} {this.state.user.last_name}</h1>
+                    <Contact user={this.state.user} contact={this.state.contact_info}/>
+                    <Summary user={this.state.user} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
+                    <Soccer athletic={this.state.athletic_stats} media={this.state.media_links} accolades={this.state.accolades}/>
                 </div>
             )
         }
         
         return (
             <div className="container margin-top-75">
-                <Contact user={this.state.user} contact={this.state.contact_info}/>
-                <Summary user={this.state.user} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
-                <Soccer athletic={this.state.athletic_stats} media={this.state.media_links} accolades={this.state.accolades}/>
+                <h1>This player's profile is not yet public.</h1>
             </div>
         )
     }
