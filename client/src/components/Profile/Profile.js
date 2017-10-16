@@ -43,7 +43,7 @@ class Profile extends Component {
       }
 
     componentDidMount() {
-        axios.get(`/api/users/${this.props.match.params.username}`)
+        axios.get(`/api/users/&username=${this.props.match.params.username}`)
         .then(user => {
           console.log(user)
           this.setState({
