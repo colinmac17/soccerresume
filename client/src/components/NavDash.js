@@ -17,31 +17,6 @@ class NavDash extends Component {
         }
     }
 
-    componentDidUpdate() {
-        axios.get('api/auth/authenticated')
-            .then(result => {
-                if(!result.data.isAuthenticated) {
-                    
-                } else {
-                    this.setState({
-                        user: {
-                            id: result.data.user_id,
-                            isAuthenticated: true
-                        }
-                    })
-                }
-            }).then(user => {
-                if (this.state.isAuthenticated) {
-                    this.setState({
-                        user: {
-                            first_name: user.first_name,
-                            last_name: user.last_name
-                        }
-                    })
-                }
-            }).catch(err => console.log(err))
-    }
-
     handleLogout = (e) => {
         e.preventDefault()
         axios.get('/api/auth/logout')
@@ -52,7 +27,6 @@ class NavDash extends Component {
     }
 
     render(){
-       
         return(
             <Navbar fixedTop>
                 <Grid>
@@ -64,7 +38,7 @@ class NavDash extends Component {
                     </Navbar.Header>
                     <Navbar.Collapse id="navbar-collapsed">
                         <form className="navbar-form navbar-right" action="api/auth/logout" method="GET" onSubmit={this.handleLogout}>
-                            <Link to="/dashboard" className="btn btn-primary margin-right-20">Dashboard</Link>
+                            <Link to="/dashboard" className="btn btn-primary margin-right-30">Dashboard</Link>
                             <button type="submit" className="btn btn-danger">LOGOUT</button>
                         </form>
                     </Navbar.Collapse>
