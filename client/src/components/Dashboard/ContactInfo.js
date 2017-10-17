@@ -113,6 +113,7 @@ class ContactInfo extends Component {
             </Row>
             <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
         </form>
+        <div class="pad-med"></div>
     </div>
     )
   }

@@ -3,8 +3,8 @@ import { Link }  from 'react-router-dom';
 
 const Landing = (props) => {
     return(   
-        <div className="container-fluid margin-top-75">
-            <h1 className="text-center dark-cyan bold margin-top-50 poppins-font">Create a Soccer Resume in Minutes</h1>
+        <div className="container-fluid">
+            <h1 className="text-center dark-cyan bold poppins-font">Create a Soccer Resume in Minutes</h1>
             <hr className="landing-hr"/>
             <div className="jumbotron stadium-background">
                 <div className="row">

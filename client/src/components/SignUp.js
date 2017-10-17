@@ -145,7 +145,7 @@ class SignUp extends Component {
     render() {
         const { errors, user, validation } = this.state
         return (
-            <div className="container margin-top-75">
+            <div className="container">
             <h1 className="text-center cabin-font">Create a Free Acount</h1>
             {this.state.isLoading ? <Message message="Account created successfully!" /> : <p></p>}
             <form id="signUpForm" action='api/auth/signup' method="POST" onSubmit={this.handleFormSubmit}>

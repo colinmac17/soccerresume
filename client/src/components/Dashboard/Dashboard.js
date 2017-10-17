@@ -104,11 +104,12 @@ class Dashboard extends Component {
 
     render() {
         const isLoggedIn = this.state.isAuthenticated
-
+            const dashMsg = <p>Please fill out the information in the tabs below to complete your proile. All information with a <span className="red">*</span> are required, but we reccommend you fill out all fields to make your profile more complete. In order to make your profile public, you need to update your settings.</p>
             if (isLoggedIn) { 
                 return (
-                <div className="container margin-top-50">
-                    <h1 className="cabin-font padding margin-top-30 margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
+                <div className="container">
+                    <h1 className="cabin-font padding margin-bottom-30 black-text bold">PLAYER DASHBOARD</h1>
+                    {dashMsg}
                     <TabBar user={this.state}/>
                 </div>
               )

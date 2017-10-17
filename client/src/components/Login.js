@@ -57,7 +57,7 @@ class Login extends Component {
     render() {
         const { user, validation } = this.state
         return (
-            <div className="container margin-top-50">
+            <div className="container">
                 <h1>Login</h1>
                 <form method="POST" action='api/auth/login' id="login-form" onSubmit={this.handleLogin}>
                     <Row>

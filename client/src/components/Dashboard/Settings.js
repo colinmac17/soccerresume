@@ -103,6 +103,7 @@ class Settings extends Component {
             </Row>
             <button type="submit" className="btn btn-primary">Update</button>
         </form>
+        <div class="pad-med"></div>
     </div>
     )
   }

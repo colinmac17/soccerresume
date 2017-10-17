@@ -80,7 +80,7 @@ class Profile extends Component {
         const { match, location, history } = this.props
         if (this.state.user_settings.bProfilePublic) {
             return (
-                <div className="container margin-top-75">
+                <div className="container">
                     <h1 className="profile-name">{this.state.user.first_name} {this.state.user.last_name}</h1>
                     <Contact user={this.state.user} contact={this.state.contact_info}/>
                     <Summary user={this.state.user} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>

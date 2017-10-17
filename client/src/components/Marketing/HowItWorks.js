@@ -2,7 +2,7 @@ import React from 'react';
 
 const HowItWorks = () => {
     return (
-        <div className="container-fluid margin-top-100">
+        <div className="container-fluid">
             <div className="container">
                 <div className="section-header text-center cabin-font margin-bottom-30">
                     <h1 className="black-text bold">How It Works</h1>

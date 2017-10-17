@@ -126,6 +126,7 @@ class Accolades extends Component {
                 <h3>My Accolades</h3>
                 <hr/>
                 <ul>{Accolades}</ul>
+                <div class="pad-med"></div>
             </div>
         )
   }

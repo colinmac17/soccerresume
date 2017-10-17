@@ -136,6 +136,7 @@ class Media extends Component {
                 <h3>All My Links</h3>
                 <hr/>
                 <ul>{allLinks}</ul>
+                <div class="pad-med"></div>
             </div>
         )
   }

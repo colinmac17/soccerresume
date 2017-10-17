@@ -85,9 +85,11 @@ class AcademicInfo extends Component {
 
     render() {
     const { user } = this.state
+    const academicMessage = 'Please fill in your academic information accurately below.'
     return (
         <div className="container">
         <h2 className="poppins-font">Academic Information</h2>
+        <hr/>
         <form action={(this.state.method === 'POST') ? '/api/academic/create' : `/api/academic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>
@@ -134,6 +136,7 @@ class AcademicInfo extends Component {
             </Row>
             <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
         </form>
+        <div class="pad-med"></div>
     </div>
     )
   }

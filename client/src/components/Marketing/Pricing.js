@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Pricing = () => {
     return (
-        <div className="container-fluid margin-top-150">
+        <div className="container-fluid">
             <div className="container">
                 <div className="section-header text-center cabin-font margin-bottom-30">
                     <h1 className="black-text bold">Pricing</h1>

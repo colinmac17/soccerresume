@@ -51,7 +51,7 @@ class Nav extends Component {
     render(){
        
         return(
-            <Navbar fixedTop>
+            <Navbar>
                 <Grid>
                     <Navbar.Header>
                         <Navbar.Brand>
