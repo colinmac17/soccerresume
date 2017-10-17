@@ -104,7 +104,7 @@ class Dashboard extends Component {
 
     render() {
             const isLoggedIn = this.state.isAuthenticated
-            const dashMsg = <p className="cabin-font font-size-16 margin-bottom-20">Please fill out the information in the tabs below to complete your proile. All information with a <span className="red">*</span> are required, but we reccommend you fill out all fields to make your profile more complete. In order to make your profile public, you need to update your settings.</p>
+            const dashMsg = <p className="cabin-font font-size-16 margin-bottom-20">Please fill out the information in the tabs below to complete your profile. All fields with a <span className="red">*</span> are required, but we reccommend you fill out all fields to make your profile more complete. You can make your profile public by updating your settings.</p>
             
             if (isLoggedIn) { 
                 return (

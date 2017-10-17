@@ -423,4 +423,10 @@ Profil Styles
 
 .summary-academic {
   font-size: 16px;
+  list-style-type: none;
+}
+
+.summary-athletic {
+  font-size: 16px;
+  list-style-type: none;
 }

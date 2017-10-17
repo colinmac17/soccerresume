@@ -45,14 +45,14 @@ class Contact extends Component {
         return(
             <div>
                 <ul className="contact-section poppins-font text-center">
-                    <li>{this.state.data.user.email} <span className="margin-left-5">|</span></li>
-                    <li>{this.formatPhone(phoneNumber)} <span className="margin-left-5">|</span></li>
-                    <li><a target="_blank" href={`https://twitter.com/${this.state.data.contact.twitter_handle}`}>@{this.state.data.contact.twitter_handle}</a></li>
+                    <li><i class="fa fa-envelope margin-right-5" aria-hidden="true"></i>{this.state.data.user.email} <span className="margin-left-5">|</span></li>
+                    <li><i class="fa fa-mobile margin-right-5" aria-hidden="true"></i>{this.formatPhone(phoneNumber)} <span className="margin-left-5">|</span></li>
+                    <li><a target="_blank" href={`https://twitter.com/${this.state.data.contact.twitter_handle}`}><i class="fa fa-twitter margin-right-5" aria-hidden="true"></i>@{this.state.data.contact.twitter_handle}</a></li>
                 </ul>
                 <ul className="contact-section poppins-font text-center">
-                    <li>Born on {this.formatDate(birthday)} <span className="margin-left-5">|</span></li>
-                    <li>{this.state.data.academic.highschool} <span className="margin-left-5">|</span></li>
-                    <li>Class of {this.state.data.academic.grad_year}</li>
+                    <li><i class="fa fa-birthday-cake margin-right-5" aria-hidden="true"></i>Born on {this.formatDate(birthday)} <span className="margin-left-5">|</span></li>
+                    <li><i class="fa fa-book margin-right-5" aria-hidden="true"></i>{this.state.data.academic.highschool} <span className="margin-left-5">|</span></li>
+                    <li><i class="fa fa-graduation-cap margin-right-5" aria-hidden="true"></i>Class of {this.state.data.academic.grad_year}</li>
                 </ul>
                 <hr/>
             </div>
