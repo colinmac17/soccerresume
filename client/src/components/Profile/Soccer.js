@@ -25,7 +25,9 @@ class Soccer extends Component {
 
     render() {
         return(
-            <h1>Soccer</h1>
+            <Jumbotron>
+            
+            </Jumbotron>
         )
     }
 }

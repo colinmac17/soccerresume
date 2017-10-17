@@ -102,6 +102,7 @@ class Accolades extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Accolades</h2>
+            <hr/>
             <form action={'/api/accolades/create'} method="POST" onSubmit={this.handleSubmit} id="accoladeForm">
                 <Row>
                     <Col xs={12}>

@@ -8,7 +8,8 @@ class Summary extends Component {
             data: {
                 user: this.props.user,
                 athletic: this.props.athletic,
-                academic: this.props.academic
+                academic: this.props.academic,
+                contact: this.props.contact
             }
         }
     }
@@ -18,14 +19,27 @@ class Summary extends Component {
             data: {
                 user: nextProps.user,
                 athletic: nextProps.athletic,
-                academic: nextProps.academic
+                academic: nextProps.academic,
+                contact: nextProps.contact
             }
         })
     }
 
     render() {
+        const birthday = this.state.data.contact.birthday
         return(
-            <h1>Summary</h1>
+            <Jumbotron className="poppins-font">
+                <Row>
+                    <Col xs={12} md={6}>
+                        <ul class="summary-academic">
+                            <li></li>
+                        </ul>
+                    </Col>
+                    <Col xs={12} md={6}>
+                    
+                    </Col>
+                </Row>
+            </Jumbotron>
         )
     }
 }

@@ -74,6 +74,7 @@ class ContactInfo extends Component {
     return (
         <div className="container">
         <h2 className="poppins-font">Contact Information</h2>
+        <hr/>
         <form action={(this.state.method === 'POST') ? '/api/contact/create' : `/api/contact/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>

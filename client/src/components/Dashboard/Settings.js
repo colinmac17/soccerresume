@@ -77,7 +77,7 @@ class Settings extends Component {
 
     render() {
     const { user } = this.state
-    const profileMessage = (this.state.isPublicChecked) ? <p id="profileMsg">You can find your profile at <a href={`https://www.soccerresu.me/${this.props.user.username}`}>https://www.soccerresu.me/{this.props.user.username}</a>. If you have just changed the public profile setting, you will need to click update to make your profile public.</p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.  If you have just changed the public profile setting, you will need to click update to remove your profile from the public.</p>
+    const profileMessage = (this.state.isPublicChecked) ? <p id="profileMsg">You can find your profile at <a href={`${window.location.origin}/${this.props.user.username}`}>{window.location.origin}/{this.props.user.username}</a>. If you have just changed the public profile setting, you will need to click update to make your profile public.</p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.  If you have just changed the public profile setting, you will need to click update to remove your profile from the public.</p>
     return (
         <div className="container">
         <h2 className="poppins-font">Settings</h2>

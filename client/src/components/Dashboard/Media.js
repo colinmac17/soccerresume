@@ -103,6 +103,7 @@ class Media extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Media</h2>
+            <hr/>
             <form action={'/api/media/create'} method="POST" onSubmit={this.handleSubmit}>
                 <Row>
                     <Col xs={6}>

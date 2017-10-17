@@ -60,6 +60,7 @@ class Account extends Component {
     return (
         <div className="container">
         <h2 className="poppins-font">Account Information</h2>
+        <hr/>
         <form action={`/api/users/&id=${this.state.user.id}`} method="PUT" onSubmit={this.handleSubmit}>
             <Row>
                 <Col xs={6}>
