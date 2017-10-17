@@ -30,7 +30,7 @@ class Login extends Component {
         axios.post('api/auth/login', user)
             .then(result => {
                 if(result.data.isAuthenticated) {
-                    window.location.pathname = `/dashboard/`
+                    window.location.pathname = `/dashboard`
                 } else {
                     this.setState({
                         errors: {

@@ -4,6 +4,7 @@ import Summary from './Summary';
 import Soccer from './Soccer';
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
+import NotFound from '../NotFound';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -87,11 +88,10 @@ class Profile extends Component {
                 </div>
             )
         }
-        
+
+        {/*if profile is not found return NotFound component*/}
         return (
-            <div className="container margin-top-75">
-                <h1>This player's profile is not yet public.</h1>
-            </div>
+            <NotFound/>
         )
     }
 }
