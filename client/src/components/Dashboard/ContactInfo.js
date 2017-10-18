@@ -107,7 +107,7 @@ class ContactInfo extends Component {
             <Row>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="twitterHandle">Twitter Handle: <span className="star">*</span> </ControlLabel>
+                        <ControlLabel htmlFor="twitterHandle">Twitter Handle: </ControlLabel>
                         <FormControl name="twitter_handle" value={(this.state.method === "POST") ? user.twitter_handle.trim() : user.twitter_handle} onChange={this.onChange} placeholder="WayneRooney" type="text" id="twitterHandle" pattern=".{1,255}" />
                     </FormGroup>
                 </Col>

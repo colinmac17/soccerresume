@@ -45,14 +45,14 @@ class Contact extends Component {
         return(
             <div>
                 <ul className="contact-section poppins-font text-center">
-                    <li><i class="fa fa-envelope margin-right-5" aria-hidden="true"></i>{this.state.data.user.email} <span className="margin-left-5">|</span></li>
-                    <li><i class="fa fa-mobile margin-right-5" aria-hidden="true"></i>{this.formatPhone(phoneNumber)} <span className="margin-left-5">|</span></li>
-                    <li><a target="_blank" href={`https://twitter.com/${this.state.data.contact.twitter_handle}`}><i class="fa fa-twitter margin-right-5" aria-hidden="true"></i>@{this.state.data.contact.twitter_handle}</a></li>
+                    <li><i className="fa fa-envelope margin-right-5" aria-hidden="true"></i>{this.state.data.user.email} <span className="margin-left-5">|</span></li>
+                    <li><i className="fa fa-mobile margin-right-5" aria-hidden="true"></i>{this.formatPhone(phoneNumber)} <span className="margin-left-5">|</span></li>
+                    {(this.state.data.contact.twitter_handle != null) ? <li><a target="_blank" href={`https://twitter.com/${this.state.data.contact.twitter_handle}`}><i className="fa fa-twitter margin-right-5" aria-hidden="true"></i>@{this.state.data.contact.twitter_handle}</a></li> : ''}
                 </ul>
                 <ul className="contact-section poppins-font text-center">
-                    <li><i class="fa fa-birthday-cake margin-right-5" aria-hidden="true"></i>Born on {this.formatDate(birthday)} <span className="margin-left-5">|</span></li>
-                    <li><i class="fa fa-book margin-right-5" aria-hidden="true"></i>{this.state.data.academic.highschool} <span className="margin-left-5">|</span></li>
-                    <li><i class="fa fa-graduation-cap margin-right-5" aria-hidden="true"></i>Class of {this.state.data.academic.grad_year}</li>
+                    <li><i className="fa fa-birthday-cake margin-right-5" aria-hidden="true"></i>Born on {this.formatDate(birthday)} <span className="margin-left-5">|</span></li>
+                    <li><i className="fa fa-book margin-right-5" aria-hidden="true"></i>{this.state.data.academic.highschool} <span className="margin-left-5">|</span></li>
+                    <li><i className="fa fa-graduation-cap margin-right-5" aria-hidden="true"></i>Class of {this.state.data.academic.grad_year}</li>
                 </ul>
                 <hr/>
             </div>

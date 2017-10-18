@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import Contact from './Contact';
-import Summary from './Summary';
+import Academic from './Academic';
 import Soccer from './Soccer';
+import Accolades from './Accolades';
+import Media from './Media';
 import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import NotFound from '../NotFound';
@@ -85,8 +87,10 @@ class Profile extends Component {
                     <Image/>
                     <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name}</h1>
                     <Contact user={this.state.user} contact={this.state.contact_info} academic={this.state.academic_stats}/>
-                    <Summary contact={this.state.contact_info} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
-                    <Soccer athletic={this.state.athletic_stats} media={this.state.media_links} accolades={this.state.accolades}/>
+                    <Academic contact={this.state.contact_info} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
+                    <Soccer athletic={this.state.athletic_stats} />
+                    <Accolades accolades={this.state.accolades} />
+                    <Media media={this.state.media_links} />
                 </div>
             )
         }

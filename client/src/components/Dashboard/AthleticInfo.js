@@ -103,14 +103,14 @@ class AthleticInfo extends Component {
                         <ControlLabel htmlFor="primaryPosition">Primary Position: <span className="red">*</span>  </ControlLabel>
                             <select className="form-control" name="primary_position" type="text" value={(this.state.method === "POST") ? user.primary_position.trim() : user.primary_position} onChange={this.onChange}  id="primaryPosition" pattern=".{2,255}" required>
                                 <option>-----</option>
-                                <option value="gk">Goalkeeper</option>
-                                <option value="rb">Right Back</option>
-                                <option value="lb">Left Back</option>
-                                <option value="cb">Center Back</option>
-                                <option value="dm">Defensive Center Mid</option>
-                                <option value="am">Attacking Center Mid</option>
-                                <option value="om">Outside Mid / Winger</option>
-                                <option value="f">Forward</option>
+                                <option value="GoalKeeper">Goalkeeper</option>
+                                <option value="Right Back">Right Back</option>
+                                <option value="Left Back">Left Back</option>
+                                <option value="Center Back">Center Back</option>
+                                <option value="Defensive Mid">Defensive Center Mid</option>
+                                <option value="Attacking Mid">Attacking Center Mid</option>
+                                <option value="Outside Mid/Winger">Outside Mid / Winger</option>
+                                <option value="Forward">Forward</option>
                             </select>
                     </FormGroup>
                 </Col>
@@ -119,14 +119,14 @@ class AthleticInfo extends Component {
                         <ControlLabel htmlFor="position2">Secondary Position: </ControlLabel>
                         <select className="form-control" name="position_2" type="text" value={(this.state.method === "POST") ? user.position_2.trim() : user.position_2} onChange={this.onChange}  id="position2" pattern=".{2,255}">
                             <option>-----</option>
-                            <option value="gk">Goalkeeper</option>
-                            <option value="rb">Right Back</option>
-                            <option value="lb">Left Back</option>
-                            <option value="cb">Center Back</option>
-                            <option value="dm">Defensive Center Mid</option>
-                            <option value="am">Attacking Center Mid</option>
-                            <option value="om">Outside Mid / Winger</option>
-                            <option value="f">Forward</option>
+                            <option value="GoalKeeper">Goalkeeper</option>
+                            <option value="Right Back">Right Back</option>
+                            <option value="Left Back">Left Back</option>
+                            <option value="Center Back">Center Back</option>
+                            <option value="Defensive Mid">Defensive Center Mid</option>
+                            <option value="Attacking Mid">Attacking Center Mid</option>
+                            <option value="Outside Mid/Winger">Outside Mid / Winger</option>
+                            <option value="Forward">Forward</option>
                         </select>
                     </FormGroup>
                 </Col>
