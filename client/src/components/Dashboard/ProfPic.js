@@ -64,10 +64,10 @@ class ProfPic extends Component {
             console.log(e.target)
             var output = LZUTF8.compress(e.target.result);
             console.log(output)
-            //  axios.post('/api/cloudinary/upload', {imgCode: output})
-            //     .then((result) => {
-            //         console.log(result.data.imgCode)
-            //     }).catch(err => console.log(err))
+             axios.post('/api/cloudinary/upload', {imgCode: output})
+                .then((result) => {
+                    console.log(result.data.imgCode)
+                }).catch(err => console.log(err))
         }
         reader.readAsDataURL(selectedPic)
         console.log(data)
