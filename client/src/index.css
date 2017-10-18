@@ -409,7 +409,8 @@ Profile Styles
 *********************************************
 ********************************************/
 .resume-border {
-  border: 0.5px solid #3e3e3e;
+  border: 2px solid #008b8b;
+  border-radius: 10px;
 }
 
 .contact-section {

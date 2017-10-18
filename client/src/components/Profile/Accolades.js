@@ -20,8 +20,16 @@ class Accolades extends Component {
     }
 
     render() {
+        const accolades = this.state.data.accolades.map((accolade) => {
+            return <li key={accolade.id}>{accolade.accolade_description}</li>
+        })
         return(
-            <h1>Accolades</h1>
+            <div className="margin-top-30">
+                <h3 className="text-center dark-cyan cabin-font bold">Accolades</h3> 
+                <ul className="accolade-section font-size-16 poppins-font">
+                    {accolades}
+                </ul>
+            </div>
         )
     }
 }
