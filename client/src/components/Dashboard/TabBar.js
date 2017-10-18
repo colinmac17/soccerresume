@@ -7,6 +7,7 @@ import ContactInfo from './ContactInfo';
 import Account from './Account';
 import Settings from './Settings';
 import Accolades from './Accolades';
+import ProfPic from './ProfPic';
 import { Tabs, Tab, FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
 
 class TabBar extends Component {
@@ -57,7 +58,10 @@ class TabBar extends Component {
                 <Tab eventKey={6} title="Account">
                     <Account userId={this.state.data.user.id} accountInfo={this.state.data.user} />
                 </Tab>
-                <Tab eventKey={7} title="Settings">
+                <Tab eventKey={7} title="Profile Picture">
+                    <ProfPic userId={this.state.data.user.id} user={this.state.data.user} />
+                </Tab>
+                <Tab eventKey={8} title="Settings">
                     <Settings userId={this.state.data.user.id} userSettings={this.state.data.user_settings} user={this.state.data.user}  />
                 </Tab>
             </Tabs>

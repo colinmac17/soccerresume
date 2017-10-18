@@ -31,6 +31,7 @@
     "express": "^4.15.4",
     "express-session": "^1.15.5",
     "jsonwebtoken": "^8.0.1",
+    "lzutf8": "^0.4.6",
     "mysql": "^2.14.1",
     "mysql2": "^1.4.2",
     "passport": "^0.4.0",

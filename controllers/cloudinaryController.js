@@ -1,5 +1,6 @@
 const cloudinary = require('cloudinary');
 const config = require('../config/cloudinary');
+var LZUTF8 = require('lzutf8');
 
 module.exports = {
     uploadOne: (req, res) => {

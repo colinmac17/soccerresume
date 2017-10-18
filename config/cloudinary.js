@@ -1,4 +1,5 @@
 var cloudinary = require('cloudinary');
+require('dotenv').config();
 
 cloudinary.config({ 
     cloud_name: 'soccerresume', 

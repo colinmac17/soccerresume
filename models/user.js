@@ -39,6 +39,13 @@ module.exports = function(sequelize, DataTypes) {
                 len: [4]
             }
         },
+        profile_pic: {
+            type: DataTypes.STRING,
+            allowNull: true,
+            validate: {
+                len: [1]
+            }
+        },
         user_type: {
             type: DataTypes.STRING,
             allowNull: false,
