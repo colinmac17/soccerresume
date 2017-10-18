@@ -8,6 +8,7 @@ const mediaRoutes = require('./media');
 const contactRoutes = require('./contact');
 const settingsRoutes = require('./settings');
 const accoladeRoutes = require('./accolades');
+const cloudinaryRoutes = require('./cloudinary');
 
 router.use('/users', userRoutes);
 router.use('/auth', authRoutes);
@@ -17,6 +18,7 @@ router.use('/media', mediaRoutes);
 router.use('/contact', contactRoutes);
 router.use('/settings', settingsRoutes);
 router.use('/accolades', accoladeRoutes);
+router.use('/cloudinary', cloudinaryRoutes);
 // set routes for other modesl
 //router.use('/settings', settingsRoutes);
 
