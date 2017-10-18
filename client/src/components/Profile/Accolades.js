@@ -21,7 +21,7 @@ class Accolades extends Component {
 
     render() {
         const accolades = this.state.data.accolades.map((accolade) => {
-            return <li key={accolade.id}>{accolade.accolade_description}</li>
+            return <li className="margin-left-20" key={accolade.id}>{accolade.accolade_description}</li>
         })
         return(
             <div className="margin-top-30">

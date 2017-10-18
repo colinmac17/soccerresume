@@ -42,6 +42,7 @@ class Soccer extends Component {
                     {(this.state.data.athletic.coach_contact_email != null) ? <li>Email: {this.state.data.athletic.coach_contact_email}<span className="margin-left-5">|</span></li> : ''}
                     {(this.state.data.athletic.commitment_status == '1') ? <li>Committed to {this.state.data.athletic.commitment_school}</li> : '' }
                 </ul>
+                <hr/>
             </div>
         )
     }
