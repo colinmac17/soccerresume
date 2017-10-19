@@ -32,7 +32,7 @@ class Media extends Component {
         return(
             <div className="margin-top-30 text-center">
                 <h3 className="text-left dark-cyan cabin-font bold text-center margin-bottom-20">Media</h3> 
-                <ul className="media-section font-size-16 poppins-font">
+                <ul>
                     {videos}
                 </ul>
             </div>
