@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
+import Spinner from './/Spinner';
+import AlertMessage from './Alert';
 
 class AcademicInfo extends Component {
     constructor(props){
@@ -16,11 +18,16 @@ class AcademicInfo extends Component {
                 act_score: '',
                 highschool: '',
                 userId: this.props.userId
-            }
+            },
+            isLoading: false,
+            alertOpen: false
         }
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/academic/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
@@ -34,11 +41,13 @@ class AcademicInfo extends Component {
                         sat_score: result.data.sat_score,
                         act_score: result.data.act_score,
                         highschool: result.data.highschool
-                    }
+                    },
+                    isLoading: false
                 })
             } else {
                 this.setState({
-                    method: 'POST'
+                    method: 'POST',
+                    isLoading: false
                 })
             }
         }).catch(err => console.log(err));
@@ -60,6 +69,9 @@ class AcademicInfo extends Component {
       }
    
     handleSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault();
         const academicInfo = this.state.user
         academicInfo.ncaa_eligibility_status = this.state.isChecked
@@ -68,23 +80,37 @@ class AcademicInfo extends Component {
                 .then(result => {
                     console.log(result.data)
                     this.setState({
-                        method: 'PUT'
+                        method: 'PUT',
+                        isLoading: false,
+                        alertOpen: true
                     })
                 }).catch(err => console.log(err))
         } else {
             axios.put(`/api/academic/&id=${this.state.userId}`, academicInfo)
                 .then(result => {
                     console.log(result)
+                    this.setState({
+                        isLoading: false,
+                        alertOpen: true
+                    })
                 }).catch(err => console.log(err))
         }
+    }
+
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
     }
 
     render() {
     const { user } = this.state
     const academicMessage = 'Please fill in your academic information accurately below.'
+    const spinner = (this.state.isLoading) ? <Spinner /> : ''
     return (
         <div className="container">
-        <h2 className="poppins-font">Academic Information</h2>
+        <h2 className="poppins-font">Academic Information {spinner}</h2>
+        {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Academic data submitted successfully"/> : '' }
         <hr/>
         <form action={(this.state.method === 'POST') ? '/api/academic/create' : `/api/academic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
@@ -130,7 +156,7 @@ class AcademicInfo extends Component {
                     </FormGroup>
                 </Col>
             </Row>
-            <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
+            <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'} {spinner} </button>
         </form>
         <div class="pad-med"></div>
     </div>

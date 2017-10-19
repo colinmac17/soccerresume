@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-bootstrap';
 import axios from 'axios';
 import TabBar from './TabBar';
+import Spinner from './Spinner';
 
 class Dashboard extends Component {
     constructor(props) {
@@ -31,11 +32,15 @@ class Dashboard extends Component {
             errors: {
                 auth_fail: '',
                 auth_success: ''
-            }
+            },
+            isLoading: false
         }
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get('/api/auth/authenticated')
         .then((result) => {
             if (!result.data.isAuthenticated) {
@@ -78,7 +83,8 @@ class Dashboard extends Component {
                     additional_stats: user.data.additional_stats,
                     accolades: user.data.accolades,
                     media_links: user.data.media_links,
-                    isAuthenticated: true
+                    isAuthenticated: true,
+                    isLoading: false
                 })
             }).catch(err => {
                 this.setState({
@@ -105,14 +111,21 @@ class Dashboard extends Component {
             }).catch(err => console.log(err))
     }
 
+    validateData = () => {
+        (this.state.academic_stats !== null && this.state.athletic_stats !== null && this.state.user !== null && this.state.user_settings !== null && this.state.accolades !== null && this.state.contact_info !== null && this.state.user_settings.bProfilePublic == '1') ? true : false
+    }
+
     render() {
+            const spinner = (this.state.isLoading) ? <Spinner /> : ''
+            const publicMsg = (this.validateData) ? <p>Your public profile can be found at <a href={`${window.location.origin}/${this.state.user.username}`} target="_blank">{window.location.origin}/{this.state.user.username}</a></p> : 'You can make your profile public by updating your settings.'
+
             const isLoggedIn = this.state.isAuthenticated
-            const dashMsg = <p className="cabin-font font-size-16 margin-bottom-20">Welcome to the dashboard <span className="dark-cyan bold">{this.state.user.first_name} {this.state.user.last_name}</span>. Please fill out the information in the tabs below to complete your profile. All fields with a <span className="red">*</span> are required, but we reccommend you fill out all fields to make your profile more complete. You can make your profile public by updating your settings.</p>
+            const dashMsg = <p className="cabin-font font-size-16 margin-bottom-20">Welcome to the dashboard <span className="dark-cyan bold">{this.state.user.first_name} {this.state.user.last_name}</span>. Please fill out the information in the tabs below to complete your profile. All fields with a <span className="red">*</span> are required, but we reccommend you fill out all fields to make your profile more complete. {publicMsg}</p>
             
             if (isLoggedIn) { 
                 return (
                 <div className="container">
-                    <h1 className="cabin-font padding black-text bold">Dashboard <Image circle width={100} height={125} src={this.state.user.profile_pic} /></h1>
+                    <h1 className="cabin-font padding black-text bold">Dashboard <Image circle width={100} height={125} src={this.state.user.profile_pic} /> {spinner}</h1>
                     {dashMsg}
                     <TabBar user={this.state}/>
                 </div>

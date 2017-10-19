@@ -85,6 +85,11 @@ class Profile extends Component {
         (this.state.academic_stats !== null && this.state.athletic_stats !== null && this.state.user !== null && this.state.user_settings !== null && this.state.accolades !== null && this.state.contact_info !== null) ? true : false
     }
 
+    date = () => {
+        var d = new Date().getFullYear()
+        return d
+    }
+
     render() {
         const { match, location, history } = this.props
         if (this.state.user_settings.bProfilePublic && this.validateData) {
@@ -97,6 +102,8 @@ class Profile extends Component {
                     <Soccer athletic={this.state.athletic_stats} />
                     <Accolades accolades={this.state.accolades} />
                     <Media media={this.state.media_links} />
+                    <hr/>
+                    <p className="text-center poppins-font">&copy; {this.date()} soccerresu.me</p>
                 </div>
             )
         }

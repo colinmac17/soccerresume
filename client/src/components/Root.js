@@ -28,11 +28,6 @@ class Root extends Component {
         }
     }
 
-    date = () => {
-        var d = new Date().getFullYear()
-        return d
-    }
-
     render() {
     return (
         <Router>
@@ -54,8 +49,6 @@ class Root extends Component {
                     <Route path="/:username" component={Profile}/>
                     <Route component={NotFound}/>
                 </Switch>
-                <hr/>
-                <p className="text-center poppins-font">&copy; {this.date()} soccerresu.me</p>
             </div>
         </Router>
         )
