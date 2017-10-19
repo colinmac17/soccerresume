@@ -21,6 +21,13 @@ module.exports = function(sequelize, DataTypes) {
             validate: {
                 len: [1]
             }
+        },
+        youtube_id: {
+            type: DataTypes.STRING,
+            allowNull: false,
+            validate: {
+                len: [1]
+            }
         }
     });
     Media_Links.associate = function(models) {

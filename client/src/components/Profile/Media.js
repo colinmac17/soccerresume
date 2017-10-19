@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Row, Col, Jumbotron, Image } from 'react-bootstrap';
+import * as YouTube from 'react-youtube';
 
-class Academic extends Component {
+class Media extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -20,10 +21,23 @@ class Academic extends Component {
     }
 
     render() {
+
+        const videos = this.state.data.media.map((video) => {
+            let ytsrc = 'https://www.youtube.com/embed/'
+            let id = video.youtube_id
+            return <iframe key={video.id} className="margin-bottom-30" type="text/html" width="640" height="360"
+            src={`${ytsrc}${id}?autoplay=0&origin=https://wwww.soccerresu.me/`}
+            frameborder="0"></iframe>
+        })
         return(
-            <h1>Media</h1>
+            <div className="margin-top-30 text-center">
+                <h3 className="text-left dark-cyan cabin-font bold text-center margin-bottom-20">Media</h3> 
+                <ul className="media-section font-size-16 poppins-font">
+                    {videos}
+                </ul>
+            </div>
         )
     }
 }
 
-export default Academic
+export default Media

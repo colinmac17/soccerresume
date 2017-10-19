@@ -112,7 +112,7 @@ class Dashboard extends Component {
             if (isLoggedIn) { 
                 return (
                 <div className="container">
-                    <h1 className="cabin-font padding black-text bold">PLAYER DASHBOARD <Image circle width={150} height={150} src={this.state.user.profile_pic} /></h1>
+                    <h1 className="cabin-font padding black-text bold">DASHBOARD <Image circle width={100} height={125} src={this.state.user.profile_pic} /></h1>
                     {dashMsg}
                     <TabBar user={this.state}/>
                 </div>

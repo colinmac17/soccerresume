@@ -8,6 +8,7 @@ import PropTypes from 'prop-types'
 import { withRouter } from 'react-router'
 import NotFound from '../NotFound';
 import { Image } from 'react-bootstrap'
+import * as jsPDF  from 'jspdf'
 import axios from 'axios';
 
 class Profile extends Component {
@@ -80,6 +81,8 @@ class Profile extends Component {
           })
       })
     }
+
+    
 
     render() {
         const { match, location, history } = this.props

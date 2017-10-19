@@ -21,14 +21,15 @@ class Accolades extends Component {
 
     render() {
         const accolades = this.state.data.accolades.map((accolade) => {
-            return <li key={accolade.id}>{accolade.accolade_description}</li>
+            return <li key={accolade.id}><span className="bullet">&bull;</span> {accolade.accolade_description} ({accolade.year_achieved})</li>
         })
         return(
-            <div className="margin-top-30 margin-left-20">
-                <h3 className="text-left dark-cyan cabin-font bold margin-left-20">Accolades</h3> 
+            <div className="margin-top-30 text-center">
+                <h3 className="text-left dark-cyan cabin-font bold text-center">Accolades</h3> 
                 <ul className="accolade-section font-size-16 poppins-font ">
                     {accolades}
                 </ul>
+                <hr/>
             </div>
         )
     }

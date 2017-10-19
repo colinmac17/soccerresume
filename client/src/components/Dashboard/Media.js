@@ -44,6 +44,8 @@ class Media extends Component {
     handleSubmit = (e) => {
         e.preventDefault()
         const mediaInfo = this.state.user
+        const youtube_id = this.getYoutubeID()
+        mediaInfo.youtube_id = youtube_id
             axios.post(`/api/media/create`, mediaInfo)
                 .then(result => {
                     console.log(result.data)
@@ -79,6 +81,13 @@ class Media extends Component {
                     }
                 }).catch(err => console.log(err))
             }).catch(err => console.log(err))
+    }
+
+    getYoutubeID = () => {
+        let vid = this.state.user.link
+        let vidArr = vid.split('=')
+        let id = vidArr[1] 
+        return id
     }
 
     render() {
@@ -118,9 +127,10 @@ class Media extends Component {
                                 <select className="form-control" name="media_source" type="text" value={user.media_source} onChange={this.onChange}  id="mediaSource" required>
                                     <option>-----</option>
                                     <option value="youtube">Youtube</option>
-                                    <option value="vimeo">Vimeo</option>
+                                    <option value="vimeo" disabled>Vimeo</option>
                                 </select>
                         </FormGroup>
+                        <FormControl name="youtube_id" type="hidden" />
                     </Col>
                 </Row>
                 <Row>
