@@ -12,6 +12,8 @@ The application is still in beta, future plans include:
  * The ability for college coaches to set up an account that allows them to favorite players and export them to Google Drive
  * And much, much more!
 
+ Check it out! [https://soccerresu.me](https://www.soccerresu.me)
+
 Screenshots:
 
 #HomePage
