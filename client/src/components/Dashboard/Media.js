@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class Media extends Component {
     constructor(props){
@@ -112,6 +113,7 @@ class Media extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Media</h2>
+            {/*<p>Want to stand out? <Link to="/record">Record Yourself</Link></p>*/}
             <hr/>
             <form action={'/api/media/create'} method="POST" onSubmit={this.handleSubmit}>
                 <Row>

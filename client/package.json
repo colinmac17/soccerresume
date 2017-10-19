@@ -22,6 +22,7 @@
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.0.13",
     "react-youtube": "^7.5.0",
+    "recordrtc": "^5.4.5",
     "superagent": "^3.6.3",
     "validator": "^9.0.0"
   },

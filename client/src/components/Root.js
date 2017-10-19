@@ -11,6 +11,7 @@ import FAQS from './Marketing/FAQS';
 import NotFound from './NotFound';
 import Dashboard from './Dashboard/Dashboard';
 import Profile from './Profile/Profile';
+import Record from './WebRTC/Record';
 import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch, Match} from 'react-router-dom';
 
@@ -25,6 +26,11 @@ class Root extends Component {
                 last_name: ''
             }
         }
+    }
+
+    date = () => {
+        var d = new Date().getFullYear()
+        return d
     }
 
     render() {
@@ -44,9 +50,12 @@ class Root extends Component {
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/signup" component={SignUp}/>
                     <Route exact path="/dashboard" component={Dashboard} />
+                    {/*<Route exact path="/record" component={Record} />*/}
                     <Route path="/:username" component={Profile}/>
                     <Route component={NotFound}/>
                 </Switch>
+                <hr/>
+                <p className="text-center poppins-font">&copy; {this.date()} soccerresu.me</p>
             </div>
         </Router>
         )

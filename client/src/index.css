@@ -120,8 +120,8 @@ Pricing Styles
 }
 
 .db-pricing-eleven ul li {
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
   cursor: pointer;
 }
 
@@ -132,8 +132,8 @@ Pricing Styles
 
   .db-pricing-eleven .price {
       background-color: rgba(0, 0, 0, 0.5);
-      padding: 40px 20px 20px 20px;
-      font-size: 60px;
+      padding: 30px 15px 15px 15px;
+      font-size: 50px;
       font-weight: 900;
       color: #FFFFFF;
   }
@@ -147,14 +147,14 @@ Pricing Styles
 
 .db-pricing-eleven .type {
   background-color: #52E89E;
-  padding: 50px 20px;
+  padding: 30px 10px;
   font-weight: 900;
   text-transform: uppercase;
    font-size: 30px;
 }
 
 .db-pricing-eleven .pricing-footer {
-  padding: 20px;
+  padding: 15px;
 }
 
 .db-attached > .col-lg-4,
@@ -172,7 +172,7 @@ Pricing Styles
 }
 
 .db-pricing-eleven.popular .price {
-  padding-top: 80px;
+  padding-top: 40px;
 }
 
 /********************************************

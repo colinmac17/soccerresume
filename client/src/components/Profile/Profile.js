@@ -19,7 +19,6 @@ class Profile extends Component {
                 id: '',
                 first_name: '',
                 last_name: '',
-                grad_year: '',
                 email: '',
                 username: '',
                 profile_pic: '',
@@ -82,11 +81,13 @@ class Profile extends Component {
       })
     }
 
-    
+    validateData = () => {
+        (this.state.academic_stats !== null && this.state.athletic_stats !== null && this.state.user !== null && this.state.user_settings !== null && this.state.accolades !== null && this.state.contact_info !== null) ? true : false
+    }
 
     render() {
         const { match, location, history } = this.props
-        if (this.state.user_settings.bProfilePublic) {
+        if (this.state.user_settings.bProfilePublic && this.validateData) {
             return (
                 <div className="container resume-border">
                     <Image className="center-block" src={this.state.user.profile_pic} width={175} height={200} circle/>
