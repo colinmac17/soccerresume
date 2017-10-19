@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
+import Spinner from './/Spinner';
+import AlertMessage from './Alert';
 
 class Account extends Component {
     constructor(props){
@@ -13,7 +15,9 @@ class Account extends Component {
                 email: '',
                 first_name: '',
                 last_name: '',
-            }
+            },
+            isLoading: false,
+            alertOpen: false
         }
     }
 

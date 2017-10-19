@@ -3,6 +3,9 @@ import { FormGroup, ControlLabel, Image, FormControl, Row, Col, Checkbox, Modal,
 import axios from 'axios';
 import request from 'superagent';
 import Dropzone from 'react-dropzone';
+import Spinner from './Spinner';
+import AlertMessage from './Alert';
+
 require('dotenv').config();
 const CLOUDINARY_UPLOAD_PRESET = 'tahd85bb';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/soccerresume/image/upload'
@@ -13,7 +16,9 @@ class ProfPic extends Component {
         this.state = {
             uploadedFileCloudinaryURL: '',
             uploadedFile: '',
-            userId: this.props.user.id
+            userId: this.props.user.id,
+            isLoading: false,
+            alertOpen: false
         }
     }
 
@@ -68,6 +73,8 @@ class ProfPic extends Component {
  
     render() {
 
+        const profPic = (this.state.uploadedFileCloudinaryURL) ? <Image circle width={100} height={125} src={this.state.uploadedFileCloudinaryURL} /> : ''
+
         return (
             <div className="container">
             <h2 className="poppins-font">Profile Picture</h2>
@@ -86,7 +93,7 @@ class ProfPic extends Component {
                     <div>
                         {this.state.uploadedFileCloudinaryUrl === '' ? null :
                         <div>
-                        <Image circle width={200} height={200} src={this.state.uploadedFileCloudinaryURL} />
+                        {profPic}
                         <p>Current Profile Picture</p>
                         </div>}
                     </div>

@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
+import Spinner from './Spinner';
+import AlertMessage from './Alert'
 
 class Accolades extends Component {
     constructor(props){
@@ -12,17 +14,24 @@ class Accolades extends Component {
                 year_achieved: '',
                 userId: this.props.userId
             },
-            allAccolades: []
+            allAccolades: [],
+            isLoading: false,
+            alertOpen: false,
+            alertAction: ''
         }
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/accolades/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
-                    allAccolades: result.data
+                    allAccolades: result.data,
+                    isLoading: false
                 })
             }
         }).catch(err => console.log(err));
@@ -42,6 +51,9 @@ class Accolades extends Component {
       }
    
     handleSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault()
         const accoladeInfo = this.state.user
             axios.post(`/api/accolades/create`, accoladeInfo)
@@ -55,7 +67,9 @@ class Accolades extends Component {
                         console.log(result)
                         if (result.data !== null) {
                             this.setState({
-                                allAccolades: result.data
+                                allAccolades: result.data,
+                                isLoading: false,
+                                alertOpen: true
                             })
                         }
                     }).catch(err => console.log(err))
@@ -80,8 +94,15 @@ class Accolades extends Component {
             }).catch(err => console.log(err))
     }
 
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
+    }
+
     render() {
         const { user, allAccolades } = this.state
+        const spinner = (this.state.isLoading) ? <Spinner /> : ''
         const Accolades = allAccolades.map((row, index) => {
             return (
                 <li className="media-link" key={row.id}>
@@ -98,10 +119,11 @@ class Accolades extends Component {
                 </li>
             )
         })
-
+        
         return (
             <div className="container">
-            <h2 className="poppins-font">Accolades</h2>
+            <h2 className="poppins-font">Accolades {spinner}</h2>
+            {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade submitted successfully"/> : '' }
             <hr/>
             <form action={'/api/accolades/create'} method="POST" onSubmit={this.handleSubmit} id="accoladeForm">
                 <Row>
@@ -121,7 +143,7 @@ class Accolades extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
-                <button type="submit" className="btn btn-primary">Add Accolade</button>
+                <button type="submit" className="btn btn-primary">Add Accolade {spinner}</button>
             </form>
 
                 <h3>My Accolades</h3>

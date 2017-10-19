@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
+import Spinner from './/Spinner';
+import AlertMessage from './Alert';
 
 class Media extends Component {
     constructor(props){
@@ -14,7 +16,9 @@ class Media extends Component {
                 title: '',
                 userId: this.props.userId
             },
-            allMedia: []
+            allMedia: [],
+            isLoading: false,
+            alertOpen: false
         }
     }
     componentDidMount() {

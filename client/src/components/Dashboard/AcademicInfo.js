@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
-import Spinner from './/Spinner';
+import Spinner from './Spinner';
 import AlertMessage from './Alert';
 
 class AcademicInfo extends Component {

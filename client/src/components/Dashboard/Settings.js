@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
+import AlertMessage from './Alert';
+import Spinner from './Spinner';
 
 class Settings extends Component {
     constructor(props){
@@ -12,7 +14,9 @@ class Settings extends Component {
             isPdfChecked: false,
             user: {
                 userId: this.props.userId
-            }
+            },
+            isLoading: false,
+            alertOpen: false
         }
     }
 

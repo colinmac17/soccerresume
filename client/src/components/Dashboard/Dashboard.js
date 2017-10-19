@@ -119,13 +119,16 @@ class Dashboard extends Component {
             const spinner = (this.state.isLoading) ? <Spinner /> : ''
             const publicMsg = (this.validateData) ? <p>Your public profile can be found at <a href={`${window.location.origin}/${this.state.user.username}`} target="_blank">{window.location.origin}/{this.state.user.username}</a></p> : 'You can make your profile public by updating your settings.'
 
+            const profPic = (this.state.user.profile_pic) ? <Image circle width={100} height={125} src={this.state.user.profile_pic} /> : ''
+
             const isLoggedIn = this.state.isAuthenticated
+
             const dashMsg = <p className="cabin-font font-size-16 margin-bottom-20">Welcome to the dashboard <span className="dark-cyan bold">{this.state.user.first_name} {this.state.user.last_name}</span>. Please fill out the information in the tabs below to complete your profile. All fields with a <span className="red">*</span> are required, but we reccommend you fill out all fields to make your profile more complete. {publicMsg}</p>
             
             if (isLoggedIn) { 
                 return (
                 <div className="container">
-                    <h1 className="cabin-font padding black-text bold">Dashboard <Image circle width={100} height={125} src={this.state.user.profile_pic} /> {spinner}</h1>
+                    <h1 className="cabin-font padding black-text bold">Dashboard {profPic} {spinner}</h1>
                     {dashMsg}
                     <TabBar user={this.state}/>
                 </div>

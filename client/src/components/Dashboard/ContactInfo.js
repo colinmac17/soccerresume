@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
+import Spinner from './/Spinner';
+import AlertMessage from './Alert';
 
 class ContactInfo extends Component {
     constructor(props){
@@ -15,7 +17,9 @@ class ContactInfo extends Component {
                 home_city: '',
                 home_state: '',
                 userId: this.props.userId
-            }
+            },
+            isLoading: false,
+            alertOpen: false
         }
     }
     componentDidMount() {
