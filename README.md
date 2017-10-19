@@ -16,15 +16,15 @@ The application is still in beta, future plans include:
 
 Screenshots:
 
-#HomePage
+## HomePage
 ![alt text](https://res.cloudinary.com/soccerresume/image/upload/v1508449366/Screen_Shot_2017-10-19_at_4.41.07_PM_mjomff.png)
-#Dashboard
+## Dashboard
+![alt text](https://res.cloudinary.com/soccerresume/image/upload/v1508453649/soccerresume_mob_dash_ojcoj3.png)
 ![alt text](https://res.cloudinary.com/soccerresume/image/upload/v1508449350/Screen_Shot_2017-10-19_at_4.41.30_PM_crkqia.png)
-#Profile
+## Profile
+![alt text](https://res.cloudinary.com/soccerresume/image/upload/v1508453642/soccerresume_mobileProf_fc3jmq.png)
 ![alt text](https://res.cloudinary.com/soccerresume/image/upload/v1508449359/Screen_Shot_2017-10-19_at_4.40.45_PM_x0njwf.png)
-
 ![alt text](https://res.cloudinary.com/soccerresume/image/upload/v1508449356/Screen_Shot_2017-10-19_at_4.40.59_PM_gqm4kc.png)
-
 
 ----------------------------------------------------------------------------------------
 ## Built With
