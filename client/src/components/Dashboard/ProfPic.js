@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
-import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
+import { FormGroup, ControlLabel, Image, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
-var LZUTF8 = require('lzutf8');
+import request from 'superagent';
+import Dropzone from 'react-dropzone';
+require('dotenv').config();
+const CLOUDINARY_UPLOAD_PRESET = 'tahd85bb';
+const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/soccerresume/image/upload'
 
 class ProfPic extends Component {
     constructor(props){
         super(props)
         this.state = {
-            userId: this.props.userId,
-            data: {
-                user: this.props.user
-            },
-            allMedia: []
+            uploadedFileCloudinaryURL: '',
+            uploadedFile: '',
+            userId: this.props.user.id
         }
     }
 
@@ -24,55 +26,46 @@ class ProfPic extends Component {
     }
 
     componentDidMount() {
-        axios.get(`/api/cloudinary/&id=${this.state.userId}`)
+        axios.get(`/api/users/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
-                    data: {
-                        user:  {
-                            profile_picture: result.data.profile_picture
-                        }
-                    }
+                   uploadedFileCloudinaryURL: result.data.profile_pic
                 })
             }
         }).catch(err => console.log(err));
     }
 
-    onChange = (e) => {
-        const user = this.state.user
-        const field = e.target.name
-        user[field] = e.target.value;
+    onImageDrop = (files) => {
         this.setState({
-            user: user
+            uploadedFile: files[0]
+        })
+        this.handleImageUpload(files[0]);
+      }
+    
+      async handleImageUpload(file) {
+        const data = new FormData();
+        data.append('file', file);
+        data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
+        const upload = await fetch(CLOUDINARY_UPLOAD_URL, {
+          method: 'POST',
+          body: data,
         });
-      }
+        const image = await upload.json();
+        if(image.secure_url !== '') {
+        this.setState({
+            uploadedFileCloudinaryURL: image.secure_url
+        })
 
-      renderAlert = (type, msg) => {
-          if (type = 'error') alert(msg)
+        var uploadLink = { profile_pic: image.secure_url}
+        axios.put(`/api/users/&id=${this.state.userId}`, uploadLink)
+            .then((res) => {
+                console.log(res)
+            }).catch(err => console.log(err))
       }
-
-      handleSubmit = (e) => {
-        e.preventDefault()
-        var selectedPic = e.target.files[0]
-        var filePath = document.getElementById('ProfPic').value
-        var reader = new FileReader()
-        var imgTag = document.getElementById('profpic')
-        imgTag.title = selectedPic.name
-        let data;
-        reader.onload = (e) => {
-            console.log(e.target)
-            var output = LZUTF8.compress(e.target.result);
-            console.log(output)
-             axios.post('/api/cloudinary/upload', {imgCode: output})
-                .then((result) => {
-                    console.log(result.data.imgCode)
-                }).catch(err => console.log(err))
-        }
-        reader.readAsDataURL(selectedPic)
-        console.log(data)
-      }
-
+    }
+ 
     render() {
 
         return (
@@ -80,21 +73,41 @@ class ProfPic extends Component {
             <h2 className="poppins-font">Profile Picture</h2>
             <hr/>
             <Row>
-            <form action={'/api/cloudinary/upload'} method="POST" onChange={this.handleSubmit} enctype="multipart/form-data">
-                    <Col xs={6}>
-                        <FormGroup>
-                            <ControlLabel htmlFor="ProfPic">Profile Picture: </ControlLabel>
-                            <FormControl name="profile_picture" type="file" id="ProfPic"/>
-                        </FormGroup>
-                    </Col>
-            </form>
-                <Col xs={6}>
-                    <img id="profpic" height="200" />
+                <Col xs={12} md={3}>
+                <form action={`/api/users/&id=${this.state.userId}`} method="PUT">
+                    <Dropzone multiple={false} accept="image/*" onDrop={this.onImageDrop}>
+                    <p class="pad-sm bold font-16 poppins-font">Drag a picture here to set your profile picture!</p>
+                    </Dropzone>
+                </form>
+                </Col>
+                <Col xs={12} md={3} className="text-center pad-md margin-top-20">
+                    <div className="FileUpload">
+                    </div>
+                    <div>
+                        {this.state.uploadedFileCloudinaryUrl === '' ? null :
+                        <div>
+                        <Image circle width={200} height={200} src={this.state.uploadedFileCloudinaryURL} />
+                        <p>Current Profile Picture</p>
+                        </div>}
+                    </div>
                 </Col>
             </Row>
+            <div className="pad-med"></div>
             </div>
         )
   }
 }
 
 export default ProfPic;
+
+// <form action={'/api/cloudinary/upload'} method="POST" onChange={this.handleSubmit} enctype="multipart/form-data">
+// <Col xs={6}>
+//     <FormGroup>
+//         <ControlLabel htmlFor="ProfPic">Profile Picture: </ControlLabel>
+//         <FormControl name="profile_picture" type="file" id="ProfPic"/>
+//     </FormGroup>
+// </Col>
+// </form>
+// <Col xs={6}>
+// <img id="profpic" height="200" />
+// </Col>

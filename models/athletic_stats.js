@@ -17,10 +17,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         position_2: {
             type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                len: [1]
-            }
+            allowNull: true
         },
         height_inches: {
             type: DataTypes.STRING,
@@ -34,22 +31,17 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [1],
                 not: ["[a-z]",'i']
             }
         },
         coach_contact_name: {
             type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                len: [1]
-            }
+            allowNull: true
         },
         coach_contact_email: {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [5],
                 isEmail: true
             }
         },
@@ -63,10 +55,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         commitment_school: {
             type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                len: [1]
-            }
+            allowNull: true
         }
     });
     Athletic_Stats.associate = function(models) {

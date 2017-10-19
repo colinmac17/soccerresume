@@ -21,6 +21,7 @@ class Profile extends Component {
                 grad_year: '',
                 email: '',
                 username: '',
+                profile_pic: '',
                 plan: '',
                 type: '',
                 last_updated: '',
@@ -57,6 +58,7 @@ class Profile extends Component {
                   grad_year: user.data.grad_year,
                   email: user.data.email,
                   username: user.data.username,
+                  profile_pic: user.data.profile_pic,
                   plan: user.data.user_plan == 1 ? 'Basic' : 'Pro',
                   type: user.data.user_plan == 1 ? 'Player' : 'Coach',
                   last_updated: user.data.updatedAt,
@@ -84,7 +86,7 @@ class Profile extends Component {
         if (this.state.user_settings.bProfilePublic) {
             return (
                 <div className="container resume-border">
-                    <Image/>
+                    <Image className="center-block" src={this.state.user.profile_pic} width={175} height={200} circle/>
                     <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name}</h1>
                     <Contact user={this.state.user} contact={this.state.contact_info} academic={this.state.academic_stats}/>
                     <Academic contact={this.state.contact_info} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>

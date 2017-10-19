@@ -12,7 +12,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [2],
                 not: ["[a-z]",'i']
             }
         },
@@ -20,7 +19,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [2],
                 not: ["[a-z]",'i']
             }
         },
@@ -28,7 +26,6 @@ module.exports = function(sequelize, DataTypes) {
             type: DataTypes.STRING,
             allowNull: true,
             validate: {
-                len: [2],
                 not: ["[a-z]",'i']
             }
         },

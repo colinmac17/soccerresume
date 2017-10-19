@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
-import { Grid, Navbar } from 'react-bootstrap';
+import { Grid, Navbar, Image } from 'react-bootstrap';
 import axios from 'axios';
 
 class NavDash extends Component {

@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Image } from 'react-bootstrap';
 import axios from 'axios';
 import TabBar from './TabBar';
 
@@ -13,6 +14,7 @@ class Dashboard extends Component {
                 grad_year: '',
                 email: '',
                 username: '',
+                profile_pic: '',
                 plan: '',
                 type: '',
                 last_updated: '',
@@ -62,6 +64,7 @@ class Dashboard extends Component {
                         last_name: user.data.last_name,
                         grad_year: user.data.grad_year,
                         email: user.data.email,
+                        profile_pic: user.data.profile_pic,
                         username: user.data.username,
                         plan: user.data.user_plan == 1 ? 'Basic' : 'Pro',
                         type: user.data.user_plan == 1 ? 'Player' : 'Coach',
@@ -109,7 +112,7 @@ class Dashboard extends Component {
             if (isLoggedIn) { 
                 return (
                 <div className="container">
-                    <h1 className="cabin-font padding black-text bold">PLAYER DASHBOARD</h1>
+                    <h1 className="cabin-font padding black-text bold">PLAYER DASHBOARD <Image circle width={150} height={150} src={this.state.user.profile_pic} /></h1>
                     {dashMsg}
                     <TabBar user={this.state}/>
                 </div>

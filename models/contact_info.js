@@ -11,10 +11,7 @@ module.exports = function(sequelize, DataTypes) {
         },
         twitter_handle: {
             type: DataTypes.STRING,
-            allowNull: true,
-            validate: {
-                len: [1]
-            }
+            allowNull: true
         },
         birthday: {
             type: DataTypes.STRING,

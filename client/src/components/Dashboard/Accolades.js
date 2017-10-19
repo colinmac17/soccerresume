@@ -88,7 +88,7 @@ class Accolades extends Component {
                     <Row>
                         <form action={`/api/accolades/&id=${row.id}`} id={row.id} method="DELETE" onSubmit={this.handleDelete}>
                             <Col xs={6}>
-                                <h5>{row.accolade_description}</h5>
+                                <h5>{row.accolade_description} ({row.year_achieved})</h5>
                             </Col>
                             <Col xs={3}>
                                 <button type="submit" className="btn btn-danger">Delete</button>
@@ -121,7 +121,7 @@ class Accolades extends Component {
                         </FormGroup>
                     </Col>
                 </Row>
-                <button type="submit" className="btn btn-primary">Add Link</button>
+                <button type="submit" className="btn btn-primary">Add Accolade</button>
             </form>
 
                 <h3>My Accolades</h3>
