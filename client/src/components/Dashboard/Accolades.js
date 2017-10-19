@@ -31,7 +31,9 @@ class Accolades extends Component {
             if (result.data !== null) {
                 this.setState({
                     allAccolades: result.data,
-                    isLoading: false
+                    isLoading: false,
+                    alertAction: '',
+                    
                 })
             }
         }).catch(err => console.log(err));
@@ -67,10 +69,16 @@ class Accolades extends Component {
                         console.log(result)
                         if (result.data !== null) {
                             this.setState({
+                                alertAction: 'update',
                                 allAccolades: result.data,
                                 isLoading: false,
-                                alertOpen: true,
-                                alertAcion: 'update'
+                                alertOpen: true
+                            })
+                        } else {
+                            this.setState({
+                                alertAction: 'danger',
+                                isLoading: false,
+                                alertOpen: true
                             })
                         }
                     }).catch(err => console.log(err))
@@ -78,6 +86,9 @@ class Accolades extends Component {
     }
 
     handleDelete = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault()
         axios.delete(`/api/accolades/&id=${e.target.id}`)
             .then(data =>{
@@ -88,7 +99,10 @@ class Accolades extends Component {
                     console.log(result)
                     if (result.data !== null) {
                         this.setState({
-                            allAccolades: result.data
+                            allAccolades: result.data,
+                            alertAction: 'delete',
+                            isLoading: false,
+                            alertOpen: true
                         })
                     }
                 }).catch(err => console.log(err))
@@ -124,7 +138,9 @@ class Accolades extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Accolades {spinner}</h2>
-            {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade submitted successfully"/> : '' }
+            {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade submitted successfully"/> : '' }
+            {(this.state.alertOpen && this.state.alertAction == 'danger') ? <AlertMessage bsStyle="danger" handleDismiss={this.handleDismiss} title="Error!" message="Accolade failed to submit. Please try again."/> : '' }
+            {(this.state.alertOpen && this.state.alertAction == 'delete') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade has been successfully removed"/> : '' }
             <hr/>
             <form action={'/api/accolades/create'} method="POST" onSubmit={this.handleSubmit} id="accoladeForm">
                 <Row>

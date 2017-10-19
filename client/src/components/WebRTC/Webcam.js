@@ -7,7 +7,7 @@ class Webcam extends Component {
 
   render() {
     return (
-      <video autoPlay muted src={this.props.src} />
+      <video autoPlay src={this.props.src} />
     )
   }
 }

@@ -117,7 +117,7 @@ class Dashboard extends Component {
 
     render() {
             const spinner = (this.state.isLoading) ? <Spinner /> : ''
-            const publicMsg = (this.validateData) ? <p>Your public profile can be found at <a href={`${window.location.origin}/${this.state.user.username}`} target="_blank">{window.location.origin}/{this.state.user.username}</a></p> : 'You can make your profile public by updating your settings.'
+            const publicMsg = 'You can make your profile public by updating your settings.'
 
             const profPic = (this.state.user.profile_pic) ? <Image circle width={100} height={125} src={this.state.user.profile_pic} /> : ''
 

@@ -31,12 +31,16 @@ class ProfPic extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/users/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
-                   uploadedFileCloudinaryURL: result.data.profile_pic
+                   uploadedFileCloudinaryURL: result.data.profile_pic,
+                   isLoading: false
                 })
             }
         }).catch(err => console.log(err));
@@ -44,7 +48,8 @@ class ProfPic extends Component {
 
     onImageDrop = (files) => {
         this.setState({
-            uploadedFile: files[0]
+            uploadedFile: files[0],
+            isLoading: true
         })
         this.handleImageUpload(files[0]);
       }
@@ -67,17 +72,30 @@ class ProfPic extends Component {
         axios.put(`/api/users/&id=${this.state.userId}`, uploadLink)
             .then((res) => {
                 console.log(res)
+                this.setState({
+                    isLoading: false,
+                    alertOpen: true
+                })
             }).catch(err => console.log(err))
       }
+    }
+
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
     }
  
     render() {
 
         const profPic = (this.state.uploadedFileCloudinaryURL) ? <Image circle width={100} height={125} src={this.state.uploadedFileCloudinaryURL} /> : ''
 
+        const spinner = (this.state.isLoading) ? <Spinner /> : ''
+
         return (
             <div className="container">
-            <h2 className="poppins-font">Profile Picture</h2>
+            <h2 className="poppins-font">Profile Picture {spinner}</h2>
+            {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Profile Picture submitted successfully"/> : '' }
             <hr/>
             <Row>
                 <Col xs={12} md={3}>

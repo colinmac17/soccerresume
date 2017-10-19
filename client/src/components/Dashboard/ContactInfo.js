@@ -19,10 +19,14 @@ class ContactInfo extends Component {
                 userId: this.props.userId
             },
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            alertAction: ''
         }
     }
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/contact/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
@@ -35,11 +39,13 @@ class ContactInfo extends Component {
                         birthday: result.data.birthday,
                         home_city: result.data.home_city,
                         home_state: result.data.home_state
-                    }
+                    },
+                    isLoading: false
                 })
             } else {
                 this.setState({
-                    method: 'POST'
+                    method: 'POST',
+                    isLoading: false
                 })
             }
         }).catch(err => console.log(err));
@@ -55,6 +61,9 @@ class ContactInfo extends Component {
       }
    
     handleSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault();
         const contactInfo = this.state.user
         if (this.state.method == 'POST') {
@@ -62,22 +71,38 @@ class ContactInfo extends Component {
                 .then(result => {
                     console.log(result.data)
                     this.setState({
-                        method: 'PUT'
+                        method: 'PUT',
+                        isLoading: false,
+                        alertAction: 'update',
+                        alertOpen: true
                     })
                 }).catch(err => console.log(err))
         } else {
             axios.put(`/api/contact/&id=${this.state.userId}`, contactInfo)
                 .then(result => {
                     console.log(result)
+                    this.setState({
+                        isLoading: false,
+                        alertAction: 'update',
+                        alertOpen: true
+                    })
                 }).catch(err => console.log(err))
         }
     }
 
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
+    }
+
     render() {
     const { user } = this.state
+    const spinner = (this.state.isLoading) ? <Spinner /> : ''
     return (
         <div className="container">
-        <h2 className="poppins-font">Contact Information</h2>
+        <h2 className="poppins-font">Contact Information {spinner}</h2>
+        {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Settings updated successfully"/> : '' }
         <hr/>
         <form action={(this.state.method === 'POST') ? '/api/contact/create' : `/api/contact/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
@@ -116,7 +141,7 @@ class ContactInfo extends Component {
                     </FormGroup>
                 </Col>
             </Row>
-            <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'}</button>
+            <button type="submit" className="btn btn-primary">{(this.state.method === 'POST') ? 'Submit' : 'Update'} {spinner}</button>
         </form>
         <div class="pad-med"></div>
     </div>

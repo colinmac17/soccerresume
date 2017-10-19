@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox, Modal, ModalDialog, ModalBody, ModalFooter, ModalHeader } from 'react-bootstrap';
 import axios from 'axios';
 import {Link} from 'react-router-dom';
-import Spinner from './/Spinner';
+import Spinner from './Spinner';
 import AlertMessage from './Alert';
 
 class Media extends Component {
@@ -18,16 +18,21 @@ class Media extends Component {
             },
             allMedia: [],
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            alertAction: ''
         }
     }
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/media/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
-                    allMedia: result.data
+                    allMedia: result.data,
+                    isLoading: false
                 })
             }
         }).catch(err => console.log(err));
@@ -41,12 +46,11 @@ class Media extends Component {
             user: user
         });
       }
-
-      renderAlert = (type, msg) => {
-          if (type = 'error') alert(msg)
-      }
    
     handleSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault()
         const mediaInfo = this.state.user
         const youtube_id = this.getYoutubeID()
@@ -63,7 +67,16 @@ class Media extends Component {
                         console.log(result)
                         if (result.data !== null) {
                             this.setState({
-                                allMedia: result.data
+                                allMedia: result.data,
+                                alertAction: 'update',
+                                isLoading: false,
+                                alertOpen: true
+                            })
+                        } else {
+                            this.setState({
+                                alertAction: 'danger',
+                                isLoading: false,
+                                alertOpen: true
                             })
                         }
                     }).catch(err => console.log(err))
@@ -71,6 +84,9 @@ class Media extends Component {
     }
 
     handleDelete = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault()
         axios.delete(`/api/media/&id=${e.target.id}`)
             .then(data =>{
@@ -81,7 +97,10 @@ class Media extends Component {
                     console.log(result)
                     if (result.data !== null) {
                         this.setState({
-                            allMedia: result.data
+                            allMedia: result.data,
+                            alertAction: 'delete',
+                            isLoading: false,
+                            alertOpen: true
                         })
                     }
                 }).catch(err => console.log(err))
@@ -95,8 +114,15 @@ class Media extends Component {
         return id
     }
 
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
+    }
+
     render() {
         const { user, allMedia } = this.state
+        const spinner = (this.state.isLoading) ? <Spinner /> : ''
         const allLinks = allMedia.map((row, index) => {
             return (
                 <li className="media-link" key={row.id}>
@@ -116,7 +142,10 @@ class Media extends Component {
 
         return (
             <div className="container">
-            <h2 className="poppins-font">Media</h2>
+            <h2 className="poppins-font">Media {spinner}</h2>
+            {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Video submitted successfully"/> : '' }
+            {(this.state.alertOpen && this.state.alertAction == 'danger') ? <AlertMessage bsStyle="danger" handleDismiss={this.handleDismiss} title="Error!" message="Video failed to submit. Please try again."/> : '' }
+            {(this.state.alertOpen && this.state.alertAction == 'delete') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Video has been successfully removed"/> : '' }
             {/*<p>Want to stand out? <Link to="/record">Record Yourself</Link></p>*/}
             <hr/>
             <form action={'/api/media/create'} method="POST" onSubmit={this.handleSubmit}>

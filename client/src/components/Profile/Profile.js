@@ -95,7 +95,7 @@ class Profile extends Component {
         if (this.state.user_settings.bProfilePublic && this.validateData) {
             return (
                 <div className="container resume-border">
-                    <Image className="center-block" src={this.state.user.profile_pic} width={100} height={125} circle/>
+                    <Image className="center-block" src={this.state.user.profile_pic} width={175} height={200} circle/>
                     <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name}</h1>
                     <Contact user={this.state.user} contact={this.state.contact_info} academic={this.state.academic_stats}/>
                     <Academic contact={this.state.contact_info} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>

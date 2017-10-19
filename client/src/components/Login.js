@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
 import axios from 'axios';
+import Spinner from './Dashboard/Spinner';
+import AlertMessage from './Dashboard/Alert';
 
 class Login extends Component {
     constructor(props){
@@ -20,27 +22,44 @@ class Login extends Component {
                     state: '',
                     help: ''
                 }
-            }
+            },
+            isLoading: false,
+            alertOpen: false,
+            alertAction: ''
         }
     }
 
     handleLogin = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault()
         const user = this.state.user;
         axios.post('api/auth/login', user)
             .then(result => {
                 if(result.data.isAuthenticated) {
+                    this.setState({
+                        isLoading: false,
+                        alertAction: 'update',
+                        alertOpen: true
+                    })
                     window.location.pathname = `/dashboard`
                 } else {
                     this.setState({
                         errors: {
                             login: result.data.errors.signup
-                        }
+                        },
+                        isLoading: false,
+                        alertAction: 'fail',
+                        alertOpen: true
                     })
                 }
                 }).catch((err) => {
                     this.setState({
-                        errors: err
+                        errors: err,
+                        isLoading: false,
+                        alertAction: 'fail',
+                        alertOpen: true
                     })
                 })
     }
@@ -54,11 +73,20 @@ class Login extends Component {
         this.setState({user});
     }
 
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
+    }
+
     render() {
         const { user, validation } = this.state
+        const spinner = (this.state.isLoading) ? <Spinner /> : ''
         return (
             <div className="container">
-                <h1>Login</h1>
+                <h1>Login {spinner}</h1>
+                {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Login success"/> : '' }
+                {(this.state.alertOpen && this.state.alertAction == 'fail') ? <AlertMessage bsStyle="danger" handleDismiss={this.handleDismiss} title="Failure" message="Login was unsuccessfull, please try again"/> : '' }
                 <form method="POST" action='api/auth/login' id="login-form" onSubmit={this.handleLogin}>
                     <Row>
                         <Col xs={6}>
@@ -78,7 +106,7 @@ class Login extends Component {
                             </FormGroup>
                         </Col>
                     </Row>
-                    <button type="submit" className="btn btn-primary btn-lg">Login</button>
+                    <button type="submit" className="btn btn-primary btn-lg">Login {spinner}</button>
                 </form>
             </div>
         )

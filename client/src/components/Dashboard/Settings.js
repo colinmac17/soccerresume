@@ -16,7 +16,8 @@ class Settings extends Component {
                 userId: this.props.userId
             },
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            alertAction: ''
         }
     }
 
@@ -25,13 +26,17 @@ class Settings extends Component {
     }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/settings/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
             if (result.data !== null) {
                 this.setState({
                     isPublicChecked: result.data.bProfilePublic,
-                    isPdfChecked: result.data.bAllowDownloadAsPDF
+                    isPdfChecked: result.data.bAllowDownloadAsPDF,
+                    isLoading: false
                 })
             } 
         }).catch(err => console.log(err));
@@ -59,6 +64,9 @@ class Settings extends Component {
       }
    
     handleSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault();
         const settingsInfo = {}
         settingsInfo.bAllowDownloadAsPDF = this.state.isPdfChecked
@@ -72,20 +80,31 @@ class Settings extends Component {
                             console.log(result.data)
                             this.setState({
                                 isPublicChecked: result.data.bProfilePublic,
-                                isPdfChecked: result.data.bAllowDownloadAsPDF
+                                isPdfChecked: result.data.bAllowDownloadAsPDF,
+                                isLoading: false,
+                                alertAction: 'update',
+                                alertOpen: true
                             })
                         })
                         
                 }).catch(err => console.log(err))
         }
 
+        handleDismiss = () => {
+            this.setState({
+                alertOpen: false
+            })
+        }    
+
     render() {
     const { user } = this.state
+    const spinner = (this.state.isLoading) ? <Spinner /> : ''
     const profileMessage = (this.state.isPublicChecked) ? <p id="profileMsg">You can find your profile at <a href={`${window.location.origin}/${this.props.user.username}`}>{window.location.origin}/{this.props.user.username}</a>. If you have just changed the public profile setting, you will need to click update to make your profile public.</p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.  If you have just changed the public profile setting, you will need to click update to remove your profile from the public.</p>
     return (
         <div className="container">
-        <h2 className="poppins-font">Settings</h2>
+        <h2 className="poppins-font">Settings {spinner}</h2>
         {profileMessage}
+        {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Settings updated successfully"/> : '' }
         <hr/>
         <br/>
         <form action={`/api/settings/&id=${this.state.userId}`} method="PUT" onSubmit={this.handleSubmit}>
@@ -105,7 +124,7 @@ class Settings extends Component {
                     </FormGroup>
                  </Col>
             </Row>
-            <button type="submit" className="btn btn-primary">Update</button>
+            <button type="submit" className="btn btn-primary">Update {spinner}</button>
         </form>
         <div class="pad-med"></div>
     </div>

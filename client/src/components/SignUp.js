@@ -3,6 +3,8 @@ import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
 import Message from './Message';
 import { FormGroup, ControlLabel, HelpBlock, FormControl, InputGroup, Row, Col } from 'react-bootstrap';
+import Spinner from './Dashboard/Spinner';
+import AlertMessage from './Dashboard/Alert';
 const validator = require('validator');
 
 class SignUp extends Component {
@@ -46,7 +48,10 @@ class SignUp extends Component {
                     state: 'success',
                     help: ''
                 }
-            }
+            },
+            isLoading: false,
+            alertOpen: false,
+            alertAction: ''
         }
     }
 
@@ -117,6 +122,9 @@ class SignUp extends Component {
       }
 
     handleFormSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         const { validation } = this.state.validation
         e.preventDefault()
         const user_plan = document.querySelector("input[name='user_plan']").value;
@@ -127,27 +135,47 @@ class SignUp extends Component {
             .then((result) => {
             console.log(result)
             if(result.data.isAuthenticated) {
+                this.setState({
+                    isLoading: false,
+                    alertAction: 'update',
+                    alertOpen: true
+                })
             window.location.pathname = `/dashboard/`
         } else {
             this.setState({
                 errors: {
                     signup: result.data.errors.signup
-                }
+                },
+                isLoading: false,
+                alertAction: 'fail',
+                alertOpen: true
             })
         }
         }).catch((err) => {
+            console.log(err)
             this.setState({
-                errors: err
+                errors: err,
+                isLoading: false,
+                alertAction: 'fail',
+                alertOpen: true
             })
         })
     }
+
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
+    } 
     
     render() {
         const { errors, user, validation } = this.state
+        const spinner = (this.state.isLoading) ? <Spinner /> : ''
         return (
             <div className="container">
-            <h1 className="text-center cabin-font">Create a Free Acount</h1>
-            {this.state.isLoading ? <Message message="Account created successfully!" /> : <p></p>}
+            <h1 className="text-center cabin-font">Create a Free Acount {spinner}</h1>
+            {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Registration success"/> : '' }
+            {(this.state.alertOpen && this.state.alertAction == 'fail') ? <AlertMessage bsStyle="danger" handleDismiss={this.handleDismiss} title="Failure" message="Registration was unsuccessfull, the username already exisits. Please try a new one"/> : '' }
             <form id="signUpForm" action='api/auth/signup' method="POST" onSubmit={this.handleFormSubmit}>
             <Row>
                 <Col xs={6}>
@@ -210,7 +238,7 @@ class SignUp extends Component {
             <FormGroup>
                 <FormControl name="user_plan" type="hidden" value="1" id="userPlan"></FormControl>
             </FormGroup>
-            <button type="submit" className="btn btn-primary btn-lg">Register</button>
+            <button type="submit" className="btn btn-primary btn-lg">Register {spinner}</button>
             <br/>
             <p className="bold margin-top-10">Already have an account? <Link to={'/login'}>Log in</Link> </p>
         </form>

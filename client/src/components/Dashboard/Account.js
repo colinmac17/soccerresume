@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { FormGroup, ControlLabel, FormControl, Row, Col, Checkbox } from 'react-bootstrap';
 import axios from 'axios';
-import Spinner from './/Spinner';
+import Spinner from './Spinner';
 import AlertMessage from './Alert';
 
 class Account extends Component {
@@ -17,11 +17,15 @@ class Account extends Component {
                 last_name: '',
             },
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            alertAction: ''
         }
     }
 
-    componentDidMount() {
+    componentDidMount() { 
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/users/&id=${this.state.userId}`)
         .then(result => {
             console.log(result)
@@ -35,7 +39,8 @@ class Account extends Component {
                         last_name: result.data.last_name,
                         user_type: "1",
                         user_plan: "1"
-                    }
+                    },
+                    isLoading: false
                 })
             }
         }).catch(err => console.log(err));
@@ -51,19 +56,35 @@ class Account extends Component {
       }
    
     handleSubmit = (e) => {
+        this.setState({
+            isLoading: true
+        })
         e.preventDefault();
         const accountInfo = this.state.user
         axios.put(`/api/users/&id=${this.state.user.id}`, accountInfo)
             .then(result => {
                 console.log(result.data)
+                this.setState({
+                    isLoading: false,
+                    alertAction: 'update',
+                    alertOpen: true
+                })
             }).catch(err => console.log(err))
+    }
+
+    handleDismiss = () => {
+        this.setState({
+            alertOpen: false
+        })
     }
 
     render() {
     const { user } = this.state
+    const spinner = (this.state.isLoading) ? <Spinner /> : ''
     return (
         <div className="container">
-        <h2 className="poppins-font">Account Information</h2>
+        <h2 className="poppins-font">Account Information {spinner}</h2>
+        {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Account information updated successfully"/> : '' }
         <hr/>
         <form action={`/api/users/&id=${this.state.user.id}`} method="PUT" onSubmit={this.handleSubmit}>
             <Row>
@@ -94,7 +115,7 @@ class Account extends Component {
                     </FormGroup>
                 </Col>
             </Row>
-            <button type="submit" className="btn btn-primary">Update</button>
+            <button type="submit" className="btn btn-primary">Update {spinner}</button>
         </form>
         <div class="pad-med"></div>
     </div>
