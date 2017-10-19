@@ -69,7 +69,8 @@ class Accolades extends Component {
                             this.setState({
                                 allAccolades: result.data,
                                 isLoading: false,
-                                alertOpen: true
+                                alertOpen: true,
+                                alertAcion: 'update'
                             })
                         }
                     }).catch(err => console.log(err))
@@ -123,7 +124,7 @@ class Accolades extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Accolades {spinner}</h2>
-            {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade submitted successfully"/> : '' }
+            {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade submitted successfully"/> : '' }
             <hr/>
             <form action={'/api/accolades/create'} method="POST" onSubmit={this.handleSubmit} id="accoladeForm">
                 <Row>
