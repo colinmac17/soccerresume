@@ -150,7 +150,7 @@ class AcademicInfo extends Component {
                 </Col>
                 <Col xs={6}>
                     <FormGroup>
-                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: <span className="star">*</span> </ControlLabel>
+                        <ControlLabel htmlFor="ncaaStatus">NCAA Eligibility Status: </ControlLabel>
                         <br/>
                         <Checkbox name="ncaa_eligibility_status" onChange={this.handleCheckBoxChange} id="ncaaStatus" inline value="1" checked={this.state.isChecked}>Eligible</Checkbox>
                     </FormGroup>

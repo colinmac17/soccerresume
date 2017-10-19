@@ -101,10 +101,11 @@ class ProfPic extends Component {
                 <Col xs={12} md={3}>
                 <form action={`/api/users/&id=${this.state.userId}`} method="PUT">
                     <Dropzone multiple={false} accept="image/*" onDrop={this.onImageDrop}>
-                    <p class="pad-sm bold font-16 poppins-font">Drag a picture here to set your profile picture!</p>
+                    <p class="pad-sm bold font-16 poppins-font">Drag a picture here, or click to set your profile picture!</p>
                     </Dropzone>
                 </form>
                 </Col>
+                <br/><br/>
                 <Col xs={12} md={3} className="text-center pad-md margin-top-20">
                     <div className="FileUpload">
                     </div>
@@ -124,15 +125,3 @@ class ProfPic extends Component {
 }
 
 export default ProfPic;
-
-// <form action={'/api/cloudinary/upload'} method="POST" onChange={this.handleSubmit} enctype="multipart/form-data">
-// <Col xs={6}>
-//     <FormGroup>
-//         <ControlLabel htmlFor="ProfPic">Profile Picture: </ControlLabel>
-//         <FormControl name="profile_picture" type="file" id="ProfPic"/>
-//     </FormGroup>
-// </Col>
-// </form>
-// <Col xs={6}>
-// <img id="profpic" height="200" />
-// </Col>

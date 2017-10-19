@@ -89,7 +89,7 @@ class Login extends Component {
                 {(this.state.alertOpen && this.state.alertAction == 'fail') ? <AlertMessage bsStyle="danger" handleDismiss={this.handleDismiss} title="Failure" message="Login was unsuccessfull, please try again"/> : '' }
                 <form method="POST" action='api/auth/login' id="login-form" onSubmit={this.handleLogin}>
                     <Row>
-                        <Col xs={6}>
+                        <Col xs={12} md={6}>
                             <FormGroup controlId="formValidationUsername" validationState={validation.username.state}>
                                 <ControlLabel htmlFor="username">Username: </ControlLabel>
                                 <FormControl name="username" value={user.username.trim()} placeholder="cristiano7" type="text" id="username" onChange={this.onChange} required/>
@@ -97,7 +97,7 @@ class Login extends Component {
                                 <HelpBlock>{validation.username.help}</HelpBlock>
                             </FormGroup>
                         </Col>
-                        <Col xs={6}>
+                        <Col xs={12} md={6}>
                             <FormGroup controlId="formValidationPassowrd" validationState={validation.password.state}>
                                 <ControlLabel htmlFor="password">Password: </ControlLabel>
                                 <FormControl name="password" value={user.password.trim()} type="text" id="password" onChange={this.onChange} required/>
