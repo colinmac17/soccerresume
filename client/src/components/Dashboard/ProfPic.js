@@ -18,7 +18,8 @@ class ProfPic extends Component {
             uploadedFile: '',
             userId: this.props.user.id,
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            dropzoneStatus: ''
         }
     }
 
@@ -40,7 +41,8 @@ class ProfPic extends Component {
             if (result.data !== null) {
                 this.setState({
                    uploadedFileCloudinaryURL: result.data.profile_pic,
-                   isLoading: false
+                   isLoading: false,
+                   dropzoneStatus: (this.state.uploadedFileCloudinaryURL != null) ? true : false
                 })
             }
         }).catch(err => console.log(err));
@@ -85,12 +87,28 @@ class ProfPic extends Component {
             alertOpen: false
         })
     }
+
+    getCloudinaryId = () => {
+        let link = this.state.uploadedFileCloudinaryURL
+        return link.split('/')[6]
+    }
+
+    // handleDelete = () => {
+    //     const data= {public_id: this.getCloudinaryId()}
+    //     console.log(data)
+    //     axios.delete('/api/cloudinary/delete', data)
+    //         .then((result) => {
+    //             console.log(result)
+    //         }).catch((err) => console.log(err))
+    // }
  
     render() {
 
         const profPic = (this.state.uploadedFileCloudinaryURL) ? <Image circle width={100} height={125} src={this.state.uploadedFileCloudinaryURL} /> : ''
 
         const spinner = (this.state.isLoading) ? <Spinner /> : ''
+
+        const dropZoneMsg = (this.state.dropzoneStatus) ? 'Profile picture is set' : 'Drag a picture here, or click to set your profile picture!'
 
         return (
             <div className="container">
@@ -114,6 +132,9 @@ class ProfPic extends Component {
                         <div>
                         {profPic}
                         <p>Current Profile Picture</p>
+                        {/*<form action={'/api/cloudinary/delete'} method="DELETE" onSubmit={this.handleDelete}>
+                            <button type="submit" className="btn btn-danger">Delete</button>
+                        </form>*/}
                         </div>}
                     </div>
                 </Col>
