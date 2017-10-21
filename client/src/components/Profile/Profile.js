@@ -9,9 +9,8 @@ import { withRouter } from 'react-router'
 import NotFound from '../NotFound';
 import { Image } from 'react-bootstrap'
 import * as jsPDF  from 'jspdf'
-import Spinner from '../Dashboard/Spinner';
-import AlertMessage from '../Dashboard/Alert';
 import axios from 'axios';
+import BigSpinner from './BigSpinner';
 
 class Profile extends Component {
     constructor(props) {
@@ -40,8 +39,8 @@ class Profile extends Component {
             errors: {
                 auth_fail: 'This profile is not yet public'
             },
-            bNotPublic: '',
-            isLoading: false
+            isLoading: false,
+            showError: false
         }
     }
 
@@ -58,7 +57,6 @@ class Profile extends Component {
         axios.get(`/api/users/&username=${this.props.match.params.username}`)
         .then(user => {
           console.log(user)
-          if (user.data.user_setting.bProfilePublic) {
           this.setState({
               user: {
                   first_name: user.data.first_name,
@@ -78,27 +76,28 @@ class Profile extends Component {
               contact_info: user.data.contact_info,
               additional_stats: user.data.additional_stats,
               accolades: user.data.accolades,
-              media_links: user.data.media_links ,
-              bNotPublic: false,
-              isLoading: false
+              media_links: user.data.media_links,
+              isLoading: false 
           })
-        } else {
+          if (user.data.academic_stat !== null && user.data.athletic_stat !== null &&  user.data.user_settings !== null && user.data.accolades !== null && user.data.contact_info !== null){
             this.setState({
-                bNotPublic: true,
-                isLoading: false
+                validated: true
             })
+          } else {
+            this.setState({
+                validated: false
+           })
         }
       }).catch(err => {
           this.setState({
               errors: {
                   get_user_data_err: err
-              }
+              },
+              isLoading: false,
+              showError: true,
+              validated: false
           })
       })
-    }
-
-    validateData = () => {
-        (this.state.academic_stats !== null && this.state.athletic_stats !== null && this.state.user !== null && this.state.user.profile_pic !== null && this.state.user_settings !== null && this.state.accolades !== null && this.state.contact_info !== null) ? true : false
     }
 
     date = () => {
@@ -108,12 +107,13 @@ class Profile extends Component {
 
     render() {
         const { match, location, history } = this.props
-        const spinner = (this.state.isLoading) ? <Spinner/> : ''
-        if (this.state.user_settings.bProfilePublic && this.validateData()) {
+        const spinner = <BigSpinner/>
+        const notFound = <NotFound/>
+        if (this.state.user_settings.bProfilePublic && this.state.validated) {
             return (
                 <div className="container resume-border">
                     <Image className="center-block" src={this.state.user.profile_pic} width={175} height={200} circle/>
-                    <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name} {spinner}</h1>
+                    <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name}</h1>
                     <Contact user={this.state.user} contact={this.state.contact_info} academic={this.state.academic_stats}/>
                     <Academic contact={this.state.contact_info} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
                     <Soccer athletic={this.state.athletic_stats} />
@@ -123,13 +123,14 @@ class Profile extends Component {
                     <p className="text-center poppins-font">&copy; {this.date()} soccerresu.me</p>
                 </div>
             )
-        } else {
+        }
 
         {/*if profile is not found return NotFound component*/}
         return (
-           (this.state.bNotPublic == true) ? <NotFound/> : <NotFound/>
+            <div>
+                {this.state.isLoading ? <h1 className="text-center">{spinner}</h1> : <NotFound/>}
+            </div>
         )
-      }
     }
 }
 
