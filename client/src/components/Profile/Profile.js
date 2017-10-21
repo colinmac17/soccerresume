@@ -9,6 +9,8 @@ import { withRouter } from 'react-router'
 import NotFound from '../NotFound';
 import { Image } from 'react-bootstrap'
 import * as jsPDF  from 'jspdf'
+import Spinner from '../Dashboard/Spinner';
+import AlertMessage from '../Dashboard/Alert';
 import axios from 'axios';
 
 class Profile extends Component {
@@ -37,7 +39,9 @@ class Profile extends Component {
             isAuthenticated: '',
             errors: {
                 auth_fail: 'This profile is not yet public'
-            }
+            },
+            bNotPublic: '',
+            isLoading: false
         }
     }
 
@@ -48,9 +52,13 @@ class Profile extends Component {
       }
 
     componentDidMount() {
+        this.setState({
+            isLoading: true
+        })
         axios.get(`/api/users/&username=${this.props.match.params.username}`)
         .then(user => {
           console.log(user)
+          if (user.data.user_setting.bProfilePublic) {
           this.setState({
               user: {
                   first_name: user.data.first_name,
@@ -70,8 +78,16 @@ class Profile extends Component {
               contact_info: user.data.contact_info,
               additional_stats: user.data.additional_stats,
               accolades: user.data.accolades,
-              media_links: user.data.media_links 
+              media_links: user.data.media_links ,
+              bNotPublic: false,
+              isLoading: false
           })
+        } else {
+            this.setState({
+                bNotPublic: true,
+                isLoading: false
+            })
+        }
       }).catch(err => {
           this.setState({
               errors: {
@@ -92,11 +108,12 @@ class Profile extends Component {
 
     render() {
         const { match, location, history } = this.props
+        const spinner = (this.state.isLoading) ? <Spinner/> : ''
         if (this.state.user_settings.bProfilePublic && this.validateData) {
             return (
                 <div className="container resume-border">
                     <Image className="center-block" src={this.state.user.profile_pic} width={175} height={200} circle/>
-                    <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name}</h1>
+                    <h1 className="profile-name text-center cabin-font">{this.state.user.first_name} {this.state.user.last_name} {spinner}</h1>
                     <Contact user={this.state.user} contact={this.state.contact_info} academic={this.state.academic_stats}/>
                     <Academic contact={this.state.contact_info} athletic={this.state.athletic_stats} academic={this.state.academic_stats}/>
                     <Soccer athletic={this.state.athletic_stats} />
@@ -106,11 +123,11 @@ class Profile extends Component {
                     <p className="text-center poppins-font">&copy; {this.date()} soccerresu.me</p>
                 </div>
             )
-        }
+        } 
 
         {/*if profile is not found return NotFound component*/}
         return (
-            <NotFound/>
+           (this.state.bNotPublic == true) ? <NotFound/> : <Spinner />
         )
     }
 }
