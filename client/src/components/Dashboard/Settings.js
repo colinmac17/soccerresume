@@ -99,7 +99,7 @@ class Settings extends Component {
     render() {
     const { user } = this.state
     const spinner = (this.state.isLoading) ? <Spinner /> : ''
-    const profileMessage = (this.state.isPublicChecked) ? <p id="profileMsg">You can find your profile at <a target="_blank" href={`${window.location.origin}/${this.props.user.username}`}>{window.location.origin}/{this.props.user.username}</a>. If you have just changed the public profile setting, you will need to click update to make your profile public.</p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.  If you have just changed the public profile setting, you will need to click update to remove your profile from the public.</p>
+    const profileMessage = (this.state.isPublicChecked) ? <p id="profileMsg">You can find your profile at <a target="_blank" href={`${window.location.origin}/${this.props.user.username}`}>{window.location.origin}/{this.props.user.username}</a>. If you have just changed the public profile setting, you will need to click update to make your profile public. Note, if you have not filled out all other required fields in the <span className="dark-cyan bold">Academic, Athletic, Contact, Account, Accolades (at least one) and Profile Picture sections, your profile will not render.</span></p> : <p id="profileMsg2">You have not set your profile to public. Until you do, you will not have a custom shareable link.  If you have just changed the public profile setting, you will need to click update to remove your profile from the public.</p>
     return (
         <div className="container">
         <h2 className="poppins-font">Settings {spinner}</h2>

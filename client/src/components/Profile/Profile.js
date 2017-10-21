@@ -98,7 +98,7 @@ class Profile extends Component {
     }
 
     validateData = () => {
-        (this.state.academic_stats !== null && this.state.athletic_stats !== null && this.state.user !== null && this.state.user_settings !== null && this.state.accolades !== null && this.state.contact_info !== null) ? true : false
+        (this.state.academic_stats !== null && this.state.athletic_stats !== null && this.state.user !== null && this.state.user.profile_pic !== null && this.state.user_settings !== null && this.state.accolades !== null && this.state.contact_info !== null) ? true : false
     }
 
     date = () => {
@@ -109,7 +109,7 @@ class Profile extends Component {
     render() {
         const { match, location, history } = this.props
         const spinner = (this.state.isLoading) ? <Spinner/> : ''
-        if (this.state.user_settings.bProfilePublic && this.validateData) {
+        if (this.state.user_settings.bProfilePublic && this.validateData()) {
             return (
                 <div className="container resume-border">
                     <Image className="center-block" src={this.state.user.profile_pic} width={175} height={200} circle/>
@@ -123,12 +123,13 @@ class Profile extends Component {
                     <p className="text-center poppins-font">&copy; {this.date()} soccerresu.me</p>
                 </div>
             )
-        } 
+        } else {
 
         {/*if profile is not found return NotFound component*/}
         return (
-           (this.state.bNotPublic == true) ? <NotFound/> : <Spinner />
+           (this.state.bNotPublic == true) ? <NotFound/> : <NotFound/>
         )
+      }
     }
 }
 
