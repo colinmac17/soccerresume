@@ -23,7 +23,11 @@ class AthleticInfo extends Component {
                 userId: this.props.userId
             },
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
 
@@ -56,7 +60,16 @@ class AthleticInfo extends Component {
                     isLoading: false
                 })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                isLoading: false,
+                alertOpen: true,
+                errors: err,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        });
     }
 
     onChange = (e) => {
@@ -92,7 +105,10 @@ class AthleticInfo extends Component {
                     this.setState({
                         method: 'PUT',
                         isLoading: false,
-                        alertOpen: true
+                        alertOpen: true,
+                        alertMessage: 'Athletic information has been updated successfully',
+                        alertTitle: 'Success',
+                        bsStyle: 'success'
                     })
                 }).catch(err => console.log(err))
         } else {
@@ -102,9 +118,21 @@ class AthleticInfo extends Component {
                     console.log(result)
                     this.setState({
                         isLoading: false,
-                        alertOpen: true
+                        alertOpen: true,
+                        alertMessage: 'Athletic information has been updated successfully',
+                        alertTitle: 'Success',
+                        bsStyle: 'success'
                     })
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        errors: err,
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
         }
     }
 
@@ -120,7 +148,7 @@ class AthleticInfo extends Component {
     return (
         <div className="container">
         <h2 className="poppins-font">Athletic Information {spinner}</h2>
-        {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Athletic data submitted successfully"/> : '' }
+        {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
         <hr/>
         <form action={(this.state.method === 'POST') ? '/api/athletic/create' : `/api/athletic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>

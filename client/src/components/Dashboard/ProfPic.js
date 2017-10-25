@@ -19,7 +19,11 @@ class ProfPic extends Component {
             userId: this.props.user.id,
             isLoading: false,
             alertOpen: false,
-            dropzoneStatus: ''
+            dropzoneStatus: '',
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
 
@@ -45,7 +49,16 @@ class ProfPic extends Component {
                    dropzoneStatus: (this.state.uploadedFileCloudinaryURL != null) ? true : false
                 })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                isLoading: false,
+                alertOpen: true,
+                errors: err,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        });
     }
 
     onImageDrop = (files) => {
@@ -76,9 +89,21 @@ class ProfPic extends Component {
                 console.log(res)
                 this.setState({
                     isLoading: false,
-                    alertOpen: true
+                    alertOpen: true,
+                    alertMessage: 'Profile Picture has been set',
+                    alertTitle: 'Success',
+                    bsStyle: 'success'
                 })
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                this.setState({
+                    isLoading: false,
+                    alertOpen: true,
+                    errors: err,
+                    alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                    alertTitle: 'Error!',
+                    bsStyle: 'danger'
+                })
+            })
       }
     }
 
@@ -113,7 +138,7 @@ class ProfPic extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Profile Picture {spinner}</h2>
-            {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Profile Picture submitted successfully"/> : '' }
+            {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
             <hr/>
             <Row>
                 <Col xs={12} md={3}>

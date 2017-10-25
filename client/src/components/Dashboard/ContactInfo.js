@@ -20,7 +20,10 @@ class ContactInfo extends Component {
             },
             isLoading: false,
             alertOpen: false,
-            alertAction: ''
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
     componentDidMount() {
@@ -48,7 +51,16 @@ class ContactInfo extends Component {
                     isLoading: false
                 })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                isLoading: false,
+                alertOpen: true,
+                errors: err,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        })
     }
 
     onChange = (e) => {
@@ -73,8 +85,10 @@ class ContactInfo extends Component {
                     this.setState({
                         method: 'PUT',
                         isLoading: false,
-                        alertAction: 'update',
-                        alertOpen: true
+                        alertOpen: true,
+                        alertMessage: 'Contact information has been updated successfully',
+                        alertTitle: 'Success',
+                        bsStyle: 'success'
                     })
                 }).catch(err => console.log(err))
         } else {
@@ -83,10 +97,21 @@ class ContactInfo extends Component {
                     console.log(result)
                     this.setState({
                         isLoading: false,
-                        alertAction: 'update',
-                        alertOpen: true
+                        alertOpen: true,
+                        alertMessage: 'Contact information has been updated successfully',
+                        alertTitle: 'Success',
+                        bsStyle: 'success'
                     })
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        isLoading: false,
+                        alertOpen: true,
+                        errors: err,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
         }
     }
 
@@ -102,7 +127,7 @@ class ContactInfo extends Component {
     return (
         <div className="container">
         <h2 className="poppins-font">Contact Information {spinner}</h2>
-        {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Settings updated successfully"/> : '' }
+        {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
         <hr/>
         <form action={(this.state.method === 'POST') ? '/api/contact/create' : `/api/contact/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>

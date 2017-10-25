@@ -18,7 +18,10 @@ class Account extends Component {
             },
             isLoading: false,
             alertOpen: false,
-            alertAction: ''
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
 
@@ -43,7 +46,16 @@ class Account extends Component {
                     isLoading: false
                 })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                isLoading: false,
+                alertOpen: true,
+                errors: err,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        })
     }
 
     onChange = (e) => {
@@ -66,10 +78,21 @@ class Account extends Component {
                 console.log(result.data)
                 this.setState({
                     isLoading: false,
-                    alertAction: 'update',
-                    alertOpen: true
+                    alertOpen: true,
+                    alertMessage: 'Account information has been updated successfully',
+                    alertTitle: 'Success',
+                    bsStyle: 'success'
                 })
-            }).catch(err => console.log(err))
+            }).catch(err => {
+                this.setState({
+                    isLoading: false,
+                    alertOpen: true,
+                    errors: err,
+                    alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                    alertTitle: 'Error!',
+                    bsStyle: 'danger'
+                })
+            })
     }
 
     handleDismiss = () => {
@@ -84,7 +107,7 @@ class Account extends Component {
     return (
         <div className="container">
         <h2 className="poppins-font">Account Information {spinner}</h2>
-        {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Account information updated successfully"/> : '' }
+        {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
         <hr/>
         <form action={`/api/users/&id=${this.state.user.id}`} method="PUT" onSubmit={this.handleSubmit}>
             <Row>

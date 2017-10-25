@@ -17,7 +17,10 @@ class Settings extends Component {
             },
             isLoading: false,
             alertOpen: false,
-            alertAction: ''
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
 
@@ -39,7 +42,16 @@ class Settings extends Component {
                     isLoading: false
                 })
             } 
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                alertAction: 'danger',
+                isLoading: false,
+                alertOpen: true,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        });
     }
 
     onChange = (e) => {
@@ -82,12 +94,23 @@ class Settings extends Component {
                                 isPublicChecked: result.data.bProfilePublic,
                                 isPdfChecked: result.data.bAllowDownloadAsPDF,
                                 isLoading: false,
-                                alertAction: 'update',
-                                alertOpen: true
+                                alertOpen: true,
+                                alertMessage: 'Settings have been updated',
+                                alertTitle: 'Success',
+                                bsStyle: 'success'
                             })
                         })
                         
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        alertAction: 'danger',
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
         }
 
         handleDismiss = () => {
@@ -104,7 +127,7 @@ class Settings extends Component {
         <div className="container">
         <h2 className="poppins-font">Settings {spinner}</h2>
         {profileMessage}
-        {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Settings updated successfully"/> : '' }
+        {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
         <hr/>
         <br/>
         <form action={`/api/settings/&id=${this.state.userId}`} method="PUT" onSubmit={this.handleSubmit}>

@@ -17,7 +17,10 @@ class Accolades extends Component {
             allAccolades: [],
             isLoading: false,
             alertOpen: false,
-            alertAction: ''
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
 
@@ -31,12 +34,23 @@ class Accolades extends Component {
             if (result.data !== null) {
                 this.setState({
                     allAccolades: result.data,
-                    isLoading: false,
-                    alertAction: '',
-                    
+                    isLoading: false
+                })
+            } else {
+                this.setState({
+                    isLoading: false
                 })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                isLoading: false,
+                alertOpen: true,
+                errors: err,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        });
     }
 
     onChange = (e) => {
@@ -69,20 +83,42 @@ class Accolades extends Component {
                         console.log(result)
                         if (result.data !== null) {
                             this.setState({
-                                alertAction: 'update',
                                 allAccolades: result.data,
                                 isLoading: false,
-                                alertOpen: true
+                                alertOpen: true,
+                                alertMessage: 'Accolade has been successfully added',
+                                alertTitle: 'Success',
+                                bsStyle: 'success'
                             })
                         } else {
                             this.setState({
-                                alertAction: 'danger',
                                 isLoading: false,
-                                alertOpen: true
+                                alertOpen: true,
+                                alertMessage: 'Accolade has been successfully added',
+                                alertTitle: 'Success',
+                                bsStyle: 'success'
                             })
                         }
-                    }).catch(err => console.log(err))
-                }).catch(err => console.log(err))
+                    }).catch(err => {
+                        this.setState({
+                            alertAction: 'danger',
+                            isLoading: false,
+                            alertOpen: true,
+                            alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                            alertTitle: 'Error!',
+                            bsStyle: 'danger'
+                        })
+                    })
+                }).catch(err => {
+                    this.setState({
+                        alertAction: 'danger',
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
     }
 
     handleDelete = (e) => {
@@ -100,13 +136,33 @@ class Accolades extends Component {
                     if (result.data !== null) {
                         this.setState({
                             allAccolades: result.data,
-                            alertAction: 'delete',
                             isLoading: false,
-                            alertOpen: true
+                            alertOpen: true,
+                            alertMessage: 'Accolade has been successfully deleted',
+                            alertTitle: 'Success',
+                            bsStyle: 'success'
                         })
                     }
-                }).catch(err => console.log(err))
-            }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        alertAction: 'danger',
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
+            }).catch(err => {
+                this.setState({
+                    alertAction: 'danger',
+                    isLoading: false,
+                    alertOpen: true,
+                    alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                    alertTitle: 'Error!',
+                    bsStyle: 'danger'
+                })
+            })
     }
 
     handleDismiss = () => {
@@ -138,9 +194,7 @@ class Accolades extends Component {
         return (
             <div className="container">
             <h2 className="poppins-font">Accolades {spinner}</h2>
-            {(this.state.alertOpen && this.state.alertAction == 'update') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade submitted successfully"/> : '' }
-            {(this.state.alertOpen && this.state.alertAction == 'danger') ? <AlertMessage bsStyle="danger" handleDismiss={this.handleDismiss} title="Error!" message="Accolade failed to submit. Please try again."/> : '' }
-            {(this.state.alertOpen && this.state.alertAction == 'delete') ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Accolade has been successfully removed"/> : '' }
+            {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
             <hr/>
             <form action={'/api/accolades/create'} method="POST" onSubmit={this.handleSubmit} id="accoladeForm">
                 <Row>

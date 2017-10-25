@@ -20,7 +20,11 @@ class AcademicInfo extends Component {
                 userId: this.props.userId
             },
             isLoading: false,
-            alertOpen: false
+            alertOpen: false,
+            errors: '',
+            bsStyle: '',
+            alertMessage: '',
+            alertTitle: ''
         }
     }
 
@@ -50,7 +54,16 @@ class AcademicInfo extends Component {
                     isLoading: false
                 })
             }
-        }).catch(err => console.log(err));
+        }).catch(err => {
+            this.setState({
+                isLoading: false,
+                alertOpen: true,
+                errors: err,
+                alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                alertTitle: 'Error!',
+                bsStyle: 'danger'
+            })
+        })
     }
 
     onChange = (e) => {
@@ -82,7 +95,10 @@ class AcademicInfo extends Component {
                     this.setState({
                         method: 'PUT',
                         isLoading: false,
-                        alertOpen: true
+                        alertOpen: true,
+                        alertMessage: 'Athletic information has been updated successfully',
+                        alertTitle: 'Success',
+                        bsStyle: 'success'
                     })
                 }).catch(err => console.log(err))
         } else {
@@ -91,9 +107,21 @@ class AcademicInfo extends Component {
                     console.log(result)
                     this.setState({
                         isLoading: false,
-                        alertOpen: true
+                        alertOpen: true,
+                        alertMessage: 'Academic information has been updated successfully',
+                        alertTitle: 'Success',
+                        bsStyle: 'success'
                     })
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        errors: err,
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
         }
     }
 
@@ -110,7 +138,7 @@ class AcademicInfo extends Component {
     return (
         <div className="container">
         <h2 className="poppins-font">Academic Information {spinner}</h2>
-        {(this.state.alertOpen) ? <AlertMessage bsStyle="success" handleDismiss={this.handleDismiss} title="Success!" message="Academic data submitted successfully"/> : '' }
+        {(this.state.alertOpen) ? <AlertMessage bsStyle={this.state.bsStyle} handleDismiss={this.handleDismiss} title={this.state.alertTitle} message={this.state.alertMessage}/> : '' }
         <hr/>
         <form action={(this.state.method === 'POST') ? '/api/academic/create' : `/api/academic/&id=${this.state.userId}`} method={this.state.method} onSubmit={this.handleSubmit}>
             <Row>
@@ -123,7 +151,7 @@ class AcademicInfo extends Component {
                 <Col xs={6}>
                     <FormGroup>
                         <ControlLabel htmlFor="gpa">GPA: </ControlLabel>
-                        <FormControl name="gpa" type="text" value={(this.state.method === "POST") ? user.gpa.trim() : user.gpa} onChange={this.onChange} placeholder="3.50" id="gpa" maxLength="4" pattern=".{4,4}"/>
+                        <FormControl name="gpa" type="text" value={(this.state.method === "POST") ? user.gpa.trim() : user.gpa} onChange={this.onChange} placeholder="3.50" id="gpa" maxLength="4" pattern=".{3,4}"/>
                     </FormGroup>
                 </Col>
             </Row>
