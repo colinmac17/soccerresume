@@ -31,7 +31,6 @@ class Account extends Component {
         })
         axios.get(`/api/users/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                     user: {
@@ -75,7 +74,6 @@ class Account extends Component {
         const accountInfo = this.state.user
         axios.put(`/api/users/&id=${this.state.user.id}`, accountInfo)
             .then(result => {
-                console.log(result.data)
                 this.setState({
                     isLoading: false,
                     alertOpen: true,

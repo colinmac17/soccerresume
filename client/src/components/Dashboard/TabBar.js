@@ -32,7 +32,7 @@ class TabBar extends Component {
       }
 
       changeTab = (e) => {
-          console.log('tab changed');
+        //   console.log('tab changed');
       }
 
     render() {

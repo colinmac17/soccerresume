@@ -32,7 +32,6 @@ class ContactInfo extends Component {
         })
         axios.get(`/api/contact/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                     method: 'PUT',
@@ -81,7 +80,6 @@ class ContactInfo extends Component {
         if (this.state.method == 'POST') {
             axios.post(`/api/contact/create`, contactInfo)
                 .then(result => {
-                    console.log(result.data)
                     this.setState({
                         method: 'PUT',
                         isLoading: false,
@@ -90,11 +88,19 @@ class ContactInfo extends Component {
                         alertTitle: 'Success',
                         bsStyle: 'success'
                     })
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        errors: err,
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
         } else {
             axios.put(`/api/contact/&id=${this.state.userId}`, contactInfo)
                 .then(result => {
-                    console.log(result)
                     this.setState({
                         isLoading: false,
                         alertOpen: true,

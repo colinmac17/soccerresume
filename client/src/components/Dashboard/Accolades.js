@@ -30,7 +30,6 @@ class Accolades extends Component {
         })
         axios.get(`/api/accolades/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                     allAccolades: result.data,
@@ -74,13 +73,11 @@ class Accolades extends Component {
         const accoladeInfo = this.state.user
             axios.post(`/api/accolades/create`, accoladeInfo)
                 .then(result => {
-                    console.log(result.data)
                     this.state.user.accolade_description = ''
                     this.state.user.year_achieved = ''
                 }).then(links => {
                     axios.get(`/api/accolades/&id=${this.state.userId}`)
                     .then(result => {
-                        console.log(result)
                         if (result.data !== null) {
                             this.setState({
                                 allAccolades: result.data,
@@ -128,11 +125,9 @@ class Accolades extends Component {
         e.preventDefault()
         axios.delete(`/api/accolades/&id=${e.target.id}`)
             .then(data =>{
-                console.log(data)
             }).then(links => {
                 axios.get(`/api/accolades/&id=${this.state.userId}`)
                 .then(result => {
-                    console.log(result)
                     if (result.data !== null) {
                         this.setState({
                             allAccolades: result.data,

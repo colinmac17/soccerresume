@@ -34,7 +34,6 @@ class Settings extends Component {
         })
         axios.get(`/api/settings/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                     isPublicChecked: result.data.bProfilePublic,
@@ -85,11 +84,9 @@ class Settings extends Component {
         settingsInfo.bProfilePublic = this.state.isPublicChecked
             axios.put(`/api/settings/&id=${this.state.userId}`, settingsInfo)
                 .then(result => {
-                    console.log(result.data)
                 }).then(() => {
                     axios.get(`/api/settings/&id=${this.state.userId}`)
                         .then(result => {
-                            console.log(result.data)
                             this.setState({
                                 isPublicChecked: result.data.bProfilePublic,
                                 isPdfChecked: result.data.bAllowDownloadAsPDF,

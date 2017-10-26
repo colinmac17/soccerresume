@@ -41,7 +41,6 @@ class ProfPic extends Component {
         })
         axios.get(`/api/users/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                    uploadedFileCloudinaryURL: result.data.profile_pic,
@@ -86,7 +85,6 @@ class ProfPic extends Component {
         var uploadLink = { profile_pic: image.secure_url}
         axios.put(`/api/users/&id=${this.state.userId}`, uploadLink)
             .then((res) => {
-                console.log(res)
                 this.setState({
                     isLoading: false,
                     alertOpen: true,

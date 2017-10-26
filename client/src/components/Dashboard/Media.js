@@ -31,7 +31,6 @@ class Media extends Component {
         })
         axios.get(`/api/media/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                     allMedia: result.data,
@@ -73,14 +72,12 @@ class Media extends Component {
         mediaInfo.youtube_id = youtube_id
             axios.post(`/api/media/create`, mediaInfo)
                 .then(result => {
-                    console.log(result.data)
                     this.state.user.link = ''
                     this.state.user.media_source = ''
                     this.state.user.title = ''
                 }).then(links => {
                     axios.get(`/api/media/&id=${this.state.userId}`)
                     .then(result => {
-                        console.log(result)
                         if (result.data !== null) {
                             this.setState({
                                 allMedia: result.data,
@@ -129,11 +126,9 @@ class Media extends Component {
         e.preventDefault()
         axios.delete(`/api/media/&id=${e.target.id}`)
             .then(data =>{
-                console.log(data)
             }).then(links => {
                 axios.get(`/api/media/&id=${this.state.userId}`)
                 .then(result => {
-                    console.log(result)
                     if (result.data !== null) {
                         this.setState({
                             allMedia: result.data,

@@ -37,7 +37,6 @@ class AthleticInfo extends Component {
         })
         axios.get(`/api/athletic/&id=${this.state.userId}`)
         .then(result => {
-            console.log(result)
             if (result.data !== null) {
                 this.setState({
                     method: 'PUT',
@@ -101,7 +100,6 @@ class AthleticInfo extends Component {
         if (this.state.method == 'POST') {
             axios.post(`/api/athletic/create`, athleticInfo)
                 .then(result => {
-                    console.log(result.data)
                     this.setState({
                         method: 'PUT',
                         isLoading: false,
@@ -110,12 +108,20 @@ class AthleticInfo extends Component {
                         alertTitle: 'Success',
                         bsStyle: 'success'
                     })
-                }).catch(err => console.log(err))
+                }).catch(err => {
+                    this.setState({
+                        errors: err,
+                        isLoading: false,
+                        alertOpen: true,
+                        alertMessage: 'Sorry, There was an internal error. Please contact us if you need additional support.',
+                        alertTitle: 'Error!',
+                        bsStyle: 'danger'
+                    })
+                })
         } else {
             if (!this.state.isChecked) athleticInfo.commitment_school = ' '
             axios.put(`/api/athletic/&id=${this.state.userId}`, athleticInfo)
                 .then(result => {
-                    console.log(result)
                     this.setState({
                         isLoading: false,
                         alertOpen: true,

@@ -62,7 +62,6 @@ class Dashboard extends Component {
         }).then(user => {
             axios.get(`/api/users/&id=${this.state.user.id}`)
               .then(user => {
-                console.log(user)
                 this.setState({
                     user: {
                         id: user.data.id,
@@ -118,8 +117,7 @@ class Dashboard extends Component {
         axios.get('/api/auth/logout')
             .then(result => {
                 if(!result.data.isAuthenticated) window.location.href = '/';
-                console.log(result)
-            }).catch(err => console.log(err))
+            }).catch(err => {})
     }
 
     validateData = () => {

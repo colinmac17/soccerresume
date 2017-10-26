@@ -133,7 +133,6 @@ class SignUp extends Component {
 
         axios.post('/api/auth/signup', user)
             .then((result) => {
-            console.log(result)
             if(result.data.isAuthenticated) {
                 this.setState({
                     isLoading: false,
@@ -152,7 +151,6 @@ class SignUp extends Component {
             })
         }
         }).catch((err) => {
-            console.log(err)
             this.setState({
                 errors: err,
                 isLoading: false,
