@@ -229,7 +229,7 @@ class SignUp extends Component {
                 <Col xs={6}>
                     <FormGroup validationState={validation.password.state}>
                         <ControlLabel htmlFor="password">Password: </ControlLabel>
-                        <FormControl name="password" value={user.password.trim()} type="password" id="password" maxLength="25" onChange={this.onChange} required/>
+                        <FormControl name="password" value={user.password.trim()} type="password" id="password" maxLength="25" onChange={this.onChange} pattern=".{4,25}" required/>
                         <FormControl.Feedback />
                         <HelpBlock>{validation.password.help}</HelpBlock>
                     </FormGroup>

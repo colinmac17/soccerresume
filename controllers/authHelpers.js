@@ -57,7 +57,7 @@ module.exports = {
   
         if (!payload || typeof payload.username !== 'string' || payload.username.trim().length === 0) {
             isFormValid = false;
-            errors.username = 'Please provider your username.'
+            errors.username = 'Please provide your username.'
         }
   
       if (!isFormValid) {

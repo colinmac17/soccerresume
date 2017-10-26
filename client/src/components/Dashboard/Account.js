@@ -79,9 +79,9 @@ class Account extends Component {
                 this.setState({
                     isLoading: false,
                     alertOpen: true,
-                    alertMessage: 'Account information has been updated successfully',
-                    alertTitle: 'Success',
-                    bsStyle: 'success'
+                    alertMessage: (result.data.message == 'That username is already taken') ? 'That username is already taken' : 'Account information has been updated successfully',
+                    alertTitle: (result.data.message == 'That username is already taken') ? 'Error!' : 'Success',
+                    bsStyle: (result.data.message == 'That username is already taken') ? 'danger' : 'success'
                 })
             }).catch(err => {
                 this.setState({

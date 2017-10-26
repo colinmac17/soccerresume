@@ -55,6 +55,7 @@ class Login extends Component {
                     })
                 }
                 }).catch((err) => {
+                    console.log(err)
                     this.setState({
                         errors: err,
                         isLoading: false,
