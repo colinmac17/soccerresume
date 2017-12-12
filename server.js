@@ -18,9 +18,9 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static(path.join(__dirname, './client/build')));
   }
 
-  setInterval(function() {
-    http.get("https://soccerresume.herokuapp.com");
-  }, 1500000); // every 25 minutes (300000)
+//   setInterval(function() {
+//     http.get("https://soccerresume.herokuapp.com");
+//   }, 1500000); // every 25 minutes (300000)
 
 //Sets up the Express app to handle data parsing
 app.use(bodyParser.json());
