@@ -7,8 +7,8 @@ import Spinner from './Spinner';
 import AlertMessage from './Alert';
 
 require('dotenv').config();
-const CLOUDINARY_UPLOAD_PRESET = process.env.UploadPreset;
-const CLOUDINARY_UPLOAD_URL = process.env.UploadURL;
+const CLOUDINARY_UPLOAD_PRESET = process.env.UploadPreset
+const CLOUDINARY_UPLOAD_URL = process.env.UploadURL
 
 class ProfPic extends Component {
     constructor(props){
@@ -71,8 +71,8 @@ class ProfPic extends Component {
       async handleImageUpload(file) {
         const data = new FormData();
         data.append('file', file);
-        data.append('upload_preset', CLOUDINARY_UPLOAD_PRESET);
-        const upload = await fetch(CLOUDINARY_UPLOAD_URL, {
+        data.append('upload_preset', process.env.UploadPreset);
+        const upload = await fetch(process.env.UploadURL, {
           method: 'POST',
           body: data,
         });
